@@ -6,44 +6,48 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/09/20 15:00:24 by hbutt            ###   ########.fr        #
+#    Updated: 2024/09/21 17:06:30 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Werror -Wall -Wextra 
-RM = rm -rf
 
-SRCS = 
-LIBFT_DIR = Libft
-LIBFT = $(LIBFT_DIR)/libft.a
-OBJS = $(SRCS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror
 
-# Compilation de l'exécutable
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+SRC = src/main.c
 
-# Compilation des fichiers objets
-%.o: %.c Makefile
-	$(CC) $(CFLAGS) -I $(LIBFT_DIR) -c $< -o $@
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-# Compilation de la bibliothèque libft
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+LIBFT = ./libft/libft.a
 
-# Règles par défaut
+SRC_DIR = src
+
+OBJ_DIR = .cache
+
 all: $(NAME)
 
+$(NAME): $(OBJ)
+	@make -C ./libft 1>/dev/null
+	@$(CC) $(CFLAGS) -o $(NAME) $(PRINTF) $(LIBFT) $(SRC) -I./includes -I./libft
+	@echo "Compilation successful!"
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@ -I./includes -I./libft
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
 clean:
-	$(RM) $(OBJS)
-	$(MAKE) clean -C $(LIBFT_DIR)
+	@make clean -C ./libft 1>/dev/null
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
+	@make fclean -C ./libft 1>/dev/null
+	@rm -f $(NAME) *.o
+	@rm -rf *dSYM*
 
-re: fclean all
+re: fclean $(NAME)
 
-.PHONY: all clean fclean re
+.PHONY: all fclean clean re 
