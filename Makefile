@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/09/22 17:52:12 by alama            ###   ########.fr        #
+#    Updated: 2024/09/23 15:27:39 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,26 +24,27 @@ LIBFT = ./libft/libft.a
 
 SRC_DIR = src
 
-OBJ_DIR = .cache
+OBJ_DIR = .build
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) | $(OBJ_DIR)
 	@make -C ./libft 1>/dev/null
 	@$(CC) $(CFLAGS) -o $(NAME) $(PRINTF) $(LIBFT) $(SRC) -I./includes -I./libft
 	@echo "Compilation successful!"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@ -I./includes -I./libft
-
 $(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/start
 	@mkdir -p $(OBJ_DIR)/parsing
 
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@ -I./includes -I./libft
+
+
 clean:
 	@make clean -C ./libft 1>/dev/null
-	@rm -rf $(OBJ_DIR)/start
-	@rm -rf $(OBJ_DIR)/parsing
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@make fclean -C ./libft 1>/dev/null
