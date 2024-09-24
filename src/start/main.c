@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/09/23 15:24:07 by alama            ###   ########.fr       */
+/*   Updated: 2024/09/24 13:57:09 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(void)
 	t_node	a;
 	t_node	b;
 	t_node	p;
+	char	*str;
 
 	a.type = CHAR_NODE;
 	a.data.c = 'a';
@@ -26,5 +27,14 @@ int	main(void)
 	p.data.pair.left = &a;
 	p.data.pair.right = &b;
 	printf("belle bito\n");
+	while (1)
+	{
+		str = readline("mini-flemme$ ");
+		printf("%s\n", str);
+		if (!str || str[0] == '\0')
+			break;
+		free(str);
+	}
+	free(str);
 	return (0);
 }

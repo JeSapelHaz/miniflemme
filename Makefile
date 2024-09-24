@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/09/23 15:27:39 by alama            ###   ########.fr        #
+#    Updated: 2024/09/24 13:56:38 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) | $(OBJ_DIR)
 	@make -C ./libft 1>/dev/null
-	@$(CC) $(CFLAGS) -o $(NAME) $(PRINTF) $(LIBFT) $(SRC) -I./includes -I./libft
+	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(PRINTF) $(LIBFT) $(SRC) -I./includes -I./libft
 	@echo "Compilation successful!"
 
 $(OBJ_DIR):
