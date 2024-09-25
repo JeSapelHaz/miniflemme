@@ -16,7 +16,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = src/main.c src/parsing/parser.c
+SRC = src/main.c src/parsing/parser.c src/env/get_path.C
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
