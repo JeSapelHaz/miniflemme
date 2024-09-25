@@ -6,22 +6,22 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:35:23 by alama             #+#    #+#             */
-/*   Updated: 2024/04/24 17:54:03 by alama            ###   ########.fr       */
+/*   Updated: 2024/09/25 19:49:41 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new_l)
 {
 	t_list	*tmp;
 
-	if (!lst || !new)
+	if (!lst || !new_l)
 		return ;
 	else
 	{
 		tmp = *lst;
-		*lst = new;
+		*lst = new_l;
 		(*lst)->next = tmp;
 	}
 }
@@ -30,11 +30,11 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 // int	main(void)
 // {
 // 	t_list	*lst;
-// 	lst = ft_lstnew("ca va ?");
-// 	t_list *new;
-// 	new = ft_lstnew("coucou ");
+// 	lst = ft_lstnew_l("ca va ?");
+// 	t_list *new_l;
+// 	new_l = ft_lstnew("coucou ");
 
-// 	ft_lstadd_front(&lst, new);
+// 	ft_lstadd_front(&lst, new_l);
 // 	while (lst->next != NULL)
 // 	{
 // 		printf("%s", lst->content);

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/09/25 17:34:20 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/25 19:48:39 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <sys/stat.h>
-# include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include "../libft/libft.h"
+# include "libft.h"
 
 typedef enum e_node_type
 {
