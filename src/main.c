@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/09/24 16:24:58 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/24 16:30:08 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(void)
 		add_history(str);
 		free(str);
 	}
+	free_history_entry();
 	free(str);
 	return (0);
 }
