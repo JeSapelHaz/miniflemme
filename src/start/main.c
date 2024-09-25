@@ -6,10 +6,11 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/09/23 15:24:07 by alama            ###   ########.fr       */
+/*   Updated: 2024/09/24 16:22:01 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "mini_shell.h"
 
 int	main(void)
@@ -28,3 +29,4 @@ int	main(void)
 	printf("belle bito\n");
 	return (0);
 }
+*/
