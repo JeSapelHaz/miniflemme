@@ -6,11 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2024/09/28 16:22:23 by hbutt            ###   ########.fr        #
-=======
-#    Updated: 2024/09/26 20:55:43 by alama            ###   ########.fr        #
->>>>>>> parsing
+#    Updated: 2024/09/28 17:42:28 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +16,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = src/start/main.c src/parsing/parser.c src/parsing/ft_free_token.c
+SRC = src/main.c src/parsing/parser.c src/parsing/ft_free_token.c src/parsing/tokenize.c src/utils/utils_str.c \
+src/utils/utils_token.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -42,6 +39,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)/start
 	@mkdir -p $(OBJ_DIR)/parsing
 	@mkdir -p $(OBJ_DIR)/env
+	@mkdir -p $(OBJ_DIR)/utils
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I./includes -I./libft

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 20:54:11 by alama             #+#    #+#             */
-/*   Updated: 2024/09/26 20:55:14 by alama            ###   ########.fr       */
+/*   Updated: 2024/09/28 17:32:48 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ static void	ft_del(t_token *stack)
 	free(stack);
 	stack = NULL;
 }
-
+/** 
+ * elle libère la mémoire existante 
+ */
 void	ft_free_token(t_token **stack)
 {
 	t_token	*tmp;

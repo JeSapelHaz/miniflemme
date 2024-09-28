@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   utils_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 16:56:40 by alama             #+#    #+#             */
-/*   Updated: 2024/09/28 16:33:17 by hbutt            ###   ########.fr       */
+/*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
+/*   Updated: 2024/09/28 17:42:48 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/mini_shell.h"
 
-char	*ft_strdup(const char *src)
+void	ft_add_next(t_token *last, t_token **stack, t_token *new_node)
 {
-	char	*dest;
-	int		i;
-	int		len;
-
-	len = ft_strlen(src);
-	dest = (char *)malloc((sizeof(char)) * len + 1);
-	if (!dest)
-		return (0);
-	i = -1;
-	while (src[++i])
-	{
-		dest[i] = src[i];
-	}
-	dest[i] = '\0';
-	return (dest);
+	while (last->next != *stack)
+		last = last->next;
+	last->next = new_node;
+	new_node->prev = last;
+	(*stack)->prev = new_node;
 }
 
-// #include <stdio.h>
-// int	main(void)
-// {
-// 	char * s = ft_strdup((char*)"coucou");
-// 	printf("%s\n", s);
-// }
+void	ft_if_not_last(t_token **stack, t_token **new_node)
+{
+	(*stack)->next = *new_node;
+	(*stack)->prev = *new_node;
+	(*new_node)->prev = *stack;
+}

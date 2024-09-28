@@ -6,25 +6,11 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/09/28 16:21:56 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/28 18:10:16 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_shell.h"
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	unsigned int	i;
-
-	i = 0;
-	while ((s1[i] || s2[i]))
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	return (0);
-}
+#include "../includes/mini_shell.h"
 
 void	ft_quit(void)
 {
@@ -66,21 +52,16 @@ int	check_args(int ac, char **av)
 
 int	main(void)
 {
-    t_token	*token_list;
+	t_token	*token_list;
+	t_token	*current;
 
-    // Tokeniser une commande
-    token_list = tokenize("echo Hello | grep minishell > output.txt");
-
-    // Afficher les tokens
-    t_token *current = token_list;
-    while (current)
-    {
-        printf("Token: %s\n", current->lexeme);
-        current = current->next;
-    }
-
-    // Libérer la mémoire allouée pour les tokens (à implémenter avec ft_free_token)
-    ft_free_token(&token_list);
-
-    return (0);
+	token_list = tokenize("ceci est un test | test2 grep < > ok\n");
+	current = token_list;
+	while (current->type != END_TOKEN)
+	{
+		printf("Token: %s\n", current->lexeme);
+		current = current->next;
+	}
+	ft_free_token(&token_list);
+	return (0);
 }
