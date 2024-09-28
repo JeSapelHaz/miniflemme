@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   char_itr.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/09/24 16:22:01 by alama            ###   ########.fr       */
+/*   Created: 2024/09/25 15:28:24 by alama             #+#    #+#             */
+/*   Updated: 2024/09/25 15:36:45 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
+#ifndef CHAR_ITR_H
+# define CHAR_ITR_H
+
 #include "mini_shell.h"
 
-int	main(void)
+typedef struct s_char_itr
 {
-	t_node	a;
-	t_node	b;
-	t_node	p;
+	const char	*cursor;
+	const char	*sentinel;
+}	t_char_itr;
 
-	a.type = CHAR_NODE;
-	a.data.c = 'a';
-	b.type = CHAR_NODE;
-	b.data.c = 'b';
-	p.type	= PAIR_NODE;
-	p.data.pair.left = &a;
-	p.data.pair.right = &b;
-	printf("belle bito\n");
-	return (0);
-}
-*/
+t_char_itr	charitr_value(const char *start, size_t length);
+const char	*charitr_cursor(const t_char_itr *self);
+int		charitr_has_next(const t_char_itr *self);
+char		charitr_peek(const t_char_itr *self);
+char		charitr_next(t_char_itr *self);
+
+# endif

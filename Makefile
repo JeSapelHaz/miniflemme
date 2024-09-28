@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/09/23 15:27:39 by alama            ###   ########.fr        #
+#    Updated: 2024/09/26 20:55:43 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = src/start/main.c src/parsing/parser.c
+SRC = src/start/main.c src/parsing/parser.c src/parsing/ft_free_token.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
