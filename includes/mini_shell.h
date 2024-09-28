@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/09/25 19:48:39 by alama            ###   ########.fr       */
+/*   Updated: 2024/09/28 16:25:54 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <unistd.h>
-# include "libft.h"
 
 typedef enum e_node_type
 {
@@ -50,15 +44,5 @@ struct s_node
 	t_node_type		type;
 	t_node_value	data;
 };
-
-char	*get_path(char *cmd, char **env);
-
-/* UTILS */
-
-void	ft_error(char *msg);
-void	ft_error_2(char *msg);
-void	ft_free_tab(char **tab);
-int		ft_compare_path(char *s1, char *s2);
-int		open_file(char *file, int in_or_out);
 
 #endif

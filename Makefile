@@ -6,7 +6,11 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/09/28 16:22:23 by hbutt            ###   ########.fr        #
+=======
+#    Updated: 2024/09/26 20:55:43 by alama            ###   ########.fr        #
+>>>>>>> parsing
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +20,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = src/main.c src/parsing/parser.c src/env/get_path.c src/env/tokenize.c
+SRC = src/start/main.c src/parsing/parser.c src/parsing/ft_free_token.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
