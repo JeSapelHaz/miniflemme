@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/28 18:09:43 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/29 18:42:51 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
  * @type: Type du token à ajouter
  * @lexeme: Lexème du token, qui doit être alloué dynamiquement.
  *
- * La fonction crée un token et l'ajoute à la liste. 
- * En cas d'échec d'allocation, elle libère la mémoire existante 
+ * La fonction crée un token et l'ajoute à la liste.
+ * En cas d'échec d'allocation, elle libère la mémoire existante
  * et termine le programme avec un message d'erreur.
  */
 void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
@@ -56,50 +56,54 @@ void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
  * Ignorer les espaces en dehors des opérateurs
  * Gestion des différents types de tokens
  * Gestion des strings + lui créer un token
- * 
+ *
  * @param str: Chaîne de caractères à tokeniser.
  * @return: Liste chaînée de tokens.
  */
-t_token *tokenize(char *str)
+t_token	*tokenize(char *str)
 {
-    t_token *token_list = NULL;
-    int i = 0;
+	t_token	*token_list;
+	int		i;
+	int		start;
+	char	*lexeme;
 
-    while (str[i])
-    {
-        if (str[i] == ' ')
-        {
-            i++;
-            continue;
-        }
-        if (str[i] == '\n')
-            ft_add_token(&token_list, END_TOKEN, ft_strdup("\n"));
-        else if (str[i] == '|')
-            ft_add_token(&token_list, PIPE, ft_strdup("|"));
-        else if (str[i] == '>')
-            ft_add_token(&token_list, O_DIR, ft_strdup(">"));
-        else if (str[i] == '<')
-            ft_add_token(&token_list, I_DIR, ft_strdup("<"));
-        else if (str[i] == '(')
-            ft_add_token(&token_list, LPARAN_TOKEN, ft_strdup("("));
-        else if (str[i] == ')')
-            ft_add_token(&token_list, RPARAN_TOKEN, ft_strdup(")"));
-        else if (str[i] == '\'')
-            ft_add_token(&token_list, SINGLE_QUOTE, ft_strdup("'"));
-        else if (str[i] == '\"')
-            ft_add_token(&token_list, DOUBLE_QUOTE, ft_strdup("\""));
-        else
-        {
-            int start = i;
-            while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '|' 
-				&& str[i] != '>' && str[i] != '<' && str[i] != '(' && str[i] != ')')
-                i++;
-            char *lexeme = ft_strndup(&str[start], i - start);
-            ft_add_token(&token_list, CHAR_TOKEN, lexeme);
-            continue;
-        }
-        i++;
-    }
-    return token_list;
+	token_list = NULL;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ')
+		{
+			i++;
+			continue ;
+		}
+		if (str[i] == '\n')
+			ft_add_token(&token_list, END_TOKEN, ft_strdup("\n"));
+		else if (str[i] == '|')
+			ft_add_token(&token_list, PIPE, ft_strdup("|"));
+		else if (str[i] == '>')
+			ft_add_token(&token_list, O_DIR, ft_strdup(">"));
+		else if (str[i] == '<')
+			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
+		else if (str[i] == '(')
+			ft_add_token(&token_list, LPARAN_TOKEN, ft_strdup("("));
+		else if (str[i] == ')')
+			ft_add_token(&token_list, RPARAN_TOKEN, ft_strdup(")"));
+		else if (str[i] == '\'')
+			ft_add_token(&token_list, SINGLE_QUOTE, ft_strdup("'"));
+		else if (str[i] == '\"')
+			ft_add_token(&token_list, DOUBLE_QUOTE, ft_strdup("\""));
+		else
+		{
+			start = i;
+			while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '|'
+				&& str[i] != '>' && str[i] != '<' && str[i] != '('
+				&& str[i] != ')')
+				i++;
+			lexeme = ft_strndup(&str[start], i - start);
+			ft_add_token(&token_list, CHAR_TOKEN, lexeme);
+			continue ;
+		}
+		i++;
+	}
+	return (token_list);
 }
-

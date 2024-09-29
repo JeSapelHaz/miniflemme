@@ -5,76 +5,55 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 17:49:57 by alama             #+#    #+#             */
-/*   Updated: 2024/09/28 17:35:07 by hbutt            ###   ########.fr       */
+/*   Created: 2024/09/29 17:54:51 by hbutt             #+#    #+#             */
+/*   Updated: 2024/09/29 18:44:05 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../includes/mini_shell.h"
-
-// static	void	ft_add_next(t_token *last, t_token **stack, t_token *new_node)
-// {
-// 	while (last->next != *stack)
-// 		last = last->next;
-// 	last->next = new_node;
-// 	new_node->prev = last;
-// 	(*stack)->prev = new_node;
-// }
-
-// static void	ft_if_not_last(t_token **stack, t_token **new_node)
-// {
-// 	(*stack)->next = *new_node;
-// 	(*stack)->prev = *new_node;
-// 	(*new_node)->prev = *stack;
-// }
+#include "../includes/mini_shell.h"
 
 
+/**
+ * Fonction récursive descendante pour analyser une commande.
+ * Elle retourne un arbre de nœuds représentant la commande.
+ * Si on a un token PIPE, on crée un nœud pour la pipe 
+ */
+t_node	*parse_command(t_token **token_list)
+{
+	t_node	*left;
 
-// void	token_set(char *str, t_token **token)
-// {
-// 	int	i;
+	left = parse_simple_command(token_list);
+	
+	if (*token_list && (*token_list)->type == PIPE)
+	{
+		(*token_list) = (*token_list)->next;
+		t_node *right = parse_command(token_list); 
+		return (create_pair_node(left, right));     
+			// PIPE devient le nœud parent
+	}
+	return (left); // Si pas de PIPE, retourner juste la commande gauche
+}
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '\n')
-// 			ft_add_token(token, END_TOKEN, "salut");
-// 		// else if (str[i] == ' ')
-// 		// 	ft_add_token(&token, SPACE_TOKEN, &str[i]);
-// 		// else if (str[i] == '(')
-// 		// 	ft_add_token(&token, LPARAN_TOKEN, &str[i]);
-// 		// else if (str[i] == ')')
-// 		// 	ft_add_token(&token, RPARAN_TOKEN, &str[i]);
-// 		// else if (str[i] == '\'')
-// 		// 	ft_add_token(&token, SINGLE_QUOTE, &str[i]);
-// 		// else if (str[i] == '\"')
-// 		// 	ft_add_token(&token, DOUBLE_QUOTE, &str[i]);
-// 		// else if (str[i] == '|')
-// 		// 	ft_add_token(&token, PIPE, &str[i]);
-// 		// else if (str[i] == '>')
-// 		// 	ft_add_token(&token, O_DIR, &str[i]);
-// 		// else if (str[i] == '<')
-// 		// 	ft_add_token(&token, I_DIR, &str[i]);
-// 		// else
-// 		// 	ft_add_token(&token, CHAR_TOKEN, &str[i]);
-// 		i++;
-// 	}
-// }
+/**
+ * Analyse une simple commande 
+ * Un ou plusieurs CHAR_TOKEN
+ * Tant qu'on trouve des tokens de type CHAR_TOKEN,
+	on continue d'ajouter au nœud
+ */
+t_node	*parse_simple_command(t_token **token_list)
+{
+	t_node	*root;
+	t_node	*new_node;
 
-// // int	main(void)
-// // {
-// // 	t_token	**token= NULL;
-// // 	(*token) = NULL;
-// // 	// printf("ok");
-// // 	token_set("salut les amis comment vous allez haz", token);
-// // 	// char *str = "salut";
-// // 	// ft_add_token(&token, END_TOKEN, str);
-// // 	// token->type = SINGLE_QUOTE;
-// // 	// token->lexeme = "ok";
-// // 	// printf("ok");
-// // 	printf("%s\n", (*token)->lexeme);
-// // 	printf("%u\n", (*token)->type);
-// // 	// while(token->next)
-// // 	// 	printf("%s", token->lexeme);
-// // 	return (0);
-// // }
+	if (!*token_list || (*token_list)->type == END_TOKEN)
+		return (NULL);
+	root = create_char_node((*token_list)->lexeme[0]);
+	*token_list = (*token_list)->next;
+	while (*token_list && (*token_list)->type == CHAR_TOKEN)
+	{
+		new_node = create_char_node((*token_list)->lexeme[0]);
+		root = create_pair_node(root, new_node);
+		*token_list = (*token_list)->next;
+	}
+	return (root);
+}
