@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/09/29 18:11:51 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/29 20:33:31 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <unistd.h>
 
 /* CHECK ARGS */
-int	check_args(int ac, char **av);
+int		check_args(int ac, char **av);
 
 /* ERROR */
 void	ft_quit(void);
@@ -29,7 +29,7 @@ void	ft_quit(void);
 /* TOKENIZE */
 void	ft_add_token(t_token **token, t_token_type type, char *lexeme);
 t_token	*tokenize(char *str);
-void	ft_free_token(t_token **stack);
+void	ft_free_token(t_token **token_list);
 
 /* PARSING */
 t_node	*parse_simple_command(t_token **token_list);
@@ -43,8 +43,9 @@ t_node	*create_char_node(char c);
 t_node	*create_pair_node(t_node *left, t_node *right);
 
 /* UTILS TOKEN */
-void	ft_if_not_last(t_token **stack, t_token **new_node);
-void	ft_add_next(t_token *last, t_token **stack, t_token *new_node);
+void	ft_if_not_last(t_token **token_list, t_token **new_node);
+void	ft_add_next(t_token *last, t_token **token_list, t_token *new_node);
+void	find_last_token(t_token **token_list);
 
 /* UTILS STR */
 int		ft_strcmp(char *s1, char *s2);

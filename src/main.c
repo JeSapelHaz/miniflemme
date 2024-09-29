@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/09/29 19:06:34 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/29 20:35:42 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_quit(void)
 	exit(0);
 }
 
+/////// TO DO : commencer a lancer des commandes simples pour commencer ? normalement avec notre pipex ca devrait aller vite
+// pas oublier de bash --posix pour tester (je sais pas encore pourquoi)
 int	main(int ac, char **av, char **env)
 {
 	char	*str;
