@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:03 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/28 21:12:51 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/29 19:55:24 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_node_tree(t_node *node, int level)
 	else if (node->type == PAIR_NODE)
 	{
 		printf("PAIR_NODE:\n");
-		print_node_tree(node->data.pair.left, level + 1); 
-		print_node_tree(node->data.pair.right, level + 1);
+		print_node_tree(node->data.pair.left, level + 1); // Pour aller un cran en dessous du coté gauche
+		print_node_tree(node->data.pair.right, level + 1); // Pour aller un cran en dessous du coté droit
 	}
 }
