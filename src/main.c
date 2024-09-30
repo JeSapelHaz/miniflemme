@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/09/30 15:18:39 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/30 16:24:53 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int	main(int ac, char **av, char **env)
 		// printf("%s\n", get_path(str, env));
 		char **cmd;
 		cmd = ft_split(str, ' ');
-		execve(get_path("ls", env), cmd, env); // execute la commande mais ferme tout 
+		execve(get_path(cmd[0], env), cmd, env); // execute la commande mais ferme tout 
 		ft_free_token(&token_list);
-		add_history(str);
+		add_history(str); // je suis tellement le goat de ce jeu 
 		free(str);
 	}
 	clear_history();
 	free(str);
-	return (0);
+	return (0);// a quoi sert le putain de return 0 je ne sais pas mais ca fait joli 
 }
 
 // int	main(void)
