@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:54:51 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/29 19:42:23 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/30 14:10:35 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_node	*parse_command(t_token **token_list)
 		return (create_pair_node(left, right));     
 			// PIPE devient le nœud parent
 	}
-	return (left); // Si pas de PIPE, retourner juste la commande gauche
+	return (left); // Si pas de PIPE, retourner juste la commande gauche (la seule)
 }
 
 /**

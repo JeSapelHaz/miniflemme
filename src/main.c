@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/09/29 20:35:42 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/09/30 15:18:39 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int ac, char **av, char **env)
 	(void)env; 
 	check_args(ac, av);
 	printf("belle bito\n"); // aucun interet mais drole ok 
+	
 	while (1)
 	{
 		str = readline("mini-flemme$ "); // nom du bash 
@@ -35,7 +36,11 @@ int	main(int ac, char **av, char **env)
 			break ;
 		token_list = tokenize(str); 
 		root = parse_command(&token_list); // ici petit probleme : si on met pas de '\n' a la fin boucle infini ou segfault
-		print_node_tree(root, 0); // fonction qui visualise juste les nodes pour plus de clarté 
+		// print_node_tree(root, 0); // fonction qui visualise juste les nodes pour plus de clarté 
+		// printf("%s\n", get_path(str, env));
+		char **cmd;
+		cmd = ft_split(str, ' ');
+		execve(get_path("ls", env), cmd, env); // execute la commande mais ferme tout 
 		ft_free_token(&token_list);
 		add_history(str);
 		free(str);

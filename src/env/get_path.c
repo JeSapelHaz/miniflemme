@@ -6,13 +6,13 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:45:28 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/25 19:56:57 by alama            ###   ########.fr       */
+/*   Updated: 2024/09/30 14:49:21 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int	ft_compare_path(char *s1, char *s2)
+static int	ft_compare_path(char *s1, char *s2)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	ft_compare_path(char *s1, char *s2)
 	return (0);
 }
 
-char	*ft_getenv(char *name, char **env)
+static char	*ft_getenv(char *name, char **env)
 {
 	int		i;
 	char	*name_path;
@@ -47,6 +47,16 @@ char	*ft_getenv(char *name, char **env)
 	}
 	return (0);
 }
+void	ft_free_tab(char **tab)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
+}
+
 
 char	*get_path(char *cmd, char **env)
 {
