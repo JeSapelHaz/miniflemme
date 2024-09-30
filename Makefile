@@ -6,9 +6,19 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/09/30 16:29:23 by hbutt            ###   ########.fr        #
+#    Updated: 2024/09/30 16:37:32 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+DEF_COLOR	= \033[0;39m
+GRAY 		= \033[0;90m
+RED 		= \033[0;91m
+GREEN 		= \033[0;92m
+YELLOW 		= \033[0;93m
+BLUE		= \033[0;94m
+MAGENTA		= \033[0;95m
+CYAN		= \033[0;96m
+WHITE		= \033[0;97m
 
 NAME = minishell
 
@@ -33,7 +43,7 @@ all: $(NAME)
 $(NAME): $(OBJ) | $(OBJ_DIR)
 	@make -C ./libft 1>/dev/null
 	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(PRINTF) $(LIBFT) $(SRC) -I./includes -I./libft
-	@echo "Compilation successful!"
+	@echo "$(MAGENTA)Compilation successful!"
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
