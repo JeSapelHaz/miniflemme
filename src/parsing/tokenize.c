@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/01 17:03:47 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/01 18:37:42 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ t_token	*tokenize(char *str)
 			i++;
 			continue ;
 		}
-		if (str[i] == '\n')
-			ft_add_token(&token_list, END_TOKEN, ft_strdup("\n"));
-		else if (str[i] == '\0')
+		if (str[i] == '\0')
 			ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
 		else if (str[i] == '|')
 			ft_add_token(&token_list, PIPE, ft_strdup("|"));
@@ -87,13 +85,27 @@ t_token	*tokenize(char *str)
 		else if (str[i] == '<')
 			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
 		else if (str[i] == '(')
-			ft_add_token(&token_list, LPARAN_TOKEN, ft_strdup("("));
+			ft_add_token(&token_list, LPAREN_TOKEN, ft_strdup("("));
 		else if (str[i] == ')')
-			ft_add_token(&token_list, RPARAN_TOKEN, ft_strdup(")"));
+			ft_add_token(&token_list, RPAREN_TOKEN, ft_strdup(")"));
 		else if (str[i] == '\'')
 			ft_add_token(&token_list, SINGLE_QUOTE, ft_strdup("'"));
 		else if (str[i] == '\"')
 			ft_add_token(&token_list, DOUBLE_QUOTE, ft_strdup("\""));
+		else if (str[i] == '>' && str[i + 1] != '>')
+			ft_add_token(&token_list, O_DIR, ft_strdup(">"));
+		else if (str[i] == '>' && str[i + 1] == '>')
+		{
+			ft_add_token(&token_list, OA_DIR, ft_strdup(">>"));
+			i++;
+		}
+		else if (str[i] == '<' && str[i + 1] != '<')
+			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
+		else if (str[i] == '<' && str[i + 1] == '<')
+		{
+			ft_add_token(&token_list, DI_DIR, ft_strdup("<<"));
+			i++;
+		}
 		else
 		{
 			start = i;

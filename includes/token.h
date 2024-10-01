@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/10/01 12:54:49 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/01 18:22:30 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ typedef enum s_token_type
 	END_TOKEN = 0,
 	CHAR_TOKEN = 1,
 	SPACE_TOKEN = 2,
-	LPARAN_TOKEN = 3,
-	RPARAN_TOKEN = 4,
+	LPAREN_TOKEN = 3,
+	RPAREN_TOKEN = 4,
 	SINGLE_QUOTE = 5,
 	DOUBLE_QUOTE = 6,
 	PIPE = 7,
