@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/09/30 14:48:45 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/01 17:14:36 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ t_node	*parse_command(t_token **token_list);
 
 /* ENV */
 char	*get_path(char *cmd, char **env);
+
+/* UTILS */
+void	ft_quit(void);
 
 /* UTILS PRINT */
 void	print_node_tree(t_node *node, int level);
