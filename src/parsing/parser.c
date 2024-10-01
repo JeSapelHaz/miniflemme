@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:54:51 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/30 14:10:35 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/01 14:25:30 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ t_node	*parse_command(t_token **token_list)
 	t_node	*left;
 
 	left = parse_simple_command(token_list);
-	
+
 	if (*token_list && (*token_list)->type == PIPE)
 	{
 		(*token_list) = (*token_list)->next;
-		t_node *right = parse_command(token_list); 
-		return (create_pair_node(left, right));     
+		t_node *right = parse_command(token_list);
+		return (create_pair_node(left, right));
 			// PIPE devient le nœud parent
 	}
 	return (left); // Si pas de PIPE, retourner juste la commande gauche (la seule)
