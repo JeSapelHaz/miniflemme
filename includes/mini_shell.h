@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/01 17:14:36 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/01 18:12:04 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 # include "token.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <../libft/libft.h>
+# include "../libft/libft.h"
 
 /* CHECK ARGS */
 void		check_args(int ac, char **av);
@@ -59,5 +60,8 @@ void	ft_free_token(t_token **token_list);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(const char *src);
 char	*ft_strndup(const char *src, size_t n);
+
+/* SIGNAL */
+void	handle_signal(int signal);
 
 #endif

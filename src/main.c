@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/01 17:13:44 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/01 18:15:27 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int ac, char **av, char **env)
 	check_args(ac, av);
 	printf("belle bito\n"); 
 	
+	// signal(SIGINT, handle_signal);
 	while (1)
 	{
 		str = readline("mini-flemme$ "); 
