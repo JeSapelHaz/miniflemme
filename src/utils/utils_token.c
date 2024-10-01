@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/01 12:52:51 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/01 15:09:25 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,14 @@ void	ft_free_token(t_token **token_list)
 	*token_list = NULL;
 }
 
-/*
-void	find_last_token(t_token **token_list)
-{
-	t_token	*last;
-
-	last = (*token_list)->prev;
-	printf()
-}
-*/
+// void	find_last_token(t_token **token_list)
+// {
+// 	if (!token_list)
+// 		return (NULL);
+// 	t_token *current = token_list;
+// 	while (current->next && current->next != token_list)
+// 	{
+// 		current = current->next;
+// 	}
+// 	return (current);
+// }

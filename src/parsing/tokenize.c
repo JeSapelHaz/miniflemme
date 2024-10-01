@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/01 14:15:15 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/01 17:03:47 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ t_token	*tokenize(char *str)
 		}
 		i++;
 	}
-	//ft_add_token(&token_list, END_TOKEN, ft_strdup("\0")); // resoud le probleme de boucle infini mais pas hyper propre je trouve 
-	// c'est normale c'est une liste chaine circulaire mdr
+	ft_add_token(&token_list, END_TOKEN, ft_strdup("\0")); 
 	return (token_list);
 }
