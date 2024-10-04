@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:05:03 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/02 14:17:18 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/04 14:57:00 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void	handle_signal(int signal)
 	(void)signal;
 	printf("\n");
 	rl_on_new_line();       // Réinitialise la ligne de Readline
-	rl_replace_line("", 0); // Efface la ligne actuelle
+	//rl_replace_line("", 0); // Efface la ligne actuelle
 	rl_redisplay();			// Réaffiche lr prompt
 }
