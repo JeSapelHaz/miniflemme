@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/01 18:37:42 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/04 12:07:18 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,30 @@ void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
 		ft_add_next(last, token, new_token);
 }
 
+static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
+{
+	int	start;
+	char	*lexeme;
+
+	if (type != CHAR_TOKEN)
+		i++;
+	start = i;
+	while (str[i] && str[i] != '\n' && str[i] != '|'
+		&& str[i] != '>' && str[i] != '<'
+		&& str[i] != ')' && str[i] != '\"')
+	{
+		if (type == CHAR_TOKEN && str[i] == ' ')
+			break ;
+		else
+			i++;
+	}
+	lexeme = ft_strndup(&str[start], i - start);
+	ft_add_token(token_list, type, lexeme);
+	if (type != CHAR_TOKEN)
+		i++;
+	return (i);
+}
+
 /**
  * tokenize - Fonction principale qui tokenise toute la chaîne de caractères.
  * Ignorer les espaces en dehors des opérateurs
@@ -64,8 +88,6 @@ t_token	*tokenize(char *str)
 {
 	t_token *token_list;
 	int i;
-	int start;
-	char *lexeme;
 
 	token_list = NULL;
 	i = 0;
@@ -85,13 +107,20 @@ t_token	*tokenize(char *str)
 		else if (str[i] == '<')
 			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
 		else if (str[i] == '(')
-			ft_add_token(&token_list, LPAREN_TOKEN, ft_strdup("("));
-		else if (str[i] == ')')
-			ft_add_token(&token_list, RPAREN_TOKEN, ft_strdup(")"));
+		{
+			i = ft_str_to_lexeme(i, str, &token_list, PAREN_TOKEN);
+			continue ;
+		}
 		else if (str[i] == '\'')
-			ft_add_token(&token_list, SINGLE_QUOTE, ft_strdup("'"));
+		{
+			i = ft_str_to_lexeme(i, str, &token_list, SINGLE_QUOTE);
+			continue ;
+		}
 		else if (str[i] == '\"')
-			ft_add_token(&token_list, DOUBLE_QUOTE, ft_strdup("\""));
+		{
+			i = ft_str_to_lexeme(i, str, &token_list, DOUBLE_QUOTE);
+			continue ;
+		}
 		else if (str[i] == '>' && str[i + 1] != '>')
 			ft_add_token(&token_list, O_DIR, ft_strdup(">"));
 		else if (str[i] == '>' && str[i + 1] == '>')
@@ -108,13 +137,7 @@ t_token	*tokenize(char *str)
 		}
 		else
 		{
-			start = i;
-			while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '|'
-				&& str[i] != '>' && str[i] != '<' && str[i] != '('
-				&& str[i] != ')')
-				i++;
-			lexeme = ft_strndup(&str[start], i - start);
-			ft_add_token(&token_list, CHAR_TOKEN, lexeme);
+			i = ft_str_to_lexeme(i, str, &token_list, CHAR_TOKEN);
 			continue ;
 		}
 		i++;

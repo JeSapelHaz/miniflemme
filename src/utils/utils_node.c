@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/28 21:12:21 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/04 11:30:59 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * Créer un nouveau nœud.
  */
-t_node	*create_char_node(char c)
+t_node	*create_char_node(char *c)
 {
 	t_node	*node;
 

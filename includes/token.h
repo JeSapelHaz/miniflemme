@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/10/01 18:22:30 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/04 12:04:36 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ typedef enum s_token_type
 	END_TOKEN = 0,
 	CHAR_TOKEN = 1,
 	SPACE_TOKEN = 2,
-	LPAREN_TOKEN = 3,
-	RPAREN_TOKEN = 4,
-	SINGLE_QUOTE = 5,
-	DOUBLE_QUOTE = 6,
-	PIPE = 7,
-	O_DIR = 8,	// output directory
-	I_DIR = 9,	// input directory
-	OA_DIR = 10,	// output append 
-	DI_DIR = 11	// directory to directory
+	PAREN_TOKEN = 3,
+	SINGLE_QUOTE = 4,
+	DOUBLE_QUOTE = 5,
+	PIPE = 6,
+	O_DIR = 7,	// output directory
+	I_DIR = 8,	// input directory
+	OA_DIR = 9,	// output append 
+	DI_DIR = 10	// directory to directory
 }	t_token_type;
 
 typedef struct s_token
@@ -56,7 +55,7 @@ typedef struct s_pair_value
 typedef union u_node_value
 {
 	t_pair_value		pair;
-	char				c;
+	char				*c;
 }						t_node_value;
 
 struct					s_node

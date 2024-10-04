@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:54:51 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/01 14:25:30 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/04 11:28:30 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ t_node	*parse_simple_command(t_token **token_list)
 
 	if (!*token_list || (*token_list)->type == END_TOKEN)
 		return (NULL);
-	root = create_char_node((*token_list)->lexeme[0]);
+	root = create_char_node((*token_list)->lexeme);
 	*token_list = (*token_list)->next;
 	while (*token_list && (*token_list)->type == CHAR_TOKEN)
 	{
-		new_node = create_char_node((*token_list)->lexeme[0]);
+		new_node = create_char_node((*token_list)->lexeme);
 		root = create_pair_node(root, new_node);
 		*token_list = (*token_list)->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:03 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/30 14:16:40 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/04 11:29:18 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_node_tree(t_node *node, int level)
 	print_indentation(level);
 	if (node->type == CHAR_NODE)
 	{
-		printf("CHAR_NODE: %c\n", node->data.c);
+		printf("CHAR_NODE: %s\n", node->data.c);
 	}
 	else if (node->type == PAIR_NODE)
 	{
