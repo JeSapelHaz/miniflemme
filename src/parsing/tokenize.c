@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/04 12:07:18 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/04 16:31:24 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
 		ft_add_next(last, token, new_token);
 }
 
+/**
+* il fait feur suivit d'un sibidi str
+*
+*
+*
+*
+* return un sibidi int
+*/
 static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 {
 	int	start;
@@ -109,6 +117,8 @@ t_token	*tokenize(char *str)
 		else if (str[i] == '(')
 		{
 			i = ft_str_to_lexeme(i, str, &token_list, PAREN_TOKEN);
+			if (str[i - 1] != ')')
+				return (NULL);
 			continue ;
 		}
 		else if (str[i] == '\'')
@@ -137,7 +147,7 @@ t_token	*tokenize(char *str)
 		}
 		else
 		{
-			i = ft_str_to_lexeme(i, str, &token_list, CHAR_TOKEN);
+			i = ft_str_to_lexeme(i, str, &token_list, 1);
 			continue ;
 		}
 		i++;
