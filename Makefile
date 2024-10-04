@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/10/02 14:21:33 by hbutt            ###   ########.fr        #
+#    Updated: 2024/10/04 16:53:35 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC = src/main.c src/parsing/parser.c src/parsing/tokenize.c src/utils/utils_str.c \
 src/utils/utils_token.c src/utils/utils_print_node_tree.c  src/utils/utils_node.c \
-src/parsing/check_args.c src/env/get_path.c src/utils/utils.c src/utils/signals.c
+src/parsing/check_args.c src/env/get_path.c src/utils/utils.c src/utils/signals.c \
+src/exec/exec_cmd.c src/parsing/lexer.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -42,19 +43,18 @@ all: $(NAME)
 
 $(NAME): $(OBJ) | $(OBJ_DIR)
 	@make -C ./libft 1>/dev/null
-	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(PRINTF) $(LIBFT) $(SRC) -I./includes -I./libft 
+	@$(CC) $(CFLAGS) $(OBJ) -lreadline -o $(NAME) $(LIBFT) -I./includes -I./libft 
 	@echo "$(MAGENTA)Compilation successful!"
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)/start
 	@mkdir -p $(OBJ_DIR)/parsing
 	@mkdir -p $(OBJ_DIR)/env
 	@mkdir -p $(OBJ_DIR)/utils
+	@mkdir -p $(OBJ_DIR)/exec
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I./includes -I./libft 
-
 
 clean:
 	@make clean -C ./libft 1>/dev/null
@@ -67,4 +67,4 @@ fclean: clean
 
 re: fclean $(NAME)
 
-.PHONY: all fclean clean re 
+.PHONY: all fclean clean re

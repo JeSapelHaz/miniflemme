@@ -6,11 +6,11 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/01 17:03:47 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/04 15:40:00 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mini_shell.h"
+#include "../includes/mini_shell.h"
 
 /**
  * ft_add_token - Ajoute un nouveau token à la liste chaînée de tokens.

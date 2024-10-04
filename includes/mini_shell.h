@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/01 18:12:04 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/04 16:27:15 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ t_node	*parse_command(t_token **token_list);
 
 /* ENV */
 char	*get_path(char *cmd, char **env);
+
+/* EXEC COMMANDES */
+void execute_commands(char *input, char **env);
+
 
 /* UTILS */
 void	ft_quit(void);
