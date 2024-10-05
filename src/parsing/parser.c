@@ -6,16 +6,11 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:54:51 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/05 14:34:36 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/05 21:23:15 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
-
-// void parser(t_token **token_list)
-// {
-// 	char **list_cmd;
-// 	int i;
 
 /**
  * Fonction récursive descendante pour analyser une commande.
@@ -28,7 +23,11 @@ t_node	*parse_command(t_token **token_list)
 
 	left = parse_simple_command(token_list);
 
-	if (*token_list && (*token_list)->type == PIPE)
+	if (*token_list && ((*token_list)->type == PIPE
+			|| (*token_list)->type == O_DIR
+			|| (*token_list)->type == OA_DIR
+			|| (*token_list)->type == I_DIR
+			|| (*token_list)->type == DI_DIR))
 	{
 		(*token_list) = (*token_list)->next;
 		t_node *right = parse_command(token_list);
@@ -53,7 +52,9 @@ t_node	*parse_simple_command(t_token **token_list)
 		return (NULL);
 	root = create_char_node((*token_list)->lexeme);
 	*token_list = (*token_list)->next;
-	while (*token_list && (*token_list)->type == CHAR_TOKEN)
+	while (*token_list && ((*token_list)->type == CHAR_TOKEN
+			|| (*token_list)->type == SINGLE_QUOTE
+			|| (*token_list)->type == DOUBLE_QUOTE))
 	{
 		new_node = create_char_node((*token_list)->lexeme);
 		root = create_pair_node(root, new_node);
