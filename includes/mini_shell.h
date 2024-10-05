@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/04 16:27:15 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/05 14:26:54 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ char	*ft_strdup(const char *src);
 char	*ft_strndup(const char *src, size_t n);
 
 /* SIGNAL */
-void	handle_signal(int signal);
+void	ft_handle_signals(int signal);
+
+void	rl_replace_line(const char *text, int clear_undo);
+void	rl_clear_history(void);
 
 #endif

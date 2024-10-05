@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/04 16:54:57 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/05 13:27:37 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 		printf("\n");
 		char **cmd;
 		cmd = ft_split(str, ' ');
-		execve(get_path(cmd[0], env), cmd, env); // execute la commande mais ferme tout 
+		// execve(get_path(cmd[0], env), cmd, env); // execute la commande mais ferme tout 
 		ft_free_token(&token_list);
 		add_history(str);  
 		free(str);
