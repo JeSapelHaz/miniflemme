@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/05 14:26:54 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/05 14:34:16 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_quit(void);
 void	print_node_tree(t_node *node, int level);
 
 /* UTILS NODE */
-t_node	*create_char_node(char c);
+t_node	*create_char_node(char *c);
 t_node	*create_pair_node(t_node *left, t_node *right);
 
 /* UTILS TOKEN */
