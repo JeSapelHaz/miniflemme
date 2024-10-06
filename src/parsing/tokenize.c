@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/05 14:36:06 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/05 15:59:46 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,65 +94,77 @@ static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type
  */
 t_token *tokenize(char *str)
 {
-	t_token *token_list;
-	int i;
+    t_token *token_list = NULL;
+    int i = 0;
 
-	token_list = NULL;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-		{
-			i++;
-			continue ;
-		}
-		if (str[i] == '\0')
-			ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
-		else if (str[i] == '|')
-			ft_add_token(&token_list, PIPE, ft_strdup("|"));
-		else if (str[i] == '>')
-			ft_add_token(&token_list, O_DIR, ft_strdup(">"));
-		else if (str[i] == '<')
-			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
-		else if (str[i] == '(')
-		{
-			i = ft_str_to_lexeme(i, str, &token_list, PAREN_TOKEN);
-			if (str[i - 1] != ')')
-				return (NULL);
-			continue ;
-		}
-		else if (str[i] == '\'')
-		{
-			i = ft_str_to_lexeme(i, str, &token_list, SINGLE_QUOTE);
-			continue ;
-		}
-		else if (str[i] == '\"')
-		{
-			i = ft_str_to_lexeme(i, str, &token_list, DOUBLE_QUOTE);
-			continue ;
-		}
-		else if (str[i] == '>' && str[i + 1] != '>')
-			ft_add_token(&token_list, O_DIR, ft_strdup(">"));
-		else if (str[i] == '>' && str[i + 1] == '>')
-		{
-			ft_add_token(&token_list, OA_DIR, ft_strdup(">>"));
-			i++;
-		}
-		else if (str[i] == '<' && str[i + 1] != '<')
-			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
-		else if (str[i] == '<' && str[i + 1] == '<')
-		{
-			ft_add_token(&token_list, DI_DIR, ft_strdup("<<"));
-			i++;
-		}
-		else
-		{
-			i = ft_str_to_lexeme(i, str, &token_list, 1);
-			continue ;
-		}
-		i++;
-	}
-	ft_add_token(&token_list, END_TOKEN, ft_strdup("\0")); 
-	return (token_list);
+    while (str[i])
+    {
+        // Ignore les espaces
+        if (str[i] == ' ')
+        {
+            i++;
+            continue;
+        }
+
+        // Vérifie les caractères spéciaux
+        if (str[i] == '|')
+        {
+            ft_add_token(&token_list, PIPE, ft_strdup("|"));
+            i++;
+        }
+        else if (str[i] == '>')
+        {
+            if (str[i + 1] == '>')
+            {
+                ft_add_token(&token_list, OA_DIR, ft_strdup(">>"));
+                i += 2; // Saute le prochain caractère
+            }
+            else
+            {
+                ft_add_token(&token_list, O_DIR, ft_strdup(">"));
+                i++;
+            }
+        }
+        else if (str[i] == '<')
+        {
+            if (str[i + 1] == '<')
+            {
+                ft_add_token(&token_list, DI_DIR, ft_strdup("<<"));
+                i += 2; // Saute le prochain caractère
+            }
+            else
+            {
+                ft_add_token(&token_list, I_DIR, ft_strdup("<"));
+                i++;
+            }
+        }
+        else if (str[i] == '(')
+        {
+            ft_add_token(&token_list, PAREN_TOKEN, ft_strdup("("));
+            i++;
+        }
+        else if (str[i] == ')')
+        {
+            ft_add_token(&token_list, PAREN_TOKEN, ft_strdup(")"));
+            i++;
+        }
+        else if (str[i] == '\'')
+        {
+            i = ft_str_to_lexeme(i, str, &token_list, SINGLE_QUOTE);
+        }
+        else if (str[i] == '\"')
+        {
+            i = ft_str_to_lexeme(i, str, &token_list, DOUBLE_QUOTE);
+        }
+        else
+        {
+            i = ft_str_to_lexeme(i, str, &token_list, CHAR_TOKEN);
+        }
+    }
+    
+    // Ajoute le token de fin
+    ft_add_token(&token_list, END_TOKEN, ft_strdup("\0")); 
+    return token_list;
 }
+
 

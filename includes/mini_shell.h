@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/05 14:34:16 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/05 15:57:56 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ void	ft_handle_signals(int signal);
 
 void	rl_replace_line(const char *text, int clear_undo);
 void	rl_clear_history(void);
+
+t_node *build_command_tree(t_token *tokens);
 
 #endif
