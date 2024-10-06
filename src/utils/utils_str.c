@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:10:42 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/28 17:37:56 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/06 15:05:21 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,20 @@ char	*ft_strndup(const char *src, size_t n)
 	}
 	dup[i] = '\0';
 	return (dup);
+}
+
+char *ft_strcat(char *dest, const char *src) {
+    char *ptr = dest;
+
+    while (*ptr != '\0') {
+        ptr++;
+    }
+
+    while (*src != '\0') {
+        *ptr++ = *src++;
+    }
+
+    *ptr = '\0';
+
+    return dest;
 }
