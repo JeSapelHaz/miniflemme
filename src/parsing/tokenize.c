@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/06 15:50:22 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/06 19:23:38 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,58 +23,57 @@
  * En cas d'échec d'allocation, elle libère la mémoire existante
  * et termine le programme avec un message d'erreur.
  */
-#include <stdlib.h>
-#include <stdio.h>
-
-void ft_add_token(t_token **token, t_token_type type, char *lexeme) {
-    t_token *new_token;
-    t_token *last;
-
-    new_token = malloc(sizeof(t_token));
+void ft_add_token(t_token **token_list, t_token_type type, char *lexeme) {
+    t_token *new_token = malloc(sizeof(t_token));
     if (!new_token) {
-        ft_free_token(token);
-        exit(printf("malloc from tokens fails\n"));
+        perror("Failed to allocate memory for token");
+        ft_free_token(token_list);
+        exit(EXIT_FAILURE);
     }
+    
+    // Initialisation du nouveau token
     new_token->type = type;
     new_token->lexeme = lexeme;
-    new_token->next = NULL;  // Le nouveau nœud pointe vers NULL par défaut
+    new_token->next = NULL;
+    new_token->prev = NULL;
 
-    if (!token || !*token) {
-        new_token->prev = NULL; // Premier nœud
-        *token = new_token;     // Mise à jour de la tête de la liste
+    // Si la liste est vide, le nouveau token devient le premier
+    if (!*token_list) {
+        *token_list = new_token;
         return;
     }
 
-    // Si la liste n'est pas vide, parcourons-la pour trouver le dernier nœud
-    last = *token;
-    while (last->next != NULL) {
-        last = last->next; // Trouver le dernier nœud
+    // Parcours de la liste pour trouver le dernier élément
+    t_token *last = *token_list;
+    while (last->next) {
+        last = last->next;
     }
 
-    last->next = new_token; // Ajouter le nouveau nœud à la fin
-    new_token->prev = last; // Mettre à jour le pointeur précédent du nouveau nœud
+    // Ajout du nouveau token à la fin de la liste
+    last->next = new_token;
+    new_token->prev = last;
 }
 
 
 /**
-* il fait feur suivit d'un sibidi str
-*
-*
-*
-*
-* return un sibidi int
-*/
-static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
+ * il fait feur suivit d'un sibidi str
+ *
+ *
+ *
+ *
+ * return un sibidi int
+ */
+static int	ft_str_to_lexeme(int i, char *str, t_token **token_list,
+		t_token_type type)
 {
-	int	start;
+	int		start;
 	char	*lexeme;
 
 	if (type != CHAR_TOKEN)
 		i++;
 	start = i;
-	while (str[i] && str[i] != '\n' && str[i] != '|'
-		&& str[i] != '>' && str[i] != '<'
-		&& str[i] != ')' && str[i] != '\"')
+	while (str[i] && str[i] != '\n' && str[i] != '|' && str[i] != '>'
+		&& str[i] != '<' && str[i] != ')' && str[i] != '\"')
 	{
 		if (type == CHAR_TOKEN && str[i] == ' ')
 			break ;
@@ -88,6 +87,68 @@ static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type
 	return (i);
 }
 
+int	skip_spaces(char *str, int i)
+{
+	while (str[i] == ' ')
+		i++;
+	return (i);
+}
+
+int	handle_redirections(char *str, int i, t_token **token_list)
+{
+	if (str[i] == '>')
+	{
+		if (str[i + 1] == '>')
+		{
+			ft_add_token(token_list, OA_DIR, ft_strdup(">>"));
+			return (i + 2);
+		}
+		else
+		{
+			ft_add_token(token_list, O_DIR, ft_strdup(">"));
+			return (i + 1);
+		}
+	}
+	else if (str[i] == '<')
+	{
+		if (str[i + 1] == '<')
+		{
+			ft_add_token(token_list, DI_DIR, ft_strdup("<<"));
+			return (i + 2);
+		}
+		else
+		{
+			ft_add_token(token_list, I_DIR, ft_strdup("<"));
+			return (i + 1);
+		}
+	}
+	return (i);
+}
+
+int	handle_special_chars(char *str, int i, t_token **token_list)
+{
+	if (str[i] == '|')
+	{
+		ft_add_token(token_list, PIPE, ft_strdup("|"));
+		return (i + 1);
+	}
+	else if (str[i] == '(' || str[i] == ')')
+	{
+		ft_add_token(token_list, PAREN_TOKEN, ft_strndup(&str[i], 1));
+		return (i + 1);
+	}
+	return (i);
+}
+
+int	handle_quotes(char *str, int i, t_token **token_list)
+{
+	if (str[i] == '\'')
+		return (ft_str_to_lexeme(i, str, token_list, SINGLE_QUOTE));
+	else if (str[i] == '\"')
+		return (ft_str_to_lexeme(i, str, token_list, DOUBLE_QUOTE));
+	return (i);
+}
+
 /**
  * tokenize - Fonction principale qui tokenise toute la chaîne de caractères.
  * Ignorer les espaces en dehors des opérateurs
@@ -97,79 +158,26 @@ static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type
  * @param str: Chaîne de caractères à tokeniser.
  * @return: Liste chaînée de tokens.
  */
-t_token *tokenize(char *str)
+t_token	*tokenize(char *str)
 {
-    t_token *token_list = NULL;
-    int i = 0;
+	t_token	*token_list;
+	int		i;
 
-    while (str[i])
-    {
-        // Ignore les espaces
-        if (str[i] == ' ')
-        {
-            i++;
-            continue;
-        }
-
-        // Vérifie les caractères spéciaux
-        if (str[i] == '|')
-        {
-            ft_add_token(&token_list, PIPE, ft_strdup("|"));
-            i++;
-        }
-        else if (str[i] == '>')
-        {
-            if (str[i + 1] == '>')
-            {
-                ft_add_token(&token_list, OA_DIR, ft_strdup(">>"));
-                i += 2; // Saute le prochain caractère
-            }
-            else
-            {
-                ft_add_token(&token_list, O_DIR, ft_strdup(">"));
-                i++;
-            }
-        }
-        else if (str[i] == '<')
-        {
-            if (str[i + 1] == '<')
-            {
-                ft_add_token(&token_list, DI_DIR, ft_strdup("<<"));
-                i += 2; // Saute le prochain caractère
-            }
-            else
-            {
-                ft_add_token(&token_list, I_DIR, ft_strdup("<"));
-                i++;
-            }
-        }
-        else if (str[i] == '(')
-        {
-            ft_add_token(&token_list, PAREN_TOKEN, ft_strdup("("));
-            i++;
-        }
-        else if (str[i] == ')')
-        {
-            ft_add_token(&token_list, PAREN_TOKEN, ft_strdup(")"));
-            i++;
-        }
-        else if (str[i] == '\'')
-        {
-            i = ft_str_to_lexeme(i, str, &token_list, SINGLE_QUOTE);
-        }
-        else if (str[i] == '\"')
-        {
-            i = ft_str_to_lexeme(i, str, &token_list, DOUBLE_QUOTE);
-        }
-        else
-        {
-            i = ft_str_to_lexeme(i, str, &token_list, CHAR_TOKEN);
-        }
-    }
-    
-    // Ajoute le token de fin
-    ft_add_token(&token_list, END_TOKEN, ft_strdup("\0")); 
-    return token_list;
+	token_list = NULL;
+	i = 0;
+	while (str[i])
+	{
+		i = skip_spaces(str, i);
+		if (!str[i])
+			break ;
+		i = handle_special_chars(str, i, &token_list);
+		i = handle_redirections(str, i, &token_list);
+		i = handle_quotes(str, i, &token_list);
+		if (str[i] && str[i] != ' ' && str[i] != '|' && str[i] != '>'
+			&& str[i] != '<' && str[i] != '(' && str[i] != ')' && str[i] != '\''
+			&& str[i] != '\"')
+			i = ft_str_to_lexeme(i, str, &token_list, CHAR_TOKEN);
+	}
+	ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
+	return (token_list);
 }
-
-

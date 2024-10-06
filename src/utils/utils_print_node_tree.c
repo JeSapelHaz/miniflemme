@@ -6,41 +6,38 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:03 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/06 15:50:34 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/06 18:26:46 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-// static void	print_indentation(int level)
-// {
-// 	int	i;
+/* DEBUG FONCTION CREE  A L AIDE DE CHAT GPT */
+#include <stdio.h>
 
-// 	i = 0;
-// 	while (i < level)
-// 	{
-// 		printf(" - ");
-// 		i++;
-// 	}
-// }
+void print_tree(t_node *root) {
+    if (root == NULL) return; // Vérifier si le nœud est NULL
 
-// /*
-//  * Si c'est un CHAR_NODE, afficher le caractère ou la commande
-//  * Si c'est un PAIR_NODE, afficher et descendre récursivement
-// */
-// void	print_node_tree(t_node *node, int level)
-// {
-// 	if (!node)
-// 		return ;
-// 	print_indentation(level);
-// 	if (node->type == CHAR_NODE)
-// 	{
-// 		printf("CHAR_NODE: %s\n", node->data.c);
-// 	}
-// 	else if (node->type == PAIR_NODE)
-// 	{
-// 		printf("PAIR_NODE:\n");
-// 		print_node_tree(node->data.pair.left, level + 1); // Pour aller un cran en dessous du coté gauche
-// 		print_node_tree(node->data.pair.right, level + 1); // Pour aller un cran en dessous du coté droit
-// 	}
-// }
+    // Si le nœud est un pipeline
+    if (root->type == PIPELINE_NODE) {
+        printf("Pipeline:\n");
+        printf(" Left -> ");
+        print_tree(root->left); // Imprimer le sous-arbre gauche
+        printf(" Right -> ");
+        print_tree(root->right); // Imprimer le sous-arbre droit
+    } 
+    // Si le nœud est une commande
+    else if (root->type == COMMAND_NODE) {
+        printf("Command: ");
+        if (root->args) {
+            for (int i = 0; root->args[i] != NULL; i++) {
+                printf("%s", root->args[i]);
+                if (root->args[i + 1] != NULL) {
+                    printf(" "); // Ajouter un espace entre les arguments
+                }
+            }
+        }
+        printf("\n");
+    }
+}
+

@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/10/06 15:50:56 by hbutt            ###   ########.fr        #
+#    Updated: 2024/10/06 19:29:52 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC = src/main.c src/parsing/parser.c src/parsing/tokenize.c src/utils/utils_str.c \
-src/utils/utils_token.c src/utils/utils_print_node_tree.c  src/utils/utils_node.c \
+src/utils/utils_token.c src/utils/utils_print_node_tree.c  \
 src/parsing/check_args.c src/env/get_path.c src/utils/utils.c src/utils/utils_print_tokens.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/06 15:49:42 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/06 17:23:41 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void execute_commands(char *input, char **env);
 void	ft_quit(void);
 
 /* UTILS PRINT */
-// void	print_node_tree(t_node *node, int level);
-void print_token_list(t_token *token_list);
+void print_tree(t_node *root);
+void	print_tokens(t_token *token_list);
 
 /* UTILS NODE */
 // t_node	*create_char_node(char *c);

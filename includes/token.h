@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/10/06 15:49:48 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/06 18:15:26 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ typedef struct s_token
 // 	t_node_value		data;
 // };
 
-typedef struct s_node
-{
-	struct s_node	*left;
-	struct s_node	*right;
-	t_token			*tokens;
-	char *str;
-}					t_node;
+typedef enum e_node_type {
+    PIPELINE_NODE,
+    COMMAND_NODE
+} t_node_type;
 
+typedef struct s_node t_node;
+typedef struct s_node {
+    t_node_type type;      // Type du nœud (pipeline ou commande)
+    char **args;          // Arguments de la commande (NULL pour les nœuds de pipeline)
+    t_node *left;  // Pointeur vers le sous-arbre gauche
+    t_node *right; // Pointeur vers le sous-arbre droit
+} t_node;
 #endif
