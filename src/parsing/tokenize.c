@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/05 15:59:46 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/06 15:48:50 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,38 @@
  * En cas d'échec d'allocation, elle libère la mémoire existante
  * et termine le programme avec un message d'erreur.
  */
-void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
-{
-	t_token	*new_token;
-	t_token	*last;
+#include <stdlib.h>
+#include <stdio.h>
 
-	new_token = malloc(sizeof(t_token));
-	if (!new_token)
-	{
-		ft_free_token(token);
-		exit(printf("malloc from tokens fails\n"));
-	}
-	new_token->type = type;
-	new_token->lexeme = lexeme;
-	if (!token || !*token)
-	{
-		new_token->prev = NULL;
-		new_token->next = NULL;
-		*token = new_token;
-		return ;
-	}
-	last = (*token)->next;
-	new_token->next = *token;
-	if (!last)
-		ft_if_not_last(token, &new_token);
-	else
-		ft_add_next(last, token, new_token);
+void ft_add_token(t_token **token, t_token_type type, char *lexeme) {
+    t_token *new_token;
+    t_token *last;
+
+    new_token = malloc(sizeof(t_token));
+    if (!new_token) {
+        ft_free_token(token);
+        exit(printf("malloc from tokens fails\n"));
+    }
+    new_token->type = type;
+    new_token->lexeme = lexeme;
+    new_token->next = NULL;  // Le nouveau nœud pointe vers NULL par défaut
+
+    if (!token || !*token) {
+        new_token->prev = NULL; // Premier nœud
+        *token = new_token;     // Mise à jour de la tête de la liste
+        return;
+    }
+
+    // Si la liste n'est pas vide, parcourons-la pour trouver le dernier nœud
+    last = *token;
+    while (last->next != NULL) {
+        last = last->next; // Trouver le dernier nœud
+    }
+
+    last->next = new_token; // Ajouter le nouveau nœud à la fin
+    new_token->prev = last; // Mettre à jour le pointeur précédent du nouveau nœud
 }
+
 
 /**
 * il fait feur suivit d'un sibidi str
