@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/01 15:09:25 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/07 15:41:30 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_add_next(t_token *last, t_token **token_list, t_token *new_node)
 {
-	while (last->next != *token_list)
+	while (last->next != NULL)
 		last = last->next;
 	last->next = new_node;
 	new_node->prev = last;

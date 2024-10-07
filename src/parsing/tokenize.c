@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/04 16:31:24 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/07 15:50:06 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,20 @@ void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
 	}
 	new_token->type = type;
 	new_token->lexeme = lexeme;
+	new_token->next = NULL;
 	if (!token || !*token)
 	{
 		new_token->prev = NULL;
-		new_token->next = NULL;
 		*token = new_token;
 		return ;
 	}
 	last = (*token)->next;
-	new_token->next = *token;
 	if (!last)
 		ft_if_not_last(token, &new_token);
 	else
 		ft_add_next(last, token, new_token);
 }
 
-/**
-* il fait feur suivit d'un sibidi str
-*
-*
-*
-*
-* return un sibidi int
-*/
 static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 {
 	int	start;
