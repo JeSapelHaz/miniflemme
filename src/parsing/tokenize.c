@@ -6,7 +6,11 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/07 15:50:06 by alama            ###   ########.fr       */
+=======
+/*   Updated: 2024/10/06 15:45:17 by hbutt            ###   ########.fr       */
+>>>>>>> a4a4d4f5df4e6dc03f6e3eeb1452aeddd0af5141
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +27,10 @@
  * En cas d'échec d'allocation, elle libère la mémoire existante
  * et termine le programme avec un message d'erreur.
  */
-void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
-{
-	t_token	*new_token;
-	t_token	*last;
+#include <stdlib.h>
+#include <stdio.h>
 
+<<<<<<< HEAD
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 	{
@@ -50,6 +53,46 @@ void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
 		ft_add_next(last, token, new_token);
 }
 
+=======
+void ft_add_token(t_token **token, t_token_type type, char *lexeme) {
+    t_token *new_token;
+    t_token *last;
+
+    new_token = malloc(sizeof(t_token));
+    if (!new_token) {
+        ft_free_token(token);
+        exit(printf("malloc from tokens fails\n"));
+    }
+    new_token->type = type;
+    new_token->lexeme = lexeme;
+    new_token->next = NULL;  // Le nouveau nœud pointe vers NULL par défaut
+
+    if (!token || !*token) {
+        new_token->prev = NULL; // Premier nœud
+        *token = new_token;     // Mise à jour de la tête de la liste
+        return;
+    }
+
+    // Si la liste n'est pas vide, parcourons-la pour trouver le dernier nœud
+    last = *token;
+    while (last->next != NULL) {
+        last = last->next; // Trouver le dernier nœud
+    }
+
+    last->next = new_token; // Ajouter le nouveau nœud à la fin
+    new_token->prev = last; // Mettre à jour le pointeur précédent du nouveau nœud
+}
+
+
+/**
+* il fait feur suivit d'un sibidi str
+*
+*
+*
+*
+* return un sibidi int
+*/
+>>>>>>> a4a4d4f5df4e6dc03f6e3eeb1452aeddd0af5141
 static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 {
 	int	start;
