@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/08 14:12:57 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/08 22:14:45 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ void	ft_quit(void);
 
 /* UTILS PRINT */
 // void	print_node_tree(t_node *node, int level);
-void print_token_list(t_token *token_list);
+void	print_token_list(t_token *token_list);
+void	print_node(t_node *node);
 
 /* UTILS NODE */
 // t_node	*create_char_node(char *c);
 // t_node	*create_pair_node(t_node *left, t_node *right);
-t_node	*parse(t_token token_list);
-
+t_node	*parse(t_token **token_list);
+void	execute_node(t_node *node);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
