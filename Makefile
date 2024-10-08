@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/10/06 14:17:29 by hbutt            ###   ########.fr        #
+#    Updated: 2024/10/08 14:01:13 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) | $(OBJ_DIR)
 	@make -C ./libft 1>/dev/null
-	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(PRINTF) $(LIBFT) $(SRC) -I./includes -I./libft
+	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(LIBFT) $(SRC) -I./includes -I./libft
 	@echo "$(MAGENTA)Compilation successful!"
 
 $(OBJ_DIR):
@@ -54,7 +54,6 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I./includes -I./libft
-
 
 clean:
 	@make clean -C ./libft 1>/dev/null

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/07 20:55:32 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/08 14:12:57 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void print_token_list(t_token *token_list);
 /* UTILS NODE */
 // t_node	*create_char_node(char *c);
 // t_node	*create_pair_node(t_node *left, t_node *right);
-
+t_node	*parse(t_token token_list);
 
 
 /* UTILS TOKEN */
