@@ -6,11 +6,8 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/07 15:50:06 by alama            ###   ########.fr       */
-=======
+/*   Updated: 2024/10/07 20:29:36 by alama            ###   ########.fr       */
 /*   Updated: 2024/10/06 15:45:17 by hbutt            ###   ########.fr       */
->>>>>>> a4a4d4f5df4e6dc03f6e3eeb1452aeddd0af5141
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +27,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-<<<<<<< HEAD
-	new_token = malloc(sizeof(t_token));
-	if (!new_token)
-	{
-		ft_free_token(token);
-		exit(printf("malloc from tokens fails\n"));
-	}
-	new_token->type = type;
-	new_token->lexeme = lexeme;
-	new_token->next = NULL;
-	if (!token || !*token)
-	{
-		new_token->prev = NULL;
-		*token = new_token;
-		return ;
-	}
-	last = (*token)->next;
-	if (!last)
-		ft_if_not_last(token, &new_token);
-	else
-		ft_add_next(last, token, new_token);
-}
-
-=======
 void ft_add_token(t_token **token, t_token_type type, char *lexeme) {
     t_token *new_token;
     t_token *last;
@@ -84,15 +57,6 @@ void ft_add_token(t_token **token, t_token_type type, char *lexeme) {
 }
 
 
-/**
-* il fait feur suivit d'un sibidi str
-*
-*
-*
-*
-* return un sibidi int
-*/
->>>>>>> a4a4d4f5df4e6dc03f6e3eeb1452aeddd0af5141
 static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 {
 	int	start;

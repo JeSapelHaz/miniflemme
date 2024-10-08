@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/10/06 15:35:38 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/07 20:45:23 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct s_node
 	struct s_node	*left;
 	struct s_node	*right;
 	t_token			*tokens;
-	char *str;
 }					t_node;
 
 #endif

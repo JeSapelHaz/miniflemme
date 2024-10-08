@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/06 15:46:52 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/07 20:32:59 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(int ac, char **av, char **env)
 {
 	char	*str;
 	t_token	*token_list;
-	t_node	*root;
 
 	(void)env; 
 	check_args(ac, av);
@@ -28,12 +27,6 @@ int	main(int ac, char **av, char **env)
 			break ;
 		token_list = tokenize(str);
 		print_token_list(token_list);
-		// root = parse(&token_list); 
-		// printf("%s\n", get_path(str, env));
-		// printf("\n");
-		// char **cmd;
-		// cmd = ft_split(str, ' ');
-		// execve(get_path(cmd[0], env), cmd, env); // execute la commande mais ferme tout 
 		ft_free_token(&token_list);
 		add_history(str);  
 		free(str);
