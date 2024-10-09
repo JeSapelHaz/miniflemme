@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/06 17:23:41 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/09 14:48:01 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,15 @@ void execute_commands(char *input, char **env);
 void	ft_quit(void);
 
 /* UTILS PRINT */
-void print_tree(t_node *root);
-void	print_tokens(t_token *token_list);
+// void	print_node_tree(t_node *node, int level);
+void	print_token_list(t_token *token_list);
+void	print_node(t_node *node);
 
 /* UTILS NODE */
 // t_node	*create_char_node(char *c);
 // t_node	*create_pair_node(t_node *left, t_node *right);
-
-
+t_node	*parse(t_token **token_list);
+void	execute_node(t_node *node);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
@@ -68,7 +69,7 @@ void	ft_free_token(t_token **token_list);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(const char *src);
 char	*ft_strndup(const char *src, size_t n);
-char *ft_strcat(char *dest, const char *src);
+char	*ft_strcat(char *dest, const char *src);
 
 /* SIGNAL */
 void	ft_handle_signals(int signal);

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/10/06 18:15:26 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/09 14:47:58 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,32 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-// typedef enum e_node_type
-// {
-// 	PAIR_NODE,
-// 	CHAR_NODE
-// }						t_node_type;
+typedef enum e_node_type
+{
+	PAIR_NODE,
+ 	STR_NODE
+}						t_node_type;
 
-// typedef struct s_node	t_node;
+typedef struct s_node	t_node;
 
-// typedef struct s_pair_value
-// {
-// 	t_node				*left;
-// 	t_node				*right;
-// }						t_pair_value;
+typedef struct s_pair_value
+{
+	t_node				*left;
+ 	t_node				*right;
+	char	*opera; //operator
+}						t_pair_value;
 
-// typedef union u_node_value
-// {
-// 	t_pair_value		pair;
-// 	char				*c;
-// }						t_node_value;
+typedef union u_node_value
+{
+	t_pair_value		pair;
+ 	char				*str;
+}						t_node_value;
 
-// struct					s_node
-// {
-// 	t_node_type			type;
-// 	t_node_value		data;
-// };
-
-typedef enum e_node_type {
-    PIPELINE_NODE,
-    COMMAND_NODE
-} t_node_type;
+struct					s_node
+{
+ 	t_node_type			type;
+ 	t_node_value		data;
+};
 
 typedef struct s_node t_node;
 typedef struct s_node {

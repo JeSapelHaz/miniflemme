@@ -6,7 +6,12 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/07 15:53:47 by hbutt            ###   ########.fr       */
+=======
+/*   Updated: 2024/10/08 18:42:09 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/06 15:45:17 by hbutt            ###   ########.fr       */
+>>>>>>> parsing
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +60,7 @@ void ft_add_token(t_token **token_list, t_token_type type, char *lexeme) {
 }
 
 
-/**
- * il fait feur suivit d'un sibidi str
- *
- *
- *
- *
- * return un sibidi int
- */
-static int	ft_str_to_lexeme(int i, char *str, t_token **token_list,
-		t_token_type type)
+static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 {
 	int		start;
 	char	*lexeme;
