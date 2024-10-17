@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/08 22:14:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/17 18:10:18 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	main(int ac, char **av, char **env)
 		if (!str || str[0] == '\0')
 			break ;
 		token_list = tokenize(str);
-		print_token_list(token_list);
 		node = parse(&token_list);
 		print_node(node);
+		print_token_list(token_list);
 		ft_free_token(&token_list);
 		add_history(str);  
 		free(str);

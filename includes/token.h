@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/10/08 15:24:42 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/17 15:36:59 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_token
 	char			*lexeme;
 	struct s_token	*prev;
 	struct s_token	*next;
+	int	nb;
 }					t_token;
 
 typedef enum e_node_type
@@ -63,6 +64,7 @@ struct					s_node
 {
  	t_node_type			type;
  	t_node_value		data;
+	int	nb;
 };
 
 #endif
