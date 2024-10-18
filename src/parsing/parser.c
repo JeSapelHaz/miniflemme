@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:54:51 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/17 18:17:46 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:53:36 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,21 @@ t_node	*parse_redir(t_token **token)
 	t_node	*s_node;
 	t_node	*dir_node;
 	char	*str;
+	char	*tmp;
 
 	s_node = str_node(token);
+	str = NULL;
 	while ((*token)->type == STR_NODE)
 	{
+		tmp = ft_strjoin(s_node->data.str, " ");
+		if (str)
+			free(str);
+		str = ft_strjoin(tmp, (*token)->lexeme);
+		s_node->data.str = str;
 		*token = (*token)->next;
+		free(tmp);
 	}
-	while (*token && ((*token)->type == O_DIR || (*token)->type == I_DIR
+	while (*token && ((*token)->type == PIPE || (*token)->type == O_DIR || (*token)->type == I_DIR
 				|| (*token)->type == OA_DIR || (*token)->type == DI_DIR))
 	{
 		dir_node = create_dir_node(s_node, *token);
@@ -96,17 +104,9 @@ t_node	*parse_pipe(t_token **token)
 	t_node	*left;
 	t_node	*pipe;
 	t_token	*tmp;
-	char	*str;
 
 	tmp = *token;
 	left = parse_redir(&tmp);
-	while (tmp->type != PIPE && tmp->type != END_TOKEN)
-	{
-		str = ft_strjoin(left->data.str, (*token)->lexeme);
-		tmp = tmp->next;
-		free(left->data.str);
-		left->data.str = str;
-	}
 	while (tmp->type != END_TOKEN && tmp->type == PIPE)
 	{
 		pipe = create_pipe_node(left, tmp);
@@ -126,7 +126,7 @@ t_node	*parse(t_token **token_list)
 	left = parse_pipe(token_list);
 	return (left);
 }
-
+/*
 void	execute_node(t_node *node)
 {
 	if (!node)
@@ -139,30 +139,14 @@ void	execute_node(t_node *node)
 	{
 		if (node->data.pair.opera && node->data.pair.opera[0] == '|')
 		{
-			printf("Pipe entre deux commandes\n");
 			execute_node(node->data.pair.left);
 			execute_node(node->data.pair.right);
 		}
 		else if (node->data.pair.opera && (node->data.pair.opera[0] == '>' || node->data.pair.opera[0] == '<'))
-		{
-			printf("Redirection : %s\n", node->data.pair.opera);
 			execute_node(node->data.pair.left);
-			printf("Cible de la redirection : %s\n", node->data.pair.right->data.str);
-		}
 	}
 }
-
-static void	print_str_node(t_node *node)
-{
-	if (node->data.str)
-		printf("STR_NODE:	%s	%d\n", node->data.str, node->nb);
-}
-
-static void	print_pair_node(t_node *node)
-{
-	if (node->data.pair.opera)
-		printf("PAIR_NODE:	Operator %s	%d\n", node->data.pair.opera, node->nb);
-}
+*/
 
 void	print_node(t_node *node)
 {
@@ -171,11 +155,11 @@ void	print_node(t_node *node)
 		return;
 	if (node->type == STR_NODE)
 	{
-		print_str_node(node);
+		printf("STR_NODE:	%s	%d\n", node->data.str, node->nb);
 	}
 	else if (node->type == PAIR_NODE)
 	{
-		print_pair_node(node);
+		printf("PAIR_NODE:	Operator %s	%d\n", node->data.pair.opera, node->nb);
 		if (node->data.pair.left)
 		{
 			printf("LEFT NODE:\n");
