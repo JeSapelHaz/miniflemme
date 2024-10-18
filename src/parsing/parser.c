@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:54:51 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/18 16:53:36 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/18 17:29:11 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_node	*parse_redir(t_token **token)
 
 	s_node = str_node(token);
 	str = NULL;
-	while ((*token)->type == STR_NODE)
+	while ((*token)->type == STR_NODE || (*token)->type == DOUBLE_QUOTE)
 	{
 		tmp = ft_strjoin(s_node->data.str, " ");
 		if (str)

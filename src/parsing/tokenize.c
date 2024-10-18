@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/17 15:43:08 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/18 17:15:08 by alama            ###   ########.fr       */
 /*   Updated: 2024/10/06 15:45:17 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -63,9 +63,10 @@ void ft_add_token(t_token **token, t_token_type type, char *lexeme)
 
 static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 {
-	int	start;
+	int		start;
 	char	*lexeme;
-
+	int		found;
+	
 	if (type != CHAR_TOKEN)
 		i++;
 	start = i;
@@ -78,10 +79,15 @@ static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type
 		else
 			i++;
 	}
+	found = 0;
+	if (str[i] == '|' || str[i] == '>' || str[i] == '<')
+		found = 1;
 	lexeme = ft_strndup(&str[start], i - start);
 	ft_add_token(token_list, type, lexeme);
 	if (type != CHAR_TOKEN)
 		i++;
+	if (found == 1)
+		i--;
 	return (i);
 }
 

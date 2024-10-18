@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/10/17 15:36:59 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/17 19:22:59 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ typedef union u_node_value
 {
 	t_pair_value		pair;
  	char				*str;
-}						t_node_value;
+	int					x;
+	long long			y;
+	unsigned			z;
+}	t_node_value;
 
 struct					s_node
 {
