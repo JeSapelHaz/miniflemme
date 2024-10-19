@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/19 15:01:30 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/19 18:24:46 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ void	execute_node(t_node *node);
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
 void	ft_add_next(t_token *last, t_token **token_list, t_token *new_node);
-// void	find_last_token(t_token **token_list);
 void	ft_free_token(t_token **token_list);
 void	remove_end(t_token **token);
 t_token	*last_token(t_token *token);
 void	ft_last_pipe(t_token *token_list);
+int		ft_verrif_tok(t_token **token_list, char *str);
 
 /* UTILS STR */
 int		ft_strcmp(char *s1, char *s2);
