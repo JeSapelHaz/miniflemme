@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/19 18:24:46 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/21 09:05:42 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	remove_end(t_token **token);
 t_token	*last_token(t_token *token);
 void	ft_last_pipe(t_token *token_list);
 int		ft_verrif_tok(t_token **token_list, char *str);
+int		ft_is_dir(t_token *token);
 
 /* UTILS STR */
 int		ft_strcmp(char *s1, char *s2);

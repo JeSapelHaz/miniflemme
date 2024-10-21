@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:54:51 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/18 17:29:11 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/21 08:22:28 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,25 @@
 
 //je vais t'expliquer un jour mdr
 // y en a des mots....
+
+void	add_lexeme_to_node(t_node *node, t_token **token)
+{
+	char	*str;
+	char	*tmp;
+
+	str = NULL;
+	while ((*token)->type == STR_NODE || (*token)->type == DOUBLE_QUOTE
+			|| (*token)->type == SINGLE_QUOTE)
+	{
+		tmp = ft_strjoin(node->data.str, " ");
+		if (str)
+			free(str);
+		str = ft_strjoin(tmp, (*token)->lexeme);
+		node->data.str = str;
+		*token = (*token)->next;
+		free(tmp);
+	}
+}
 
 t_node	*str_node(t_token **token)
 {
@@ -25,6 +44,7 @@ t_node	*str_node(t_token **token)
 	// if (!str_node)
 	str_node->type = STR_NODE;
 	str_node->data.str = (*token)->lexeme;
+	add_lexeme_to_node(str_node, token);
 	str_node->nb = (*token)->nb;
 	*token = (*token)->next;
 	return (str_node);
@@ -33,7 +53,7 @@ t_node	*str_node(t_token **token)
 t_node	*right_node(t_token *token)
 {
 	t_node	*str_node;
-
+	
 	str_node = malloc(sizeof(t_node));
 	// if (!str_node)
 	str_node->type = STR_NODE;
@@ -59,22 +79,10 @@ t_node	*parse_redir(t_token **token)
 {
 	t_node	*s_node;
 	t_node	*dir_node;
-	char	*str;
-	char	*tmp;
 
 	s_node = str_node(token);
-	str = NULL;
-	while ((*token)->type == STR_NODE || (*token)->type == DOUBLE_QUOTE)
-	{
-		tmp = ft_strjoin(s_node->data.str, " ");
-		if (str)
-			free(str);
-		str = ft_strjoin(tmp, (*token)->lexeme);
-		s_node->data.str = str;
-		*token = (*token)->next;
-		free(tmp);
-	}
-	while (*token && ((*token)->type == PIPE || (*token)->type == O_DIR || (*token)->type == I_DIR
+	add_lexeme_to_node(s_node, token);
+	while (((*token)->type == PIPE || (*token)->type == O_DIR || (*token)->type == I_DIR
 				|| (*token)->type == OA_DIR || (*token)->type == DI_DIR))
 	{
 		dir_node = create_dir_node(s_node, *token);
