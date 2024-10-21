@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/21 09:22:59 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/21 12:39:18 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_token	*re_do_token(char *str)
 	if (!str || str[0] == '\0')
 		return (NULL);
 	token_list = tokenize(str);
+	add_history(str);
 	return (token_list);
 }
 
@@ -27,7 +28,7 @@ int	main(int ac, char **av, char **env)
 {
 	char	*str;
 	t_token	*token_list;
-	t_node	*node;
+//	t_node	*node;
 	t_token	*tmp;
 
 	(void)env; 
@@ -36,24 +37,24 @@ int	main(int ac, char **av, char **env)
 	token_list = NULL;
 	while (1)
 	{
-		while (ft_verrif_tok(&token_list, str) == 1) 
+		while (ft_verrif_tok(&token_list) == 1) 
 			token_list = re_do_token(str);
 		tmp = last_token(token_list);
 		tmp = tmp->prev;
 		while (tmp->type == PIPE)
 		{
 			ft_last_pipe(token_list);
-			while (!token_list && ft_verrif_tok(&token_list, str) == 1) 
+			while (!token_list && ft_verrif_tok(&token_list) == 1) 
 				token_list = re_do_token(str);
 			tmp = last_token(token_list);
 			printf("here\n");
 			tmp = tmp->prev;
 		}
-		node = parse(&token_list);
-		print_node(node);
+		printf("here\n");
+		//node = parse(&token_list);
+		//print_node(node);
 		print_token_list(token_list);
 		ft_free_token(&token_list);
-		add_history(str);  
 	}
 	clear_history();
 	free(str);

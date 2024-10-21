@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 14:15:07 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/17 15:42:42 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/21 15:10:07 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	print_token_list(t_token *token_list)
 	while (current != NULL)
 	{
 		if (current->type == 0)
-			printf("%i - Type : %u | Lexeme: end\n", current->nb, current->type);
+			printf("Type : %u | Lexeme: end\n", current->type);
 		else
-			printf("%i - Type : %u | Lexeme: %s\n", current->nb, current->type, current->lexeme);
+			printf("Type : %u | Lexeme: %s\n", current->type, current->lexeme);
 		current = current->next;
 	}
 }
