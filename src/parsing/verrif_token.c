@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:50:36 by alama             #+#    #+#             */
-/*   Updated: 2024/10/21 19:13:11 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/23 12:24:37 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,9 @@ int	ft_verrif_tok(t_token **token_list)
 		}
 		tmp = tmp->next;
 	}
-	if (ft_is_dir(*token_list) == 1)
+	if ((*token_list)->type == PIPE)
 	{
-		if ((*token_list)->type != PIPE)
-			printf("mini-flemme: syntax error near unexpected token `newline'\n");
-		else
-			printf("mini-flemme: syntax error near unexpected token `|'\n");
+		printf("mini-flemme: syntax error near unexpected token `|'\n");
 		ft_free_token(token_list);
 		return (1);
 	}

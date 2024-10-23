@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/21 12:39:18 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/23 12:25:00 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ int	main(int ac, char **av, char **env)
 			while (!token_list && ft_verrif_tok(&token_list) == 1) 
 				token_list = re_do_token(str);
 			tmp = last_token(token_list);
-			printf("here\n");
 			tmp = tmp->prev;
 		}
-		printf("here\n");
 		//node = parse(&token_list);
 		//print_node(node);
 		print_token_list(token_list);
