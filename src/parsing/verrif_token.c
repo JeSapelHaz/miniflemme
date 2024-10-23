@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:50:36 by alama             #+#    #+#             */
-/*   Updated: 2024/10/21 15:16:40 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/21 19:13:11 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_verrif_tok(t_token **token_list)
 				tmp = tmp->next;
 			if (ft_is_dir(tmp->next) == 1)
 			{
-				printf("syntax error near unexpected token `%s'\n", tmp->next->lexeme);
+				printf("mini-flemme: syntax error near unexpected token `%s'\n", tmp->next->lexeme);
 				return (1);
 			}
 		}
@@ -45,9 +45,9 @@ int	ft_verrif_tok(t_token **token_list)
 	if (ft_is_dir(*token_list) == 1)
 	{
 		if ((*token_list)->type != PIPE)
-			printf("syntax error near unexpected token `newline'\n");
+			printf("mini-flemme: syntax error near unexpected token `newline'\n");
 		else
-			printf("syntax error near unexpected token `|'\n");
+			printf("mini-flemme: syntax error near unexpected token `|'\n");
 		ft_free_token(token_list);
 		return (1);
 	}
