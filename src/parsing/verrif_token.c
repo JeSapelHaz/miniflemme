@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:50:36 by alama             #+#    #+#             */
-/*   Updated: 2024/10/25 18:13:34 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/25 23:57:49 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,23 @@ static int	first_verrif(t_token *token)
 	return (0);
 }
 
+static int	last_verrif(t_token *token)
+{
+	printf("the last token : %s\n", token->lexeme);
+	if (token->type == END_TOKEN)
+		token = token->prev;
+	while (token->type == SPACE_TOKEN)
+		token = token->prev;
+	if (token->type == PIPE)
+		return (0);
+	if (ft_is_dir(token) == 1)
+	{
+			printf("mini-flemme: syntax error near unexpected token `newline'\n");
+			return (1);
+	}
+	return (0);
+}
+
 int	ft_verrif_tok(t_token **token_list)
 {
 	t_token	*tmp;
@@ -55,16 +72,21 @@ int	ft_verrif_tok(t_token **token_list)
 	{
 		if (ft_is_dir(tmp) == 1)
 		{
-			if (tmp->next->type == 2)
+			tmp = tmp->next;
+			while (tmp->type == 2)
 				tmp = tmp->next;
-			if (ft_is_dir(tmp->next) == 1)
+			if (ft_is_dir(tmp) == 1)
 			{
 				// do not forget to use write(2) in every printf
-				printf("mini-flemme: syntax error near unexpected token `%s'\n", tmp->next->lexeme);
+				printf("mini-flemme: syntax error near unexpected token `%s'\n", tmp->lexeme);
 				return (1);
 			}
+			else
+				break ;
 		}
 		tmp = tmp->next;
 	}
+	if (last_verrif(tmp) == 1)
+		return (1);
 	return (0);
 }

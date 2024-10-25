@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/25 16:55:31 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/26 00:00:43 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,20 @@ int	main(int ac, char **av, char **env)
 			token_list = re_do_token(str);
 		tmp = last_token(token_list);
 		tmp = tmp->prev;
+		while (tmp->type == SPACE_TOKEN)
+			 tmp = tmp->prev;
 		while (tmp->type == PIPE)
 		{
-			ft_last_pipe(token_list);
-			while (!token_list && ft_verrif_tok(&token_list) == 1) 
+			ft_last_pipe(&token_list);
+			while (ft_verrif_tok(&token_list) == 1)
+			{
+				printf("ikfhjerwfe\n");
 				token_list = re_do_token(str);
+			}
 			tmp = last_token(token_list);
 			tmp = tmp->prev;
+			while (tmp->type == SPACE_TOKEN)
+				tmp = tmp->prev;
 		}
 		node = parse(&token_list);
 		//print_node(node);
