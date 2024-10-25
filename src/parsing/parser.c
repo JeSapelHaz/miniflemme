@@ -6,12 +6,11 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/10/23 21:51:03 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/25 18:47:26 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
 
 //	"coucou" " " "mdr" " " "|"
 //	"coucou "
@@ -26,8 +25,8 @@ static void	add_lexeme_to_node(t_token **token, t_node *node)
 	str = NULL;
 	tok = *token;
 	node->data.str = ft_strdup(tok->lexeme);
-	printf("%s\n", node->data.str);
-	while (ft_is_dir(tok) == 0 && ft_is_dir(tok->next) == 0)
+	while (ft_is_dir(tok) == 0 && (tok->next->type != END_TOKEN 
+			&& ft_is_dir(tok->next) == 0))
 	{
 		str = ft_strjoin(node->data.str, tok->next->lexeme);
 		free(node->data.str);
