@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:50:36 by alama             #+#    #+#             */
-/*   Updated: 2024/10/23 12:24:37 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/25 18:13:34 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,34 @@ int	ft_is_dir(t_token *token)
 	return (0);
 }
 
+static int	first_verrif(t_token *token)
+{
+	if (token->type == PIPE)
+	{
+		printf("mini-flemme: syntax error near unexpected token `|'\n");
+		return (1);
+	}
+	if (ft_is_dir(token) == 1)
+	{
+		token = token->next;
+		while (token->type == SPACE_TOKEN)
+			token = token->next;
+			if (token->type == END_TOKEN)
+			{
+				printf("mini-flemme: syntax error near unexpected token `newline'\n");
+				return (1);
+			}
+	}
+	return (0);
+}
+
 int	ft_verrif_tok(t_token **token_list)
 {
 	t_token	*tmp;
 
 	if (!token_list || !*token_list)
+		return (1);
+	if (first_verrif(*token_list) == 1)
 		return (1);
 	tmp = *token_list;
 	while (tmp->next->type != END_TOKEN)
@@ -36,17 +59,12 @@ int	ft_verrif_tok(t_token **token_list)
 				tmp = tmp->next;
 			if (ft_is_dir(tmp->next) == 1)
 			{
+				// do not forget to use write(2) in every printf
 				printf("mini-flemme: syntax error near unexpected token `%s'\n", tmp->next->lexeme);
 				return (1);
 			}
 		}
 		tmp = tmp->next;
-	}
-	if ((*token_list)->type == PIPE)
-	{
-		printf("mini-flemme: syntax error near unexpected token `|'\n");
-		ft_free_token(token_list);
-		return (1);
 	}
 	return (0);
 }
