@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/09 14:48:28 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/25 17:35:11 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_add_next(t_token *last, t_token **token_list, t_token *new_node)
 //     new_node->next = NULL;   // Le nouveau nœud doit pointer vers NULL
 // }
 
-
 void ft_if_not_last(t_token **token_list, t_token **new_node) {
     if (!token_list || !(*token_list) || !(*new_node)) return;
 
@@ -36,7 +35,6 @@ void ft_if_not_last(t_token **token_list, t_token **new_node) {
     (*new_node)->prev = *token_list;   // Relier le nouveau nœud au courant
     (*new_node)->next = NULL;           // Le nouveau nœud doit pointer vers NULL
 }
-
 
 static void ft_del(t_token *token) {
     if (token) {
@@ -62,6 +60,43 @@ void ft_free_token(t_token **token_list) {
     }
 }
 
+t_token	*last_token(t_token *token)
+{
+	while (token->type != END_TOKEN)
+		token = token->next;
+	return (token);
+}
+
+void	remove_end(t_token **token)
+{
+	t_token	*tmp;
+
+	tmp = *token;
+	tmp = last_token(tmp);
+	tmp = tmp->prev;
+	free(tmp->next->lexeme);
+	free(tmp->next);
+	tmp->next = NULL;
+}
+
+void	ft_last_pipe(t_token *token_list)
+{
+	char	*new_rd;
+	t_token	*new_token;
+	t_token	*tmp;
+
+	tmp = token_list;
+	tmp = last_token(token_list);
+	tmp = tmp->prev;
+	if (tmp->type == PIPE)
+	{
+		new_rd = readline("> ");
+		new_token = tokenize(new_rd);
+		remove_end(&token_list);
+
+		ft_add_next(tmp, &token_list, new_token);
+	}
+}
 
 // void	find_last_token(t_token **token_list)
 // {
