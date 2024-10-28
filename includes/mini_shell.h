@@ -6,7 +6,11 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/25 17:34:30 by hbutt            ###   ########.fr       */
+=======
+/*   Updated: 2024/10/25 23:59:31 by alama            ###   ########.fr       */
+>>>>>>> parsing
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +69,7 @@ void	ft_add_next(t_token *last, t_token **token_list, t_token *new_node);
 void	ft_free_token(t_token **token_list);
 void	remove_end(t_token **token);
 t_token	*last_token(t_token *token);
-void	ft_last_pipe(t_token *token_list);
+void	ft_last_pipe(t_token **token_list);
 int		ft_verrif_tok(t_token **token_list);
 int		ft_is_dir(t_token *token);
 
