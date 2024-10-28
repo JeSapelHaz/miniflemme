@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:50:36 by alama             #+#    #+#             */
-/*   Updated: 2024/10/25 23:57:49 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/28 13:09:16 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static int	first_verrif(t_token *token)
 static int	last_verrif(t_token *token)
 {
 	printf("the last token : %s\n", token->lexeme);
+	while (token->type != END_TOKEN)
+		token = token->next;
 	if (token->type == END_TOKEN)
 		token = token->prev;
 	while (token->type == SPACE_TOKEN)

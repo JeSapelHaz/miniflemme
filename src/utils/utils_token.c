@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/26 00:03:55 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/28 13:08:29 by alama            ###   ########.fr       */
 /*   Updated: 2024/10/06 15:45:51 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -89,7 +89,6 @@ void	ft_last_pipe(t_token **token_list)
 	tmp = tmp->prev;
 	while (tmp->type == SPACE_TOKEN)
 		tmp = tmp->prev;
-	printf("check pipe : %s\n", tmp->lexeme);
 	if (tmp->type == PIPE)
 	{
 		new_rd = readline("> ");
