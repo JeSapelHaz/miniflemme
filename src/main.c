@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/28 14:29:47 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/28 19:54:52 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ int	main(int ac, char **av, char **env)
 		}
 		if (ft_verrif_tok(&token_list) == 0)
 		{
+			print_token_list(token_list);
 			node = parse(&token_list);
 			//print_node(node);
-			print_token_list(token_list);
+			(void)node;
 		}
 		ft_free_token(&token_list);
 	}
