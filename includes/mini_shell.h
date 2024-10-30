@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/30 15:32:00 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:38:31 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	print_node(t_node *node);
 // t_node	*create_pair_node(t_node *left, t_node *right);
 t_node	*parse(t_token **token_list);
 void	execute_node(t_node *node);
+
+/* BUILTIN */
+void ft_exit(char **args);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
