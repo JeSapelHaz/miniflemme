@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/28 14:31:23 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:26:14 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	main(int ac, char **av, char **env)
 		{
 			print_token_list(token_list);
 			node = parse(&token_list);
-			//print_node(node);
+			printf("\n\n\n\n");
+			print_node(node);
 			(void)node;
 		}
 		ft_free_token(&token_list);
