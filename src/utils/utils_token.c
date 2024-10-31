@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/28 13:08:29 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/31 19:33:05 by alama            ###   ########.fr       */
 /*   Updated: 2024/10/06 15:45:51 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -74,7 +74,7 @@ void	remove_end(t_token **token)
 	tmp = last_token(tmp);
 	tmp = tmp->prev;
 	free(tmp->next->lexeme);
-	free(tmp->next);
+free(tmp->next);
 	tmp->next = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/10/30 21:41:41 by alama            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:07:25 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_node	*pair_node(t_node *left, t_token **token)
 	new_node->data.pair.opera = (*token)->lexeme;
 	if ((*token)->type == PIPE)
 	{
+		printf("token %s\n", (*token)->prev->lexeme);
 		left = left_before_pipe(left, token);
 	}
 	*token = (*token)->next;
@@ -95,6 +96,7 @@ t_node	*parse(t_token **token_list)
 		}
 		token = token->next;
 	}
+	printf("here or not here\n");
 	return (left);
 }
 
