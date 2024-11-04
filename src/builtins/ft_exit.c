@@ -6,14 +6,14 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/30 16:38:13 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/04 18:10:01 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-void ft_exit(char **args)
+void ft_exit(char *args)
 {
-	printf("exit\n");
-	exit(0);
+	args = ft_strdel(args, "exit ");	
+	exit(ft_atoi(args));
 }

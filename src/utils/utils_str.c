@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:10:42 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/06 15:05:21 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:26:43 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,16 @@ char *ft_strcat(char *dest, const char *src) {
     *ptr = '\0';
 
     return dest;
+}
+
+char *ft_strdel(char *str, const char *del) {
+    if (!str || !del) return str; 
+
+    size_t del_len = ft_strlen(del);
+    if (ft_strncmp(str, del, del_len) == 0) {
+        char *new_str = ft_strdup(str + del_len);
+        return new_str;
+    }
+    
+    return str;
 }

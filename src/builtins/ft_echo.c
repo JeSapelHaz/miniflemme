@@ -6,7 +6,14 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/10 14:23:11 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:50:45 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mini_shell.h"
+
+void ft_echo(char *args)
+{
+	args = ft_strdel(args, "echo ");
+	printf("%s\n", args);
+}

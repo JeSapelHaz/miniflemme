@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/30 16:38:31 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:16:11 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ t_node	*parse(t_token **token_list);
 void	execute_node(t_node *node);
 
 /* BUILTIN */
-void ft_exit(char **args);
+void ft_exit(char *args);
+void ft_echo(char *args);
+void ft_cd(char *args);
+void ft_env(char *args);
+void ft_pwd();
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
@@ -77,6 +81,8 @@ int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(const char *src);
 char	*ft_strndup(const char *src, size_t n);
 char	*ft_strcat(char *dest, const char *src);
+char *ft_strdel(char *str, const char *del);
+
 
 /* SIGNAL */
 void	ft_handle_signals(int signal);
