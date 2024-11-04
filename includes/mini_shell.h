@@ -14,9 +14,9 @@
 # define MINI_SHELL_H
 
 # include "token.h"
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <libft.h>
