@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/05 17:14:43 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/05 17:25:34 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_node	*parse(t_token **token_list)
 			left = pair_node(left, &token);
 			token = token->prev;
 		}
-		printf("token in while pipe : %s\n", token->lexeme);
+		//printf("token in while pipe : %s\n", token->lexeme);
 		token = token->next;
 	}
 	printf("here or not here\n");

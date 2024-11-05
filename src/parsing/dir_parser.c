@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/05 17:12:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/05 17:25:21 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_node	*dir_parse(t_token **token)
 			left = pair_dir(left, token);
 		*token = (*token)->next;
 	}
-	printf("token after dir parse : %s\n", (*token)->lexeme);
-	printf("what is the pipe : %s\n", left->data.pair.opera);
+//	printf("token after dir parse : %s\n", (*token)->lexeme);
+//	printf("what is the pipe : %s\n", left->data.pair.opera);
 	return (left);
 }
