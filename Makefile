@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/04 17:46:13 by alama            ###   ########.fr        #
+#    Updated: 2024/11/05 15:20:27 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC = src/main.c src/parsing/parser.c src/parsing/tokenize.c src/utils/utils_str.c \
 src/utils/utils_token.c src/utils/utils_print_node_tree.c  src/utils/utils_node.c \
 src/parsing/check_args.c src/env/get_path.c src/utils/utils.c src/utils/utils_print_tokens.c \
-src/parsing/verrif_token.c
+src/parsing/verrif_token.c src/parsing/dir_parser.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

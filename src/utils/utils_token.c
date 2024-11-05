@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/31 19:33:05 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/05 11:11:05 by alama            ###   ########.fr       */
 /*   Updated: 2024/10/06 15:45:51 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -36,7 +36,8 @@ void ft_if_not_last(t_token **token_list, t_token **new_node) {
     (*new_node)->next = NULL;           // Le nouveau nœud doit pointer vers NULL
 }
 
-static void ft_del(t_token *token) {
+static void ft_del(t_token *token) 
+{
     if (token) {
         token->next = NULL;
         token->prev = NULL;

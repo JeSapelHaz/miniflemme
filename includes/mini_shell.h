@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/04 16:41:45 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/05 15:19:51 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ void	print_node(t_node *node);
 // t_node	*create_pair_node(t_node *left, t_node *right);
 t_node	*parse(t_token **token_list);
 void	execute_node(t_node *node);
-t_node	*left_before_pipe(t_node *left, t_token **token);
 t_node	*str_node(t_token **token, int pipe);
 t_node	*pair_node(t_node *left, t_token **token);
 void	ft_free_node(t_node **node);
+t_node	*dir_parse(t_token **token);
+t_node	*pari_dir(t_node *left, t_token **token);
+
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);

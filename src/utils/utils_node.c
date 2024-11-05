@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/04 21:55:00 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/05 13:57:39 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,6 @@ void	ft_free_node(t_node **node)
 		free((*node)->data.str);
 		free(*node);
 	}
-}
-
-int		is_there_dir(t_token *tok)
-{
-	while (tok)
-	{
-		if (ft_is_dir(tok) == 1)
-			return (1);
-		tok = tok->prev;
-	}
-	return (0);
 }
 
 t_node	*left_before_pipe(t_node *left, t_token **token)
@@ -63,13 +52,20 @@ t_node	*left_before_pipe(t_node *left, t_token **token)
 	ft_free_node(&left);
 	return (l);
 }
-
-t_node	*right_before_pipe(t_token **token)
+/*
+t_node	*right_after_pipe(t_token **token)
 {
-	t_node	*right;
+	t_node	*left;
 
-	while ((*token)->type != PIPE || (*token)->type != END_TOKEN)
+	if (is_there_dir(*token) == 0)
+		return (str_node(token, 1));
+	left = str_node(token, 0);
+	while ((*token) && (*token)->type != PIPE)
 	{
-		
+		if (ft_is_dir(*token) == 1 && (*token)->type != PIPE)
+			left = pair_node(left, token);
+		*token = (*token)->next;
 	}
+	return (left);
 }
+*/
