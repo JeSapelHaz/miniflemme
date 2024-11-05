@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/10/28 21:06:36 by alama            ###   ########.fr        #
+#    Updated: 2024/11/04 17:46:13 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRC = src/main.c src/parsing/parser.c src/parsing/tokenize.c src/utils/utils_str.c \
 src/utils/utils_token.c src/utils/utils_print_node_tree.c  src/utils/utils_node.c \
