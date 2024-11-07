@@ -32,12 +32,12 @@ static int	first_verrif(t_token *token)
 	{
 		token = token->next;
 		while (token->type == SPACE_TOKEN)
-			token = token->next;
-			if (token->type == END_TOKEN)
-			{
-				printf("mini-flemme: syntax error near unexpected token `newline'\n");
-				return (1);
-			}
+	    	token = token->next;
+		if (token->type == END_TOKEN)
+		{
+			printf("mini-flemme: syntax error near unexpected token `newline'\n");
+		    return (1);
+		}
 	}
 	return (0);
 }

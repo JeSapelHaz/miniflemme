@@ -24,7 +24,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 SRC = src/main.c src/parsing/parser.c src/parsing/tokenize.c src/utils/utils_str.c \
 src/utils/utils_token.c src/utils/utils_print_node_tree.c  src/utils/utils_node.c \
@@ -43,7 +43,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) | $(OBJ_DIR)
 	@make -C ./libft 1>/dev/null
-	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(LIBFT) $(SRC) -I./includes -I./libft
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $(NAME) -I./includes -I./libft
 	@echo "$(MAGENTA)Compilation successful!"
 
 $(OBJ_DIR):
