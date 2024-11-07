@@ -6,7 +6,14 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:16 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/10 14:23:17 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/05 14:21:48 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mini_shell.h"
+
+void ft_export(char *args)
+{
+	args = ft_strdel(str, "export ")
+	
+}

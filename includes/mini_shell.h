@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/10/31 15:16:11 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/05 15:56:00 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	execute_node(t_node *node);
 void ft_exit(char *args);
 void ft_echo(char *args);
 void ft_cd(char *args);
-void ft_env(char *args);
 void ft_pwd();
+void ft_env(char *args, char **env);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
@@ -91,5 +91,11 @@ void	rl_replace_line(const char *text, int clear_undo);
 void	rl_clear_history(void);
 
 t_node *build_command_tree(t_token *tokens);
+
+
+typedef struct data
+{
+	char **env;
+}
 
 #endif

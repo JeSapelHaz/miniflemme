@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/04 18:06:36 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/05 14:16:34 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,30 @@
 int	main(int ac, char **av, char **env)
 {
 	char	*str;
-	char cwd[1024];
-	char *current_dir;
+	char	cwd[1024];
+	char	*current_dir;
 
 	check_args(ac, av);
-	(void)env;
-	 while (1) {
-        if (getcwd(cwd, sizeof(cwd)) != NULL) {
-            current_dir = ft_strrchr(cwd, '/');  // Trouve le dernier '/'
-            if (current_dir && *(current_dir + 1) != '\0') {
-                printf("%s$ ", current_dir + 1);  // Affiche seulement le dossier courant
-            } else {
-                printf("mini-flemme$ ");
-            }
-        } else {
-            perror("getcwd() error");
-            return 1;
-        }
+	while (1)
+	{
+		if (getcwd(cwd, sizeof(cwd)) != NULL)
+		{
+			current_dir = ft_strrchr(cwd, '/'); // Trouve le dernier '/'
+			if (current_dir && *(current_dir + 1) != '\0')
+			{
+				printf("%s$ ", current_dir + 1);
+					// Affiche seulement le dossier courant
+			}
+			else
+			{
+				printf("mini-flemme$ ");
+			}
+		}
+		else
+		{
+			perror("getcwd() error");
+			return (1);
+		}
 		str = readline("");
 		if (ft_strncmp(str, "exit", 4) == 0)
 			ft_exit(str);
@@ -41,9 +48,11 @@ int	main(int ac, char **av, char **env)
 			ft_cd(str);
 		if (ft_strncmp(str, "pwd", 3) == 0)
 			ft_pwd();
+		if (ft_strncmp(str, "env", 3) == 0)
+			ft_env(str, env);
+		add_history(str);
 	}
 }
-
 
 // t_token	*re_do_token(char *str)
 // {
