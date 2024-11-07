@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/05 17:25:34 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/07 19:35:23 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ t_node	*str_node(t_token **token, int pipe)
 	node = malloc(sizeof(t_node));
 	// if !malloc
 	node->type = STR_NODE;
-	printf("test\n");
-	printf("tok : %s\n", (*token)->lexeme);
 	add_lexeme_to_node(token, node, pipe);
-	printf("test\n");
 	return (node);
 }
 
@@ -100,7 +97,7 @@ t_node	*parse(t_token **token_list)
 		//printf("token in while pipe : %s\n", token->lexeme);
 		token = token->next;
 	}
-	printf("here or not here\n");
+	printf("end parser !!!!!!!!!!!!!!!!!!!!\n");
 	return (left);
 }
 
@@ -116,7 +113,9 @@ void	print_node(t_node *node)
 	else
 	{
 		printf("operator : %s\n", node->data.pair.opera);
-		print_node(node->data.pair.left);
+		if (node->data.pair.left)
+			print_node(node->data.pair.left);
+		if (node->data.pair.right)
 		print_node(node->data.pair.right);
 	}
 }
