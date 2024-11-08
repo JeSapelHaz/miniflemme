@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/08 15:52:49 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/08 20:56:32 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_node	*one_str(t_token **token)
 	node = malloc(sizeof(t_node));
 	//if node
 	node->type = STR_NODE;
-	if (!token)
+	if (!token || (*token)->type == END_TOKEN)
 	{
 		printf("hehre\n");
 		node->data.str = ft_strdup("");
@@ -66,6 +66,8 @@ t_node	*weird_dir(t_token **token)
 		printf("bash alors ?\n");
 	if (!new_node->data.pair.left)
 		new_node->data.pair.left = one_str(NULL);
+	if ((*token)->type == END_TOKEN)
+		*token = (*token)->prev;
 	return (new_node);
 }
 
@@ -73,10 +75,12 @@ t_node	*dir_parse(t_token **token)
 {
 	t_node	*left;
 
+	while ((*token)->type == SPACE_TOKEN && (*token)->next->type != END_TOKEN)
+		*token = (*token)->next;
 	left = str_node(token, 0);
 	if (left == NULL)
 		printf("coucou is null\n");
-	while (*token && (*token)->type != PIPE && 
+	while (token && *token && (*token)->type != PIPE && 
 		(*token)->type != END_TOKEN)
 	{
 		if (ft_is_dir(*token) == 1)
@@ -88,5 +92,10 @@ t_node	*dir_parse(t_token **token)
 		}
 		*token = (*token)->next;
 	}
+	if (left->data.pair.right)
+		printf("right exists\n");
+	if (left->data.pair.left)
+		printf("left exists\n");
+	printf("after dir_parse\n");
 	return (left);
 }

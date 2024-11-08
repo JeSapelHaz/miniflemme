@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/08 15:53:42 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/08 20:45:08 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ t_node	*parse(t_token **token_list)
 	left = NULL;
 	left = dir_parse(&token);
 	//token = token->next;
+	if (token == NULL)
+		printf("token not exist\n");
+	else
+		printf("token : %d\n", token->type);
 	while (token && token->type != END_TOKEN)
 	{
 		if (token->type == PIPE)
@@ -97,7 +101,7 @@ t_node	*parse(t_token **token_list)
 			left = pair_node(left, &token);
 			token = token->prev;
 		}
-		//printf("token in while pipe : %s\n", token->lexeme);
+		printf("token in while pipe : %s\n", token->lexeme);
 		token = token->next;
 	}
 	printf("end parser !!!!!!!!!!!!!!!!!!!!\n");

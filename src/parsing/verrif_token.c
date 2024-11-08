@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:50:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/08 12:17:21 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/08 20:26:39 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static int	last_verrif(t_token *token)
 int	ft_verrif_tok(t_token **token_list)
 {
 	t_token	*tmp;
+	t_token	*last_dir;
 
 	if (!token_list || !*token_list)
 		return (1);
@@ -74,11 +75,14 @@ int	ft_verrif_tok(t_token **token_list)
 	{
 		if (ft_is_dir(tmp) == 1)
 		{
+			last_dir = tmp;
 			tmp = tmp->next;
 			while (tmp->type == 2)
 				tmp = tmp->next;
 			if (ft_is_dir(tmp) == 1)
 			{
+				if (last_dir->type == PIPE && tmp->type != PIPE)
+					break ;
 				// do not forget to use write(2) in every printf
 				printf("mini-flemme: syntax error near unexpected token `%s'\n", tmp->lexeme);
 				return (1);

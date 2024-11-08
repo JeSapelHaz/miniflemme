@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/08 15:32:56 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/08 21:24:56 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ t_token	*re_do_token(char **str)
 	return (token_list);
 }
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **envp)
 {
 	char	*str;
 	t_token	*token_list;
 	t_node	*node;
 	t_token	*tmp;
 
-	(void)env; 
 	check_args(ac, av);
 	str = NULL;
 	token_list = NULL;
@@ -58,8 +57,10 @@ int	main(int ac, char **av, char **env)
 			node = parse(&token_list);
 			printf("\n\n\n\n");
 			print_node(node);
-			(void)node;
+			printf("\n\n\n\n");
+			ft_exe(node, envp);
 		}
+		// free node
 		ft_free_token(&token_list);
 		free(str);
 	}
