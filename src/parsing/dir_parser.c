@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/07 18:51:57 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/08 15:52:49 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static t_node	*one_str(t_token **token)
 t_node	*weird_dir(t_token **token)
 {
 	t_node	*new_node;
+	printf("here dmr \n");
 	new_node = malloc(sizeof(t_node));
 	//if node
 	new_node->data.pair.opera = (*token)->lexeme;
@@ -59,9 +60,12 @@ t_node	*weird_dir(t_token **token)
 	while ((*token)->type == SPACE_TOKEN)
 		*token = (*token)->next;
 	new_node->data.pair.right = one_str(token);
+	printf("here mdr\n");
 	new_node->data.pair.left = str_node(token, 0);
+	if (new_node->data.pair.left == NULL)
+		printf("bash alors ?\n");
 	if (!new_node->data.pair.left)
-		one_str(NULL);
+		new_node->data.pair.left = one_str(NULL);
 	return (new_node);
 }
 
@@ -70,6 +74,8 @@ t_node	*dir_parse(t_token **token)
 	t_node	*left;
 
 	left = str_node(token, 0);
+	if (left == NULL)
+		printf("coucou is null\n");
 	while (*token && (*token)->type != PIPE && 
 		(*token)->type != END_TOKEN)
 	{

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/07 19:35:23 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/08 15:53:42 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ t_node	*str_node(t_token **token, int pipe)
 {
 	t_node	*node;
 
-	if (!token || ft_is_dir(*token) == 1)
+	if (!token ||(*token)->type == END_TOKEN || ft_is_dir(*token) == 1)
+	{
+		printf("why are he's here ??\n");
 		return (NULL);
+	}
 	node = malloc(sizeof(t_node));
 	// if !malloc
 	node->type = STR_NODE;
