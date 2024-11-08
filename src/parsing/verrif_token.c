@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:50:36 by alama             #+#    #+#             */
-/*   Updated: 2024/10/28 13:09:16 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/08 12:17:21 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	last_verrif(t_token *token)
 		token = token->next;
 	if (token->type == END_TOKEN)
 		token = token->prev;
-	while (token->type == SPACE_TOKEN)
+	while (token->type == SPACE_TOKEN && token->prev != NULL)
 		token = token->prev;
 	if (token->type == PIPE)
 		return (0);

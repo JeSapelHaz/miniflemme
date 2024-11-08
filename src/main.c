@@ -6,21 +6,21 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/10/30 16:26:14 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/08 12:19:13 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-t_token	*re_do_token(char *str)
+t_token	*re_do_token(char **str)
 {
 	t_token	*token_list;
 
-	str = readline("mini-flemme$ "); 
-	if (!str || str[0] == '\0')
+	*str = readline("mini-flemme$ "); 
+	if (!(*str) || (*str)[0] == '\0')
 		return (NULL);
-	token_list = tokenize(str);
-	add_history(str);
+	token_list = tokenize(*str);
+	add_history(*str);
 	return (token_list);
 }
 
@@ -38,14 +38,15 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		while (ft_verrif_tok(&token_list) == 1) 
-			token_list = re_do_token(str);
+			token_list = re_do_token(&str);
 		tmp = last_token(token_list);
-		tmp = tmp->prev;
-		while (tmp->type == SPACE_TOKEN)
+		if (tmp->prev)
+			tmp = tmp->prev;
+		while (tmp->type == SPACE_TOKEN && tmp->prev != END_TOKEN)
 			 tmp = tmp->prev;
 		while (tmp->type == PIPE)
 		{
-			ft_last_pipe(&token_list);
+			str = ft_last_pipe(&token_list, str);
 			tmp = last_token(token_list);
 			tmp = tmp->prev;
 			while (tmp->type == SPACE_TOKEN)
@@ -60,6 +61,7 @@ int	main(int ac, char **av, char **env)
 			(void)node;
 		}
 		ft_free_token(&token_list);
+		free(str);
 	}
 	clear_history();
 	free(str);
