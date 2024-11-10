@@ -113,6 +113,5 @@ t_token	*tokenize(char *str)
 		i++;
 	}
 	ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
-	printf("here\n");
 	return (token_list);
 }

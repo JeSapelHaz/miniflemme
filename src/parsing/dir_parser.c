@@ -36,10 +36,7 @@ static t_node	*one_str(t_token **token)
 	//if node
 	node->type = STR_NODE;
 	if (!token || (*token)->type == END_TOKEN)
-	{
-		printf("hehre\n");
 		node->data.str = ft_strdup("");
-	}
 	else
 	{
 		node->data.str = ft_strdup((*token)->lexeme);
@@ -51,19 +48,9 @@ static t_node	*one_str(t_token **token)
 t_node	*weird_dir(t_token **token)
 {
 	t_node	*new_node;
-	printf("here dmr \n");
-	new_node = malloc(sizeof(t_node));
-	//if node
-	new_node->data.pair.opera = (*token)->lexeme;
-	new_node->type = PAIR_NODE;
-	(*token) = (*token)->next;
-	while ((*token)->type == SPACE_TOKEN)
-		*token = (*token)->next;
-	new_node->data.pair.right = one_str(token);
-	printf("here mdr\n");
-	new_node->data.pair.left = str_node(token, 0);
-	if (new_node->data.pair.left == NULL)
-		printf("bash alors ?\n");
+
+    new_node = malloc(sizeof(t_node));
+    new_node->data.pair.left = str_node(token, 0);
 	if (!new_node->data.pair.left)
 		new_node->data.pair.left = one_str(NULL);
 	if ((*token)->type == END_TOKEN)
@@ -78,8 +65,6 @@ t_node	*dir_parse(t_token **token)
 	while ((*token)->type == SPACE_TOKEN && (*token)->next->type != END_TOKEN)
 		*token = (*token)->next;
 	left = str_node(token, 0);
-	if (left == NULL)
-		printf("coucou is null\n");
 	while (token && *token && (*token)->type != PIPE && 
 		(*token)->type != END_TOKEN)
 	{
@@ -92,10 +77,5 @@ t_node	*dir_parse(t_token **token)
 		}
 		*token = (*token)->next;
 	}
-	if (left->data.pair.right)
-		printf("right exists\n");
-	if (left->data.pair.left)
-		printf("left exists\n");
-	printf("after dir_parse\n");
 	return (left);
 }

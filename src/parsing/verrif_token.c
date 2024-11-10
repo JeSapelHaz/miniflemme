@@ -44,7 +44,6 @@ static int	first_verrif(t_token *token)
 
 static int	last_verrif(t_token *token)
 {
-	printf("the last token : %s\n", token->lexeme);
 	while (token->type != END_TOKEN)
 		token = token->next;
 	if (token->type == END_TOKEN)

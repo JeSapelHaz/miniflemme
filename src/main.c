@@ -53,11 +53,9 @@ int	main(int ac, char **av, char **envp)
 		}
 		if (ft_verrif_tok(&token_list) == 0)
 		{
-			print_token_list(token_list);
+			//print_token_list(token_list);
 			node = parse(&token_list);
-			printf("\n\n\n\n");
-			print_node(node);
-			printf("\n\n\n\n");
+			//print_node(node);
 			ft_exe(node, envp);
 		}
 		// free node

@@ -51,10 +51,7 @@ t_node	*str_node(t_token **token, int pipe)
 	t_node	*node;
 
 	if (!token ||(*token)->type == END_TOKEN || ft_is_dir(*token) == 1)
-	{
-		printf("why are he's here ??\n");
 		return (NULL);
-	}
 	node = malloc(sizeof(t_node));
 	// if !malloc
 	node->type = STR_NODE;
@@ -90,10 +87,6 @@ t_node	*parse(t_token **token_list)
 	left = NULL;
 	left = dir_parse(&token);
 	//token = token->next;
-	if (token == NULL)
-		printf("token not exist\n");
-	else
-		printf("token : %d\n", token->type);
 	while (token && token->type != END_TOKEN)
 	{
 		if (token->type == PIPE)
@@ -101,10 +94,8 @@ t_node	*parse(t_token **token_list)
 			left = pair_node(left, &token);
 			token = token->prev;
 		}
-		printf("token in while pipe : %s\n", token->lexeme);
 		token = token->next;
 	}
-	printf("end parser !!!!!!!!!!!!!!!!!!!!\n");
 	return (left);
 }
 
