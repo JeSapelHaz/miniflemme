@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/05 14:18:58 by hbutt            ###   ########.fr        #
+#    Updated: 2024/11/07 17:20:02 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,13 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 SRC = src/main.c src/parsing/parser.c src/parsing/tokenize.c src/utils/utils_str.c \
 src/utils/utils_token.c src/utils/utils_print_node_tree.c  \
 src/parsing/check_args.c src/env/get_path.c src/utils/utils.c src/utils/utils_print_tokens.c \
-src/parsing/verrif_token.c src/builtins/ft_exit.c src/builtins/ft_echo.c src/builtins/ft_cd.c \
-src/builtins/ft_pwd.c src/builtins/ft_env.c
+src/parsing/verrif_token.c src/parsing/dir_parser.c src/builtins/ft_cd.c src/builtins/ft_env.c \
+ src/builtins/ft_exit.c src/builtins/ft_pwd.c src/builtins/ft_echo.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -44,7 +44,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) | $(OBJ_DIR)
 	@make -C ./libft 1>/dev/null
-	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(LIBFT) $(SRC) -I./includes -I./libft
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $(NAME) -I./includes -I./libft
 	@echo "$(MAGENTA)Compilation successful!"
 
 $(OBJ_DIR):

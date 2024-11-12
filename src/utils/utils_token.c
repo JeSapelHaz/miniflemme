@@ -6,9 +6,10 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/28 14:57:49 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/07 17:16:32 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "../includes/mini_shell.h"
@@ -36,7 +37,8 @@ void ft_if_not_last(t_token **token_list, t_token **new_node) {
     (*new_node)->next = NULL;           // Le nouveau nœud doit pointer vers NULL
 }
 
-static void ft_del(t_token *token) {
+static void ft_del(t_token *token) 
+{
     if (token) {
         token->next = NULL;
         token->prev = NULL;
@@ -75,7 +77,7 @@ void	remove_end(t_token **token)
 	tmp = last_token(tmp);
 	tmp = tmp->prev;
 	free(tmp->next->lexeme);
-	free(tmp->next);
+free(tmp->next);
 	tmp->next = NULL;
 }
 

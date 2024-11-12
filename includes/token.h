@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/10/25 18:50:41 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/07 17:16:17 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_token
 
 typedef enum e_node_type
 {
-	PAIR_NODE,
- 	STR_NODE
+	PAIR_NODE = 0,
+ 	STR_NODE = 1
 }						t_node_type;
 
 typedef struct s_node	t_node;

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/10/30 15:34:31 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/05 17:25:34 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,24 @@
 //	"coucou  mdr"
 //	"coucou  mdr "
 
-static void	add_lexeme_to_node(t_token **token, t_node *node)
+static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 {
 	char	*str;
 
 	str = NULL;
 	node->data.str = ft_strdup((*token)->lexeme);
+	if (pipe == 1)
+	{
+		while ((*token)->type != 0 && (*token)->next->type != PIPE)
+		{
+			str = ft_strjoin(node->data.str, (*token)->next->lexeme);
+			free(node->data.str);
+			node->data.str = ft_strdup(str);
+			free(str);
+			*token = (*token)->next;
+		}
+		return ;
+	}
 	while (ft_is_dir(*token) == 0 && ((*token)->next->type != END_TOKEN 
 			&& ft_is_dir((*token)->next) == 0))
 	{
@@ -34,7 +46,7 @@ static void	add_lexeme_to_node(t_token **token, t_node *node)
 	}
 }
 
-t_node	*str_node(t_token **token)
+t_node	*str_node(t_token **token, int pipe)
 {
 	t_node	*node;
 
@@ -43,8 +55,10 @@ t_node	*str_node(t_token **token)
 	node = malloc(sizeof(t_node));
 	// if !malloc
 	node->type = STR_NODE;
-	add_lexeme_to_node(token, node);
-	printf("node value : %s\n", node->data.str);
+	printf("test\n");
+	printf("tok : %s\n", (*token)->lexeme);
+	add_lexeme_to_node(token, node, pipe);
+	printf("test\n");
 	return (node);
 }
 
@@ -56,12 +70,14 @@ t_node	*pair_node(t_node *left, t_token **token)
 	new_node = malloc(sizeof(t_node));
 	// if !malloc
 	new_node->data.pair.opera = (*token)->lexeme;
+	//if ((*token)->type == PIPE && left->type == STR_NODE)
+	//	left = left_before_pipe(left, token);
 	*token = (*token)->next;
 	new_node->type = PAIR_NODE;
 	new_node->data.pair.left = left;
-	right = str_node(token);
+	right = dir_parse(token);
+	//right = left_before_pipe(right, token);
 	new_node->data.pair.right = right;
-	printf("token value after pair : %d\n", (*token)->type);
 	return (new_node);
 }
 
@@ -71,17 +87,36 @@ t_node	*parse(t_token **token_list)
 	t_node	*left;
 
 	token = (*token_list);
-	left = str_node(&token);
-	printf("token after : %d\n", token->type);
-	token = token->next;
+	left = NULL;
+	left = dir_parse(&token);
+	//token = token->next;
 	while (token && token->type != END_TOKEN)
 	{
-		if (ft_is_dir(token) == 1)
+		if (token->type == PIPE)
 		{
 			left = pair_node(left, &token);
+			token = token->prev;
 		}
+		//printf("token in while pipe : %s\n", token->lexeme);
 		token = token->next;
 	}
-	printf("separateor : %s\n", left->data.pair.opera);
+	printf("here or not here\n");
 	return (left);
+}
+
+void	print_node(t_node *node)
+{
+/*
+	printf("left node : %s\n", node->data.pair.left->data.pair.opera);
+	printf("operator : %s\n", node->data.pair.opera);
+	printf("right node : %s\n", node->data.pair.right->data.str);
+*/
+	if (node->type == STR_NODE)
+		printf("node : %s\n", node->data.str);
+	else
+	{
+		printf("operator : %s\n", node->data.pair.opera);
+		print_node(node->data.pair.left);
+		print_node(node->data.pair.right);
+	}
 }

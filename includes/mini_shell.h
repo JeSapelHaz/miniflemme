@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/05 15:56:00 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/07 17:18:59 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 # define MINI_SHELL_H
 
 # include "token.h"
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <libft.h>
@@ -58,6 +57,12 @@ void	print_node(t_node *node);
 // t_node	*create_pair_node(t_node *left, t_node *right);
 t_node	*parse(t_token **token_list);
 void	execute_node(t_node *node);
+t_node	*str_node(t_token **token, int pipe);
+t_node	*pair_node(t_node *left, t_token **token);
+void	ft_free_node(t_node **node);
+t_node	*dir_parse(t_token **token);
+t_node	*pari_dir(t_node *left, t_token **token);
+
 
 /* BUILTIN */
 void ft_exit(char *args);
@@ -93,9 +98,9 @@ void	rl_clear_history(void);
 t_node *build_command_tree(t_token *tokens);
 
 
-typedef struct data
-{
-	char **env;
-}
+// typedef struct data
+// {
+// 	char **env;
+// };
 
 #endif
