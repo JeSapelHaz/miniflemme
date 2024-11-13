@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/08 17:54:25 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/13 20:34:20 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <libft.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 # include "ft_exe.h"
-
 
 /* CHECK ARGS */
 void		check_args(int ac, char **av);

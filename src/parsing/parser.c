@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/08 20:45:08 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/13 20:44:38 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,14 @@ void	print_node(t_node *node)
 	{
 		printf("operator : %s\n", node->data.pair.opera);
 		if (node->data.pair.left)
+		{
+			printf("left ");
 			print_node(node->data.pair.left);
+		}
 		if (node->data.pair.right)
-		print_node(node->data.pair.right);
+		{
+			printf("right ");
+			print_node(node->data.pair.right);
+		}
 	}
 }
