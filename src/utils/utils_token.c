@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/07 17:16:32 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/12 13:29:06 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,12 @@ free(tmp->next);
 	tmp->next = NULL;
 }
 
-void	ft_last_pipe(t_token **token_list)
+char	*ft_last_pipe(t_token **token_list, char *str)
 {
 	char	*new_rd;
 	t_token	*new_token;
 	t_token	*tmp;
+	char	*new;
 
 	tmp = *token_list;
 	tmp = last_token(*token_list);
@@ -100,17 +101,13 @@ void	ft_last_pipe(t_token **token_list)
 			tmp = tmp->next;
 		remove_end(token_list);
 		ft_add_next(tmp, token_list, new_token);
+		new = ft_strjoin(str, new_rd);
+		add_history(new);
+		free(str);
+		str = NULL;
+		free(new_rd);
+		new_rd = NULL;
+		return (new);
 	}
+	return (NULL);
 }
-
-// void	find_last_token(t_token **token_list)
-// {
-// 	if (!token_list)
-// 		return (NULL);
-// 	t_token *current = token_list;
-// 	while (current->next && current->next != token_list)
-// 	{
-// 		current = current->next;
-// 	}
-// 	return (current);
-// }

@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/07 17:20:02 by hbutt            ###   ########.fr        #
+#    Updated: 2024/11/12 13:30:19 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,15 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC = src/main.c src/parsing/parser.c src/parsing/tokenize.c src/utils/utils_str.c \
 src/utils/utils_token.c src/utils/utils_print_node_tree.c  \
 src/parsing/check_args.c src/env/get_path.c src/utils/utils.c src/utils/utils_print_tokens.c \
 src/parsing/verrif_token.c src/parsing/dir_parser.c src/builtins/ft_cd.c src/builtins/ft_env.c \
- src/builtins/ft_exit.c src/builtins/ft_pwd.c src/builtins/ft_echo.c
+src/builtins/ft_exit.c src/builtins/ft_pwd.c src/builtins/ft_echo.c \
+src/parsing/verrif_token.c src/parsing/dir_parser.c src/exe/exe.c \
+src/exe/path.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -52,8 +54,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)/parsing
 	@mkdir -p $(OBJ_DIR)/env
 	@mkdir -p $(OBJ_DIR)/utils
-	@mkdir -p $(OBJ_DIR)/exec
-	@mkdir -p $(OBJ_DIR)/builtins
+	@mkdir -p $(OBJ_DIR)/exe
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I./includes -I./libft

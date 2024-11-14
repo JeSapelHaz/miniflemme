@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/07 17:18:59 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/12 13:30:03 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <libft.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include "ft_exe.h"
+
 
 /* CHECK ARGS */
 void		check_args(int ac, char **av);
@@ -77,7 +81,7 @@ void	ft_add_next(t_token *last, t_token **token_list, t_token *new_node);
 void	ft_free_token(t_token **token_list);
 void	remove_end(t_token **token);
 t_token	*last_token(t_token *token);
-void	ft_last_pipe(t_token **token_list);
+char	*ft_last_pipe(t_token **token_list, char *str);
 int		ft_verrif_tok(t_token **token_list);
 int		ft_is_dir(t_token *token);
 
