@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe.c                                              :+:      :+:    :+:   */
+/*   exe2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 18:41:40 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 20:53:50 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,64 @@
 
 static void	ft_execv_error(char **split_cmd)
 {
-	write(1 ,"mini-flemme: ", 13);
+	write(1, "mini-flemme: ", 13);
 	write(1, split_cmd[0], ft_strlen(split_cmd[0]));
 	write(1, ": command not found\n", 20);
 	ft_free_str(split_cmd);
 	exit(1);
+}
+int	exec_builtin(char **args)
+{
+	if (ft_strcmp(args[0], "cd") == 0)
+	{
+		ft_cd(args);
+		return (1);
+	}
+	if (ft_strcmp(args[0], "echo") == 0)
+	{
+		ft_echo(args);
+		return (1);
+	}
+	if (ft_strcmp(args[0], "env") == 0)
+	{
+		ft_env(args);
+		return (1);
+	}
+	if (ft_strcmp(args[0], "exit") == 0)
+	{
+		ft_exit(args);
+		return (1);
+	}
+	if (ft_strcmp(args[0], "export") == 0)
+	{
+		ft_export(args);
+		return (1);
+	}
+	if (ft_strcmp(args[0], "pwd") == 0)
+	{
+		ft_pwd(args);
+		return (1);
+	}
+	if (ft_strcmp(args[0], "unset") == 0)
+	{
+		ft_unset(args);
+		return (1);
+	}
+	return (0);
 }
 
 void	first_process(t_node *node, char **envp)
 {
 	char	*path;
 	char	**split_cmd;
-	//int		fd;
-	//int		last;
 
+	// int		fd;
+	// int		last;
 	split_cmd = ft_split(node->data.str, ' ');
-	//last = ft_last_word(split_cmd);
-	//fd = open(split_cmd, O_RDONLY);
+	// last = ft_last_word(split_cmd);
+	// fd = open(split_cmd, O_RDONLY);
+	if (exec_builtin(split_cmd))
+		return ;
 	path = find_path(envp, split_cmd);
 	execve(path, split_cmd, envp);
 	ft_execv_error(split_cmd);
@@ -38,7 +79,7 @@ void	first_process(t_node *node, char **envp)
 
 void	pipe_left(t_node *right, t_node *left, int *end, char **envp)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(right->data.str, O_RDONLY);
 	if (dup2(fd, STDIN_FILENO) == -1)
@@ -59,7 +100,7 @@ void	pipe_left(t_node *right, t_node *left, int *end, char **envp)
 
 void	pipe_right(t_node *right, t_node *left, int *end, char **envp)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (fd == -1)
@@ -82,8 +123,8 @@ void	pipe_right(t_node *right, t_node *left, int *end, char **envp)
 
 void	pipex(t_node *node, char **envp, int *end)
 {
-	int	child1;
-	int	child2;
+	int		child1;
+	int		child2;
 	t_node	*left;
 	t_node	*right;
 
@@ -102,7 +143,8 @@ void	pipex(t_node *node, char **envp, int *end)
 		if (child2 < 0)
 			return (perror("fork fails\n"));
 		if (child2 == 0)
-			pipe_right(right->data.pair.right, right->data.pair.left, end, envp);
+			pipe_right(right->data.pair.right, right->data.pair.left, end,
+				envp);
 	}
 	close(end[0]);
 	close(end[1]);
@@ -112,8 +154,8 @@ void	pipex(t_node *node, char **envp, int *end)
 
 void	ft_exe(t_node *node, char **envp)
 {
-	int	status;
-	int	end[2];
+	int		status;
+	int		end[2];
 	t_node	*left;
 	t_node	*right;
 

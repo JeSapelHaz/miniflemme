@@ -6,10 +6,11 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/08 12:15:15 by alama            ###   ########.fr       */
-/*   Updated: 2024/10/06 15:45:51 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/12 13:29:06 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../includes/mini_shell.h"
 
@@ -44,6 +45,7 @@ static void ft_del(t_token *token)
         free(token);
     }
 }
+
 /** 
  * elle libère la mémoire existante de la liste de token 
  */

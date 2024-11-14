@@ -6,8 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/08 12:10:52 by alama            ###   ########.fr       */
-/*   Updated: 2024/10/06 15:45:17 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/12 13:35:48 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +71,8 @@ static int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type
 
 t_token	*tokenize(char *str)
 {
-	t_token *token_list;
-	int i;
+	t_token	*token_list;
+	int		i;
 
 	token_list = NULL;
 	i = 0;

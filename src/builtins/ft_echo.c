@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_print_tokens.c                               :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 14:15:07 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/30 16:45:29 by hbutt            ###   ########.fr       */
+/*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
+/*   Updated: 2024/11/14 18:01:39 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "mini_shell.h"
 
-
-void	print_token_list(t_token *token_list)
+void ft_echo(char **args)
 {
-	if (!token_list)
-		return ;
-	t_token *current = token_list;
-	while (current != NULL)
-	{
-		if (current->type == 0)
-			printf("Type : %u | Lexeme: end\n", current->type);
-		else
-			printf("Type : %u | Lexeme: %s\n", current->type, current->lexeme);
-		current = current->next;
-	}
+    int i = 1;
+    int newline = 1;
+
+    if (args[i] && ft_strcmp(args[i], "-n") == 0)
+    {
+        newline = 0;
+        i++;
+    }
+    while (args[i])
+    {
+        printf("%s", args[i]);
+        if (args[i + 1])
+            printf(" ");
+        i++;
+    }
+    if (newline)
+        printf("\n");
 }

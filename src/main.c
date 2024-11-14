@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 15:26:15 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 20:53:57 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*re_do_token(char **str)
 {
 	t_token	*token_list;
 
-	*str = readline("mini-flemme$ "); 
+	*str = readline("mini-flemme$ ");
 	if (!(*str) || (*str)[0] == '\0')
 		return (NULL);
 	token_list = tokenize(*str);
@@ -36,13 +36,13 @@ int	main(int ac, char **av, char **envp)
 	token_list = NULL;
 	while (1)
 	{
-		while (ft_verrif_tok(&token_list) == 1) 
+		while (ft_verrif_tok(&token_list) == 1)
 			token_list = re_do_token(&str);
 		tmp = last_token(token_list);
 		if (tmp->prev)
 			tmp = tmp->prev;
 		while (tmp->type == SPACE_TOKEN && tmp->prev != END_TOKEN)
-			 tmp = tmp->prev;
+			tmp = tmp->prev;
 		while (tmp->type == PIPE)
 		{
 			str = ft_last_pipe(&token_list, str);
@@ -53,9 +53,9 @@ int	main(int ac, char **av, char **envp)
 		}
 		if (ft_verrif_tok(&token_list) == 0)
 		{
-//			print_token_list(token_list);
+			//			print_token_list(token_list);
 			node = parse(&token_list);
-//			print_node(node);
+			// print_node(node);
 			ft_exe(node, envp);
 		}
 		// free node
