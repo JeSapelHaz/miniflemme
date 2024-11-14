@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 13:18:00 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 14:39:17 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_execv_error(char **split_cmd)
 	exit(1);
 }
 
-static void	first_process(t_node *node, char **envp)
+void	first_process(t_node *node, char **envp)
 {
 	char	*path;
 	char	**split_cmd;
@@ -40,7 +40,6 @@ void	pipe_left(t_node *right, t_node *left, int *end, char **envp)
 {
 	int		fd;
 
-	//fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	fd = open(right->data.str, O_RDONLY);
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
@@ -62,7 +61,6 @@ void	pipe_right(t_node *right, t_node *left, int *end, char **envp)
 {
 	int		fd;
 
-	//fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (fd == -1)
 		perror("open file fails\n");
@@ -116,6 +114,8 @@ void	ft_exe(t_node *node, char **envp)
 {
 	int	status;
 	int	end[2];
+	t_node	*left;
+	t_node	*right;
 
 	pipe(end);
 	status = fork();
@@ -125,9 +125,15 @@ void	ft_exe(t_node *node, char **envp)
 	{
 		if (node->type == STR_NODE)
 			first_process(node, envp);
-		else if (node->type == PAIR_NODE
-			&& node->data.pair.opera[0] == '|')
-			pipex(node, envp, end);
+		else if (node->type == PAIR_NODE)
+		{
+			left = node->data.pair.left;
+			right = node->data.pair.right;
+			if (node->data.pair.opera[0] == '|')
+				pipex(node, envp, end);
+			if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
+				input_dir(right, left, end, envp);
+		}
 	}
 	close(end[1]);
 	close(end[0]);
