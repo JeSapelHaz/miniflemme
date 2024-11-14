@@ -6,10 +6,11 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/14 15:20:49 by hbutt            ###   ########.fr        #
+#    Updated: 2024/11/14 16:15:22 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Colors
 DEF_COLOR	= \033[0;39m
 GRAY 		= \033[0;90m
 RED 		= \033[0;91m
@@ -20,54 +21,85 @@ MAGENTA		= \033[0;95m
 CYAN		= \033[0;96m
 WHITE		= \033[0;97m
 
+# Project name
 NAME = minishell
 
+# Compiler and flags
 CC = cc
+CFLAGS = -Wall -Wextra -Werror 
 
-CFLAGS = -Wall -Wextra -Werror -g
+# Directories
+SRCDIR = src
+OBJDIR = .build
 
-SRC = src/main.c src/parsing/parser.c src/parsing/tokenize.c src/utils/utils_str.c \
-src/utils/utils_token.c src/utils/utils_print_node_tree.c  \
-src/parsing/check_args.c src/env/get_path.c src/utils/utils.c src/utils/utils_print_tokens.c \
-src/parsing/verrif_token.c src/parsing/dir_parser.c src/builtins/ft_cd.c src/builtins/ft_env.c \
-src/builtins/ft_exit.c src/builtins/ft_pwd.c src/builtins/ft_echo.c \
-src/parsing/verrif_token.c src/parsing/dir_parser.c src/exe/exe.c \
-src/exe/path.c src/exe/dir_exe.c
+# Source files by category
+SRC_MAIN = $(SRCDIR)/main.c
 
-OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+SRC_PARSING = $(SRCDIR)/parsing/parser.c \
+              $(SRCDIR)/parsing/tokenize.c \
+              $(SRCDIR)/parsing/check_args.c \
+              $(SRCDIR)/parsing/verrif_token.c \
+              $(SRCDIR)/parsing/dir_parser.c
 
+SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
+            $(SRCDIR)/utils/utils_token.c \
+            $(SRCDIR)/utils/utils_print_node_tree.c \
+            $(SRCDIR)/utils/utils_print_tokens.c \
+            $(SRCDIR)/utils/utils.c
+
+SRC_ENV = $(SRCDIR)/env/get_path.c
+
+SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
+               $(SRCDIR)/builtins/ft_env.c \
+               $(SRCDIR)/builtins/ft_exit.c \
+               $(SRCDIR)/builtins/ft_pwd.c \
+               $(SRCDIR)/builtins/ft_echo.c
+
+SRC_EXE = $(SRCDIR)/exe/exe.c \
+          $(SRCDIR)/exe/path.c \
+          $(SRCDIR)/exe/dir_exe.c
+
+# All source files and corresponding object files
+SRC = $(SRC_MAIN) $(SRC_PARSING) $(SRC_UTILS) $(SRC_ENV) $(SRC_BUILTINS) $(SRC_EXE)
+OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+
+# Libraries
 LIBFT = ./libft/libft.a
 
-SRC_DIR = src
-
-OBJ_DIR = .build
-
+# Compilation rules
 all: $(NAME)
 
-$(NAME): $(OBJ) | $(OBJ_DIR)
-	@make -C ./libft 1>/dev/null
+# Build executable
+$(NAME): $(OBJ) | $(OBJDIR)
+	@echo "$(YELLOW)Building libft...$(DEF_COLOR)"
+	@make -C ./libft --silent
+	@echo "$(YELLOW)Linking $(NAME)...$(DEF_COLOR)"
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $(NAME) -I./includes -I./libft
-	@echo "$(MAGENTA)Compilation successful!"
+	@echo "$(GREEN)$(NAME) compiled successfully!$(DEF_COLOR)"
 
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)/parsing
-	@mkdir -p $(OBJ_DIR)/env
-	@mkdir -p $(OBJ_DIR)/utils
-	@mkdir -p $(OBJ_DIR)/exe
+# Create build directories
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)/parsing $(OBJDIR)/env $(OBJDIR)/utils $(OBJDIR)/builtins $(OBJDIR)/exe
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+# Compile source files into object files
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I./includes -I./libft
+	@echo "$(CYAN)Compiled $(notdir $<)$(DEF_COLOR)"
 
+# Clean up object files
 clean:
-	@make clean -C ./libft 1>/dev/null
-	@rm -rf $(OBJ_DIR)
+	@echo "$(RED)Cleaning object files...$(DEF_COLOR)"
+	@make clean -C ./libft --silent
+	@rm -rf $(OBJDIR)
 
+# Clean up all build files
 fclean: clean
-	@make fclean -C ./libft 1>/dev/null
-	@rm -f $(NAME) *.o
+	@echo "$(RED)Removing $(NAME)...$(DEF_COLOR)"
+	@make fclean -C ./libft --silent
+	@rm -f $(NAME)
 	@rm -rf *dSYM*
 
-re: fclean $(NAME)
+# Rebuild project
+re: fclean all
 
 .PHONY: all fclean clean re
