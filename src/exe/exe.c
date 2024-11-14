@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/13 21:05:33 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:18:00 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static void	ft_execv_error(char **split_cmd)
 {
+	write(1 ,"mini-flemme: ", 13);
+	write(1, split_cmd[0], ft_strlen(split_cmd[0]));
+	write(1, ": command not found\n", 20);
 	ft_free_str(split_cmd);
-	perror(*split_cmd);
 	exit(1);
 }
 
@@ -122,10 +124,7 @@ void	ft_exe(t_node *node, char **envp)
 	if (status == 0)
 	{
 		if (node->type == STR_NODE)
-		{
-			printf("it's a str\n");
 			first_process(node, envp);
-		}
 		else if (node->type == PAIR_NODE
 			&& node->data.pair.opera[0] == '|')
 			pipex(node, envp, end);

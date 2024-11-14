@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/13 20:58:05 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:09:10 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_node	*pair_dir(t_node *left, t_token **token)
 	new_node->type = PAIR_NODE;
 	new_node->data.pair.left = left;
 	*token = (*token)->next;
+	while ((*token)->type == SPACE_TOKEN)
+		*token = (*token)->next;
 	right = str_node(token, 0);
 	new_node->data.pair.right = right;
 	return (new_node);
