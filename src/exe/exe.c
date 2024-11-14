@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 20:53:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 21:11:58 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,19 @@ static void	ft_execv_error(char **split_cmd)
 int	exec_builtin(char **args)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
-	{
-		ft_cd(args);
-		return (1);
-	}
+		return (ft_cd(args), 1);
 	if (ft_strcmp(args[0], "echo") == 0)
-	{
-		ft_echo(args);
-		return (1);
-	}
+		return (ft_echo(args), 1);
 	if (ft_strcmp(args[0], "env") == 0)
-	{
-		ft_env(args);
-		return (1);
-	}
+		return (ft_env(args), 1);
 	if (ft_strcmp(args[0], "exit") == 0)
-	{
-		ft_exit(args);
-		return (1);
-	}
+		return (ft_exit(args), 1);
 	if (ft_strcmp(args[0], "export") == 0)
-	{
-		ft_export(args);
-		return (1);
-	}
+		return (ft_export(args), 1);
 	if (ft_strcmp(args[0], "pwd") == 0)
-	{
-		ft_pwd(args);
-		return (1);
-	}
+		return (ft_pwd(args), 1);
 	if (ft_strcmp(args[0], "unset") == 0)
-	{
-		ft_unset(args);
-		return (1);
-	}
+		return (ft_unset(args), 1);
 	return (0);
 }
 

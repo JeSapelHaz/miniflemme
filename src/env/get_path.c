@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:45:28 by hbutt             #+#    #+#             */
-/*   Updated: 2024/09/30 14:49:21 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/14 21:50:28 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static char	*ft_getenv(char *name, char **env)
 	}
 	return (0);
 }
+
 void	ft_free_tab(char **tab)
 {
 	int	i;
@@ -56,7 +57,6 @@ void	ft_free_tab(char **tab)
 		free(tab[i]);
 	free(tab);
 }
-
 
 char	*get_path(char *cmd, char **env)
 {
