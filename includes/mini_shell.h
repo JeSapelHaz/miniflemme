@@ -6,14 +6,14 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 18:09:40 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:44:52 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 
-# include "builtins.h"
+# include "token.h"
 # include "ft_exe.h"
 # include <fcntl.h>
 # include <libft.h>
@@ -25,33 +25,36 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-// Fonctions de gestion des arguments
 /* CHECK ARGS */
 void	check_args(int ac, char **av);
 
-// Fonction pour quitter
+/* ERROR */
 void	ft_quit(void);
 
-// Fonctions de tokenisation
+/* TOKENIZE */
 void	ft_add_token(t_token **token, t_token_type type, char *lexeme);
 t_token	*tokenize(char *str);
 
-// Fonctions de parsing
+/* PARSING */
+// t_node	*parse_simple_command(t_token **token_list);
+// t_node	*parse_command(t_token **token_list);
 t_node	*parse(t_token **token_list);
 
-// Fonctions de gestion de l'environnement
+/* ENV */
 char	*get_path(char *cmd, char **env);
 
-// Exécution des commandes
+/* EXEC COMMANDES */
 void	execute_commands(char *input, char **env);
 
-// Fonctions utilitaires générales
+/* UTILS */
 void	ft_quit(void);
 
+/* UTILS PRINT */
 void	print_token_list(t_token *token_list);
 void	print_node(t_node *node);
 
-// Fonctions utilitaires sur les noeuds
+/* UTILS NODE */
+t_node	*parse(t_token **token_list);
 void	execute_node(t_node *node);
 t_node	*str_node(t_token **token, int pipe);
 t_node	*pair_node(t_node *left, t_token **token);
@@ -59,7 +62,7 @@ void	ft_free_node(t_node **node);
 t_node	*dir_parse(t_token **token);
 t_node	*pari_dir(t_node *left, t_token **token);
 
-// Fonctions utilitaires pour les tokens
+/* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
 void	ft_add_next(t_token *last, t_token **token_list, t_token *new_node);
 void	ft_free_token(t_token **token_list);
@@ -69,21 +72,29 @@ char	*ft_last_pipe(t_token **token_list, char *str);
 int		ft_verrif_tok(t_token **token_list);
 int		ft_is_dir(t_token *token);
 
-// Fonctions utilitaires pour les chaînes
+/* UTILS STR */
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(const char *src);
 char	*ft_strndup(const char *src, size_t n);
 char	*ft_strcat(char *dest, const char *src);
 char	*ft_strdel(char *str, const char *del);
 
-// Gestion des signaux
+/* SIGNAL */
 void	ft_handle_signals(int signal);
 
-// Fonctions pour gérer le texte de readline
 void	rl_replace_line(const char *text, int clear_undo);
 void	rl_clear_history(void);
 
-// Construction et exécution des arbres de commandes
 t_node	*build_command_tree(t_token *tokens);
+
+// Prototype des fonctions builtins
+void				ft_cd(char **args);
+void				ft_echo(char **args);
+void				ft_env(char **args);
+void				ft_export(char **args);
+void				ft_exit(char **args);
+void				ft_pwd(char **args);
+void				ft_unset(char **args);
+
 
 #endif

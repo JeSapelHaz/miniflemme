@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 18:09:58 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:10:51 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_EXE_H
 
 # include "mini_shell.h"
-# include "token.h"
 
 void	ft_exe(t_node *node, char **envp);
 char	*find_path(char **envp, char **cmd);

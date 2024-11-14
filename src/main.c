@@ -6,12 +6,12 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 17:26:06 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:33:32 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
+				
 t_token	*re_do_token(char **str)
 {
 	t_token	*token_list;
