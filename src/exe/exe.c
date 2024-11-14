@@ -6,32 +6,22 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/08 23:26:14 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 14:39:17 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-/*
-static int	ft_last_word(char **cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i] != NULL)
-		i++;
-	return (i);
-}
-*/
-
 static void	ft_execv_error(char **split_cmd)
 {
+	write(1 ,"mini-flemme: ", 13);
+	write(1, split_cmd[0], ft_strlen(split_cmd[0]));
+	write(1, ": command not found\n", 20);
 	ft_free_str(split_cmd);
-	perror(*split_cmd);
 	exit(1);
 }
 
-static void	first_process(t_node *node, char **envp)
+void	first_process(t_node *node, char **envp)
 {
 	char	*path;
 	char	**split_cmd;
@@ -46,12 +36,88 @@ static void	first_process(t_node *node, char **envp)
 	ft_execv_error(split_cmd);
 }
 
+void	pipe_left(t_node *right, t_node *left, int *end, char **envp)
+{
+	int		fd;
+
+	fd = open(right->data.str, O_RDONLY);
+	if (dup2(fd, STDIN_FILENO) == -1)
+	{
+		perror(right->data.str);
+		exit(1);
+	}
+	if (dup2(end[STDOUT_FILENO], STDOUT_FILENO) == -1)
+	{
+		perror(NULL);
+		exit(1);
+	}
+	close(fd);
+	close(end[0]);
+	close(end[1]);
+	first_process(left, envp);
+}
+
+void	pipe_right(t_node *right, t_node *left, int *end, char **envp)
+{
+	int		fd;
+
+	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	if (fd == -1)
+		perror("open file fails\n");
+	if (dup2(end[STDIN_FILENO], STDIN_FILENO) == -1)
+	{
+		perror(right->data.str);
+		exit(1);
+	}
+	if (dup2(fd, STDOUT_FILENO) == -1)
+	{
+		perror(NULL);
+		exit(1);
+	}
+	close(fd);
+	close(end[0]);
+	close(end[1]);
+	first_process(left, envp);
+}
+
+void	pipex(t_node *node, char **envp, int *end)
+{
+	int	child1;
+	int	child2;
+	t_node	*left;
+	t_node	*right;
+
+	left = node->data.pair.left;
+	right = node->data.pair.right;
+	pipe(end);
+	child2 = 0;
+	child1 = fork();
+	if (child1 < 0)
+		return (perror("fork fails\n"));
+	if (child1 == 0)
+		pipe_left(left->data.pair.right, left->data.pair.left, end, envp);
+	else
+	{
+		child2 = fork();
+		if (child2 < 0)
+			return (perror("fork fails\n"));
+		if (child2 == 0)
+			pipe_right(right->data.pair.right, right->data.pair.left, end, envp);
+	}
+	close(end[0]);
+	close(end[1]);
+	wait(NULL);
+	wait(NULL);
+}
+
 void	ft_exe(t_node *node, char **envp)
 {
-	//int	end[2];
 	int	status;
-	
-	//pipe(end);
+	int	end[2];
+	t_node	*left;
+	t_node	*right;
+
+	pipe(end);
 	status = fork();
 	if (status < 0)
 		return (perror("fork fails\n"));
@@ -59,6 +125,17 @@ void	ft_exe(t_node *node, char **envp)
 	{
 		if (node->type == STR_NODE)
 			first_process(node, envp);
+		else if (node->type == PAIR_NODE)
+		{
+			left = node->data.pair.left;
+			right = node->data.pair.right;
+			if (node->data.pair.opera[0] == '|')
+				pipex(node, envp, end);
+			if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
+				input_dir(right, left, end, envp);
+		}
 	}
+	close(end[1]);
+	close(end[0]);
 	wait(NULL);
 }
