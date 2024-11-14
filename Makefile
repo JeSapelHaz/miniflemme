@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/14 16:15:22 by hbutt            ###   ########.fr        #
+#    Updated: 2024/11/14 18:05:21 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ BLUE		= \033[0;94m
 MAGENTA		= \033[0;95m
 CYAN		= \033[0;96m
 WHITE		= \033[0;97m
+
+RDLINE = 
+RDLINEE = 
 
 # Project name
 NAME = minishell
@@ -45,7 +48,8 @@ SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/utils_token.c \
             $(SRCDIR)/utils/utils_print_node_tree.c \
             $(SRCDIR)/utils/utils_print_tokens.c \
-            $(SRCDIR)/utils/utils.c
+            $(SRCDIR)/utils/utils.c \
+			$(SRCDIR)/utils/signals.c
 
 SRC_ENV = $(SRCDIR)/env/get_path.c
 
@@ -53,6 +57,8 @@ SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
                $(SRCDIR)/builtins/ft_env.c \
                $(SRCDIR)/builtins/ft_exit.c \
                $(SRCDIR)/builtins/ft_pwd.c \
+			   $(SRCDIR)/builtins/ft_export.c \
+			   $(SRCDIR)/builtins/ft_unset.c \
                $(SRCDIR)/builtins/ft_echo.c
 
 SRC_EXE = $(SRCDIR)/exe/exe.c \

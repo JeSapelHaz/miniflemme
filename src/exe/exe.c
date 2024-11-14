@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 14:39:17 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:04:32 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,22 @@ static void	ft_execv_error(char **split_cmd)
 	exit(1);
 }
 
+int exec_builtin(char **args)
+{
+    int i = 0;
+
+    while (g_builtins[i].name)
+    {
+        if (ft_strcmp(args[0], g_builtins[i].name) == 0)
+        {
+            g_builtins[i].func(args); // Appelle la fonction du builtin
+            return 1; // Fin dès que le builtin est exécuté
+        }
+        i++;
+    }
+	return 0;
+}
+
 void	first_process(t_node *node, char **envp)
 {
 	char	*path;
@@ -31,6 +47,8 @@ void	first_process(t_node *node, char **envp)
 	split_cmd = ft_split(node->data.str, ' ');
 	//last = ft_last_word(split_cmd);
 	//fd = open(split_cmd, O_RDONLY);
+	if (exec_builtin(split_cmd))
+		return;
 	path = find_path(envp, split_cmd);
 	execve(path, split_cmd, envp);
 	ft_execv_error(split_cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exe.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 14:39:04 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:09:58 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_EXE_H
 
 # include "mini_shell.h"
+# include "token.h"
 
 void	ft_exe(t_node *node, char **envp);
 char	*find_path(char **envp, char **cmd);
@@ -25,6 +26,5 @@ void	pipe_left(t_node *right, t_node *left, int *end, char **envp);
 void	input_dir(t_node *right, t_node *left, int *end, char **envp);
 void	output_dir(t_node *right, t_node *left, int *end, char **envp);
 void	first_process(t_node *node, char **envp);
-
 
 #endif

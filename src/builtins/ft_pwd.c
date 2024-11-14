@@ -6,15 +6,22 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:18 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/31 15:16:06 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:01:29 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void ft_pwd()
+void ft_pwd(char **args)
 {
-	char cwd[1024];
-	getcwd(cwd, sizeof(cwd));
-	printf("%s\n", cwd);
+	(void) args;
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+    {
+        printf("%s\n", cwd);
+    }
+    else
+    {
+        perror("minishell: pwd");
+    }
 }
