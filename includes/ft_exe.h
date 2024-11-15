@@ -26,6 +26,6 @@ void	input_dir(t_node *right, t_node *left, int *end, char **envp);
 void	output_dir(t_node *right, t_node *left, int *end, char **envp);
 void	output_append(t_node *right, t_node *left, int *end, char **envp);
 void	first_process(t_node *node, char **envp);
-void	di_to_dir(t_node *right, t_node *left, char **envp);
+char    *di_to_dir(t_node *right, t_node *left, char **envp);
 
 #endif

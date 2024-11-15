@@ -13,13 +13,13 @@
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 
+# include <stdio.h>
 # include "token.h"
 # include "ft_exe.h"
 # include <fcntl.h>
 # include <libft.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>

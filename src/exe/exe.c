@@ -137,6 +137,7 @@ void	ft_exe(t_node *node, char **envp)
 	int		end[2];
 	t_node	*left;
 	t_node	*right;
+    char    *tmp;
 
 	pipe(end);
 	status = fork();
@@ -158,9 +159,13 @@ void	ft_exe(t_node *node, char **envp)
 				output_dir(right, left, end, envp);
 			if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
 				output_append(right, left, end, envp);
-			if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-				di_to_dir(right, left, end, envp);
-		}
+	    	if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+            {
+				tmp = di_to_dir(right, left, envp);
+                unlink(tmp);
+                free(tmp);
+            }
+        }
 	}
 	close(end[1]);
 	close(end[0]);
