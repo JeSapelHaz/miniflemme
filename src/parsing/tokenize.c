@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/12 13:35:48 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/18 23:19:03 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_token	*tokenize(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ')
+		if (str[i + 1] && str[i] == ' ' && str[i + 1] != ' ')
 			ft_add_token(&token_list, SPACE_TOKEN, ft_strdup(" "));
 		else if (str[i] == '|')
 			ft_add_token(&token_list, PIPE, ft_strdup("|"));
@@ -107,7 +107,7 @@ t_token	*tokenize(char *str)
 			ft_add_token(&token_list, DI_DIR, ft_strdup("<<"));
 			i++;
 		}
-		else
+		else if (str[i] != ' ')
 			i = ft_str_to_lexeme(i, str, &token_list, 1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 21:51:17 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/18 23:18:10 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,48 +64,50 @@ void	output_append(t_node *right, t_node *left, int *end, char **envp)
 	first_process(left, envp);
 }
 
-char    *di_to_dir(t_node *right, t_node *left, char **envp)
+void	gnl_heredoc(int *end, char *delimiter)
 {
-	char	*delimiter;
-	char	**split;
 	char	*str;
-	int		fd;
-	char	*tmp;
-    char    *invisible;
 
-	split = ft_split(right->data.str, ' ');
-	delimiter = split[0];
-    printf("here is the deli : <%s>\n", delimiter);
-	str = NULL;
 	while (1)
 	{
-		tmp = readline("> ");
-		if (ft_strncmp(tmp, delimiter, ft_strlen(delimiter)) == 0)
+		str = readline("> ");
+		if (str == NULL)
+			break ;
+		if (ft_strlen(delimiter) == 0 && str[0] == '\n')
+			return (free(str), exit(0));
+		if (ft_strlen(delimiter) > 0 && ft_strncmp(str, delimiter,
+				ft_strlen(delimiter)) == 0)
 		{
-			free(tmp);
+			free(str);
 			break ;
 		}
-		str = ft_strjoin(str, tmp);
-		free(tmp);
+		write(end[1], str, ft_strlen(str));
+		write(end[1], "\n", 1);
+		free(str);
 	}
-    printf("here is the left : %s\n", left->data.str);
-	ft_free_str(split);
-    printf("here is the left : %s\n", left->data.str);
-    if (!str)
-        return (NULL);
-    invisible = ft_strjoin(".", delimiter);
-    printf("here is the invisible : %s\n", invisible);
-    fd = open(invisible, O_CREAT | O_WRONLY, 0644);
-    write(fd, str, ft_strlen(str));
-    printf("here is the delimiter: %s\n", delimiter);
-	close(fd);
-    printf("here is the delimiter: %s\n", delimiter);
-    free(delimiter);
-    delimiter = ft_strjoin(left->data.str, str);
-    printf("here is the delimiter: %s\n", delimiter);
-    free(left->data.str);
-    free(str);
-    left->data.str = delimiter;
-	first_process(left, envp);
-    return (invisible);
+	close(end[1]);
+	close(end[0]);
+	exit(0);
+}
+
+void	di_to_dir(t_node *right, t_node *left, char **envp)
+{
+	int		end[2];
+	int		status;
+
+	pipe(end);
+	status = fork();
+	if (status < 0)
+		return (perror("fork fails\n"));
+	if (status == 0)
+		gnl_heredoc(end, right->data.str);
+	else
+	{
+		printf("im here\n");
+		close(end[1]);
+		dup2(end[0], STDIN_FILENO);
+		close(end[0]);
+		wait(NULL);
+		first_process(left, envp);
+	}
 }

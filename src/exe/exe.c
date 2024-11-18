@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 21:11:58 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/18 21:36:26 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ void	first_process(t_node *node, char **envp)
 	char	*path;
 	char	**split_cmd;
 
-	// int		fd;
-	// int		last;
 	split_cmd = ft_split(node->data.str, ' ');
-	// last = ft_last_word(split_cmd);
-	// fd = open(split_cmd, O_RDONLY);
 	if (exec_builtin(split_cmd))
 		return ;
 	path = find_path(envp, split_cmd);
@@ -137,7 +133,6 @@ void	ft_exe(t_node *node, char **envp)
 	int		end[2];
 	t_node	*left;
 	t_node	*right;
-    char    *tmp;
 
 	pipe(end);
 	status = fork();
@@ -160,11 +155,7 @@ void	ft_exe(t_node *node, char **envp)
 			if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
 				output_append(right, left, end, envp);
 	    	if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-            {
-				tmp = di_to_dir(right, left, envp);
-                unlink(tmp);
-                free(tmp);
-            }
+				di_to_dir(right, left, envp);
         }
 	}
 	close(end[1]);

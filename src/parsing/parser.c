@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 13:14:12 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/18 22:13:26 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 
 	str = NULL;
 	node->data.str = ft_strdup((*token)->lexeme);
-	/*
-	if (pipe == 1)
-	{
-		while ((*token)->type != 0 && (*token)->next->type != PIPE)
-		{
-			str = ft_strjoin(node->data.str, (*token)->next->lexeme);
-			free(node->data.str);
-			node->data.str = ft_strdup(str);
-			free(str);
-			*token = (*token)->next;
-		}
-		return ;
-	}
-	*/
 	if (pipe == 1)
 		return ;
 	while (ft_is_dir(*token) == 0 && ((*token)->next->type != END_TOKEN 
@@ -59,6 +45,8 @@ t_node	*str_node(t_token **token, int pipe)
 	node = malloc(sizeof(t_node));
 	// if !malloc
 	node->type = STR_NODE;
+	while ((*token)->type == SPACE_TOKEN)
+		*token = (*token)->next;
 	add_lexeme_to_node(token, node, pipe);
 	return (node);
 }
