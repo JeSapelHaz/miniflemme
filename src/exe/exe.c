@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/18 21:36:26 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/19 20:34:46 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	pipe_right(t_node *right, t_node *left, int *end, char **envp)
 	first_process(left, envp);
 }
 
-void	pipex(t_node *node, char **envp, int *end)
+void	exe_pipe(t_node *node, char **envp, int *end)
 {
 	int		child1;
 	int		child2;
@@ -111,20 +111,40 @@ void	pipex(t_node *node, char **envp, int *end)
 	if (child1 < 0)
 		return (perror("fork fails\n"));
 	if (child1 == 0)
-		pipe_left(left->data.pair.right, left->data.pair.left, end, envp);
+	{
+		if (dup2(end[STDOUT_FILENO], STDOUT_FILENO) == -1)
+		{
+			perror(NULL);
+			exit(1);
+		}
+		if (left->type == STR_NODE)
+			first_process(left, envp);
+		close(end[0]);
+		close(end[1]);
+	}
 	else
 	{
 		child2 = fork();
 		if (child2 < 0)
 			return (perror("fork fails\n"));
 		if (child2 == 0)
-			pipe_right(right->data.pair.right, right->data.pair.left, end,
-				envp);
+		{
+			if (dup2(end[STDIN_FILENO], STDIN_FILENO) == -1)
+			{
+				perror(NULL);
+				exit(1);
+			}
+			if (right->type == STR_NODE)
+				first_process(right, envp);
+			close(end[0]);
+			close(end[1]);
+		}
 	}
 	close(end[0]);
 	close(end[1]);
 	wait(NULL);
 	wait(NULL);
+	exit(0);
 }
 
 void	ft_exe(t_node *node, char **envp)
@@ -147,7 +167,7 @@ void	ft_exe(t_node *node, char **envp)
 			left = node->data.pair.left;
 			right = node->data.pair.right;
 			if (node->data.pair.opera[0] == '|')
-				pipex(node, envp, end);
+				exe_pipe(node, envp, end);
 			if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
 				input_dir(right, left, end, envp);
 			if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
