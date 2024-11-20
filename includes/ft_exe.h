@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2024/11/18 18:46:28 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/20 17:29:54 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ void	output_dir(t_node *right, t_node *left, int *end, char **envp);
 void	output_append(t_node *right, t_node *left, int *end, char **envp);
 void	first_process(t_node *node, char **envp);
 void	di_to_dir(t_node *right, t_node *left, char **envp);
+void	exe_pipe(t_node *node, char **envp, int *end);
+void	pipe_process(t_node *node, char **envp, int *end);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/05 13:57:39 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/20 17:38:50 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,28 @@ void	ft_free_node(t_node **node)
 	}
 }
 
+void	ft_free_all_node(t_node **node)
+{
+	if (!node || !(*node))
+		return ;
+	if ((*node)->type == STR_NODE)
+		ft_free_node(node);
+	else
+	{
+		ft_free_all_node(&(*node)->data.pair.left);
+		ft_free_node(&(*node)->data.pair.left);
+		ft_free_all_node(&(*node)->data.pair.right);
+		ft_free_node(&(*node)->data.pair.right);
+		ft_free_node(node);
+	}
+}
+
 t_node	*left_before_pipe(t_node *left, t_token **token)
 {
 	t_node	*l;
 	t_token	*tok;
 	
 	tok = (*token);
-	printf("\n\n\n\n");
-	printf("ici ----> %s\n", tok->lexeme);
 	if (left != NULL)
 		tok = tok->prev;
 	while (tok->prev != NULL && tok->type != PIPE)

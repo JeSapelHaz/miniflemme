@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe2.c                                             :+:      :+:    :+:   */
+/*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/19 20:34:46 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/20 14:23:36 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,99 +52,19 @@ void	first_process(t_node *node, char **envp)
 	ft_execv_error(split_cmd);
 }
 
-void	pipe_left(t_node *right, t_node *left, int *end, char **envp)
+void	pipe_process(t_node *node, char **envp, int *end)
 {
-	int	fd;
+	char	*path;
+	char	**split_cmd;
 
-	fd = open(right->data.str, O_RDONLY);
-	if (dup2(fd, STDIN_FILENO) == -1)
-	{
-		perror(right->data.str);
-		exit(1);
-	}
-	if (dup2(end[STDOUT_FILENO], STDOUT_FILENO) == -1)
-	{
-		perror(NULL);
-		exit(1);
-	}
-	close(fd);
+	split_cmd = ft_split(node->data.str, ' ');
+	if (exec_builtin(split_cmd))
+		return ;
+	path = find_path(envp, split_cmd);
 	close(end[0]);
 	close(end[1]);
-	first_process(left, envp);
-}
-
-void	pipe_right(t_node *right, t_node *left, int *end, char **envp)
-{
-	int	fd;
-
-	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (fd == -1)
-		perror("open file fails\n");
-	if (dup2(end[STDIN_FILENO], STDIN_FILENO) == -1)
-	{
-		perror(right->data.str);
-		exit(1);
-	}
-	if (dup2(fd, STDOUT_FILENO) == -1)
-	{
-		perror(NULL);
-		exit(1);
-	}
-	close(fd);
-	close(end[0]);
-	close(end[1]);
-	first_process(left, envp);
-}
-
-void	exe_pipe(t_node *node, char **envp, int *end)
-{
-	int		child1;
-	int		child2;
-	t_node	*left;
-	t_node	*right;
-
-	left = node->data.pair.left;
-	right = node->data.pair.right;
-	pipe(end);
-	child2 = 0;
-	child1 = fork();
-	if (child1 < 0)
-		return (perror("fork fails\n"));
-	if (child1 == 0)
-	{
-		if (dup2(end[STDOUT_FILENO], STDOUT_FILENO) == -1)
-		{
-			perror(NULL);
-			exit(1);
-		}
-		if (left->type == STR_NODE)
-			first_process(left, envp);
-		close(end[0]);
-		close(end[1]);
-	}
-	else
-	{
-		child2 = fork();
-		if (child2 < 0)
-			return (perror("fork fails\n"));
-		if (child2 == 0)
-		{
-			if (dup2(end[STDIN_FILENO], STDIN_FILENO) == -1)
-			{
-				perror(NULL);
-				exit(1);
-			}
-			if (right->type == STR_NODE)
-				first_process(right, envp);
-			close(end[0]);
-			close(end[1]);
-		}
-	}
-	close(end[0]);
-	close(end[1]);
-	wait(NULL);
-	wait(NULL);
-	exit(0);
+	execve(path, split_cmd, envp);
+	ft_execv_error(split_cmd);
 }
 
 void	ft_exe(t_node *node, char **envp)
@@ -174,9 +94,9 @@ void	ft_exe(t_node *node, char **envp)
 				output_dir(right, left, end, envp);
 			if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
 				output_append(right, left, end, envp);
-	    	if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+	    		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 				di_to_dir(right, left, envp);
-        }
+        	}
 	}
 	close(end[1]);
 	close(end[0]);

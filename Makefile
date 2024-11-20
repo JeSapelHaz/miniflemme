@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/14 18:23:42 by hbutt            ###   ########.fr        #
+#    Updated: 2024/11/20 17:36:57 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/utils_token.c \
             $(SRCDIR)/utils/utils_print_node_tree.c \
             $(SRCDIR)/utils/utils_print_tokens.c \
-            $(SRCDIR)/utils/utils.c
+            $(SRCDIR)/utils/utils.c \
+            $(SRCDIR)/utils/utils_node.c 
 
 SRC_ENV = $(SRCDIR)/env/get_path.c
 
@@ -59,7 +60,8 @@ SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
 
 SRC_EXE = $(SRCDIR)/exe/exe.c \
           $(SRCDIR)/exe/path.c \
-          $(SRCDIR)/exe/dir_exe.c
+          $(SRCDIR)/exe/dir_exe.c \
+          $(SRCDIR)/exe/dir_choice.c
 
 # All source files and corresponding object files
 SRC = $(SRC_MAIN) $(SRC_PARSING) $(SRC_UTILS) $(SRC_ENV) $(SRC_BUILTINS) $(SRC_EXE)

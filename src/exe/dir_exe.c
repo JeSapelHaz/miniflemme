@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/11/18 23:18:10 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/20 13:13:29 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	di_to_dir(t_node *right, t_node *left, char **envp)
 		gnl_heredoc(end, right->data.str);
 	else
 	{
-		printf("im here\n");
 		close(end[1]);
 		dup2(end[0], STDIN_FILENO);
 		close(end[0]);
