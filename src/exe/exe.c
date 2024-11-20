@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 14:23:36 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/20 21:27:17 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	ft_execv_error(char **split_cmd)
 	ft_free_str(split_cmd);
 	exit(1);
 }
+
 int	exec_builtin(char **args)
 {
 	if (ft_strcmp(args[0], "cd") == 0)

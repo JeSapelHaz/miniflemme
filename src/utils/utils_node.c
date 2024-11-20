@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/20 17:38:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/20 21:23:13 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	ft_free_node(t_node **node)
 		{
 			(*node)->data.pair.left = NULL;
 			(*node)->data.pair.right = NULL;
-			free((*node)->data.pair.opera);
+			if ((*node)->data.pair.opera)
+				free((*node)->data.pair.opera);
 			free(*node);
 			return ;
 		}
-		free((*node)->data.str);
+		if ((*node)->data.str)
+			free((*node)->data.str);
 		free(*node);
 	}
 }
@@ -38,9 +40,9 @@ void	ft_free_all_node(t_node **node)
 	else
 	{
 		ft_free_all_node(&(*node)->data.pair.left);
-		ft_free_node(&(*node)->data.pair.left);
+		//ft_free_node(&(*node)->data.pair.left);
 		ft_free_all_node(&(*node)->data.pair.right);
-		ft_free_node(&(*node)->data.pair.right);
+		//ft_free_node(&(*node)->data.pair.right);
 		ft_free_node(node);
 	}
 }

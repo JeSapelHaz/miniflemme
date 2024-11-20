@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 17:26:37 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/20 21:07:50 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_node	*str_node(t_token **token, int pipe)
 		return (NULL);
 	node = malloc(sizeof(t_node));
 	if (!node)
-		return (ft_free_token(token), NULL);
+		return (NULL);
 	node->type = STR_NODE;
 	while ((*token)->type == SPACE_TOKEN)
 		*token = (*token)->next;
@@ -59,7 +59,7 @@ t_node	*pair_node(t_node *left, t_token **token)
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
-		return (ft_free_token(token), ft_free_all_node(&left),  NULL);
+		return (ft_free_all_node(&left), NULL);
 	new_node->data.pair.opera = (*token)->lexeme;
 	*token = (*token)->next;
 	new_node->type = PAIR_NODE;
@@ -68,8 +68,8 @@ t_node	*pair_node(t_node *left, t_token **token)
 	if (!right)
 	{
 		ft_free_node(&new_node);
-		return (ft_free_token(token), ft_free_all_node(&left), NULL);
-	}	
+		return (ft_free_all_node(&left), NULL);
+	}
 	new_node->data.pair.right = right;
 	return (new_node);
 }
