@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/20 20:46:10 by alama            ###   ########.fr        #
+#    Updated: 2024/11/21 21:30:23 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ NAME = minishell
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror 
 
 # Directories
 SRCDIR = src
@@ -39,14 +39,16 @@ SRC_PARSING = $(SRCDIR)/parsing/parser.c \
               $(SRCDIR)/parsing/tokenize.c \
               $(SRCDIR)/parsing/check_args.c \
               $(SRCDIR)/parsing/verrif_token.c \
-              $(SRCDIR)/parsing/dir_parser.c
+              $(SRCDIR)/parsing/dir_parser.c \
+              $(SRCDIR)/parsing/weird_dir.c
 
 SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/utils_token.c \
-            $(SRCDIR)/utils/utils_print_node_tree.c \
             $(SRCDIR)/utils/utils_print_tokens.c \
-            $(SRCDIR)/utils/utils.c \
-            $(SRCDIR)/utils/utils_node.c 
+            $(SRCDIR)/utils/pipe_utils.c \
+            $(SRCDIR)/utils/signals.c \
+            $(SRCDIR)/utils/utils_node.c \
+            $(SRCDIR)/utils/utils.c
 
 SRC_ENV = $(SRCDIR)/env/get_path.c
 
@@ -60,8 +62,8 @@ SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
 
 SRC_EXE = $(SRCDIR)/exe/exe.c \
           $(SRCDIR)/exe/path.c \
-          $(SRCDIR)/exe/dir_exe.c \
-          $(SRCDIR)/exe/dir_choice.c
+          $(SRCDIR)/exe/dir_choice.c \
+          $(SRCDIR)/exe/dir_exe.c
 
 # All source files and corresponding object files
 SRC = $(SRC_MAIN) $(SRC_PARSING) $(SRC_UTILS) $(SRC_ENV) $(SRC_BUILTINS) $(SRC_EXE)

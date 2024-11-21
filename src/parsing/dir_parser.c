@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 21:08:24 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/21 22:38:21 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_node	*pair_dir(t_node *left, t_token **token)
 	*token = (*token)->next;
 	while ((*token)->type == SPACE_TOKEN)
 		*token = (*token)->next;
-	right = str_node(token, 0);
+	//right = str_node(token, 0);
+	right = set_right_file(token, left);
 	if (!right)
 	{
 		ft_free_node(&new_node);
@@ -99,7 +100,8 @@ t_node	*dir_parse(t_token **token)
 			if (!left)
 				return (NULL);
 		}
-		*token = (*token)->next;
+		if ((*token)->type != END_TOKEN)
+			*token = (*token)->next;
 	}
 	return (left);
 }

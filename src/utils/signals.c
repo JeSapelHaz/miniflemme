@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:05:03 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/14 17:24:46 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/21 19:35:31 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_handle_signals(int signal)
 	{
 		printf("\n");
 		rl_on_new_line();
-		// rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

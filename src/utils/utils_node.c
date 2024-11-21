@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/20 21:23:13 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:42:01 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ void	ft_free_all_node(t_node **node)
 	else
 	{
 		ft_free_all_node(&(*node)->data.pair.left);
-		//ft_free_node(&(*node)->data.pair.left);
 		ft_free_all_node(&(*node)->data.pair.right);
-		//ft_free_node(&(*node)->data.pair.right);
 		ft_free_node(node);
 	}
 }
@@ -51,7 +49,7 @@ t_node	*left_before_pipe(t_node *left, t_token **token)
 {
 	t_node	*l;
 	t_token	*tok;
-	
+
 	tok = (*token);
 	if (left != NULL)
 		tok = tok->prev;

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 17:37:31 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/21 21:37:07 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_free_node(t_node **node);
 t_node	*dir_parse(t_token **token);
 t_node	*pair_dir(t_node *left, t_token **token);
 void	ft_free_all_node(t_node **node);
+t_node	*set_right_file(t_token **token, t_node *left);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);

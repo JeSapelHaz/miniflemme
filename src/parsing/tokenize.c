@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/20 21:51:35 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:39:52 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	which_token(int i, char *str, t_token **token_list)
 static int	ft_is_lexeme(char c)
 {
 	if (c != ' ' && c != '|' && c != '<' && c != '>' && c != '\"'
-			&& c != '\'' && c != '(' && c != ')')
+		&& c != '\'' && c != '(' && c != ')')
 		return (0);
 	return (1);
 }

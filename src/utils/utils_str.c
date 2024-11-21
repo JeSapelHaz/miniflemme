@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:10:42 by hbutt             #+#    #+#             */
-/*   Updated: 2024/10/30 17:26:43 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/21 19:37:47 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,31 @@ char	*ft_strndup(const char *src, size_t n)
 	return (dup);
 }
 
-char *ft_strcat(char *dest, const char *src) {
-    char *ptr = dest;
+char	*ft_strcat(char *dest, const char *src)
+{
+	char	*ptr;
 
-    while (*ptr != '\0') {
-        ptr++;
-    }
-
-    while (*src != '\0') {
-        *ptr++ = *src++;
-    }
-
-    *ptr = '\0';
-
-    return dest;
+	ptr = dest;
+	while (*ptr != '\0')
+		ptr++;
+	while (*src != '\0')
+		*ptr++ = *src++;
+	*ptr = '\0';
+	return (dest);
 }
 
-char *ft_strdel(char *str, const char *del) {
-    if (!str || !del) return str; 
+char	*ft_strdel(char *str, const char *del)
+{
+	char	*new_str;
+	size_t	del_len;
 
-    size_t del_len = ft_strlen(del);
-    if (ft_strncmp(str, del, del_len) == 0) {
-        char *new_str = ft_strdup(str + del_len);
-        return new_str;
-    }
-    
-    return str;
+	if (!str || !del)
+		return (str);
+	del_len = ft_strlen(del);
+	if (ft_strncmp(str, del, del_len) == 0)
+	{
+		new_str = ft_strdup(str + del_len);
+		return (new_str);
+	}
+	return (str);
 }
