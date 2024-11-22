@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/11/20 21:27:17 by alama            ###   ########.fr       */
+=======
+/*   Updated: 2024/11/22 14:27:16 by hbutt            ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +57,105 @@ void	first_process(t_node *node, char **envp)
 	ft_execv_error(split_cmd);
 }
 
+<<<<<<< HEAD
 void	pipe_process(t_node *node, char **envp, int *end)
+=======
+void	pipe_left(t_node *right, t_node *left, int *end, char **envp)
+{
+	int	fd;
+
+	fd = open(right->data.str, O_RDONLY);
+	if (dup2(fd, STDIN_FILENO) == -1)
+	{
+		perror(right->data.str);
+		exit(1);
+	}
+	if (dup2(end[STDOUT_FILENO], STDOUT_FILENO) == -1)
+	{
+		perror(NULL);
+		exit(1);
+	}
+	close(fd);
+	close(end[0]);
+	close(end[1]);
+	first_process(left, envp);
+}
+
+void	pipe_right(t_node *right, t_node *left, int *end, char **envp)
+{
+	int	fd;
+
+	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	if (fd == -1)
+		perror("open file fails\n");
+	if (dup2(end[STDIN_FILENO], STDIN_FILENO) == -1)
+	{
+		perror(right->data.str);
+		exit(1);
+	}
+	if (dup2(fd, STDOUT_FILENO) == -1)
+	{
+		perror(NULL);
+		exit(1);
+	}
+	close(fd);
+	close(end[0]);
+	close(end[1]);
+	first_process(left, envp);
+}
+
+
+void	exe_pipe(t_node *node, char **envp, int *end)
+>>>>>>> master
 {
 	char	*path;
 	char	**split_cmd;
 
+<<<<<<< HEAD
 	split_cmd = ft_split(node->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;
 	path = find_path(envp, split_cmd);
+=======
+	left = node->data.pair.left;
+	right = node->data.pair.right;
+	pipe(end);
+	child2 = 0;
+	child1 = fork();
+	if (child1 < 0)
+		return (perror("fork fails\n"));
+	if (child1 == 0)
+	{
+		if (dup2(end[STDOUT_FILENO], STDOUT_FILENO) == -1)
+		{
+			perror(NULL);
+			exit(1);
+		}
+		close(end[STDOUT_FILENO]);
+		if (left->type == STR_NODE)
+			first_process(left, envp);
+		close(end[0]);
+		close(end[1]);
+	}
+	else
+	{
+		child2 = fork();
+		if (child2 < 0)
+			return (perror("fork fails\n"));
+		if (child2 == 0)
+		{
+			if (dup2(end[STDIN_FILENO], STDIN_FILENO) == -1)
+			{
+				perror(NULL);
+				exit(1);
+			}
+			if (right->type == STR_NODE)
+				first_process(right, envp);
+			close(end[0]);
+			close(end[1]);
+		}
+	}
+>>>>>>> master
 	close(end[0]);
 	close(end[1]);
 	execve(path, split_cmd, envp);

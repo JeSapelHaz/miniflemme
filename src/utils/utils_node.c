@@ -6,12 +6,17 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/11/21 16:42:01 by alama            ###   ########.fr       */
+=======
+/*   Updated: 2024/11/22 14:30:29 by hbutt            ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
+<<<<<<< HEAD
 void	ft_free_node(t_node **node)
 {
 	if (*node)
@@ -83,3 +88,5 @@ t_node	*right_after_pipe(t_token **token)
 	return (left);
 }
 */
+=======
+>>>>>>> master
