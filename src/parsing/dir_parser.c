@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/21 22:38:21 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/22 19:20:00 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_node	*pair_dir(t_node *left, t_token **token)
 		return (ft_free_all_node(&left), NULL);
 	}
 	new_node->data.pair.right = right;
+	if ()
 	return (new_node);
 }
 
