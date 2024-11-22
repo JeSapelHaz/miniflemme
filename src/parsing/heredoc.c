@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 14:22:13 by alama             #+#    #+#             */
-/*   Updated: 2024/11/22 14:34:24 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/22 18:53:17 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_shell.h"
+// #include "mini_shell.h"
 
-t_node	*heredoc_parse(t_node *node, t_token **token)
-{
+// t_node	*heredoc_parse(t_node *node, t_token **token)
+// {
 
-}
+// }
