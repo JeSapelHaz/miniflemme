@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/21 21:30:23 by alama            ###   ########.fr        #
+#    Updated: 2024/11/22 14:22:04 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC_PARSING = $(SRCDIR)/parsing/parser.c \
               $(SRCDIR)/parsing/check_args.c \
               $(SRCDIR)/parsing/verrif_token.c \
               $(SRCDIR)/parsing/dir_parser.c \
+              $(SRCDIR)/parsing/heredoc.c \
               $(SRCDIR)/parsing/weird_dir.c
 
 SRC_UTILS = $(SRCDIR)/utils/utils_str.c \

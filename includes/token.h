@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/11/14 17:53:57 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/22 14:32:20 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_pair_value
 	t_node				*left;
  	t_node				*right;
 	char	*opera; //operator
+	char	*heredoc;
 }						t_pair_value;
 
 typedef union u_node_value
