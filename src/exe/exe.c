@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe2.c                                             :+:      :+:    :+:   */
+/*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/19 20:34:46 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/22 14:27:16 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	ft_execv_error(char **split_cmd)
 	ft_free_str(split_cmd);
 	exit(1);
 }
+
 int	exec_builtin(char **args)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
@@ -96,6 +97,7 @@ void	pipe_right(t_node *right, t_node *left, int *end, char **envp)
 	first_process(left, envp);
 }
 
+
 void	exe_pipe(t_node *node, char **envp, int *end)
 {
 	int		child1;
@@ -117,6 +119,7 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 			perror(NULL);
 			exit(1);
 		}
+		close(end[STDOUT_FILENO]);
 		if (left->type == STR_NODE)
 			first_process(left, envp);
 		close(end[0]);
