@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:06:11 by alama             #+#    #+#             */
-/*   Updated: 2024/11/21 19:47:04 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/22 14:20:50 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static char	*new_pipe(t_token **t, char **str, t_token **token_list)
 	remove_end(token_list);
 	ft_add_next(tmp, token_list, new_token);
 	new = ft_strjoin(*str, new_rd);
-	add_history(new);
 	free(*str);
 	*str = NULL;
 	free(new_rd);
