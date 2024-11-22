@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:03:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/21 23:08:58 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/22 10:49:15 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ static void	set_left_arg(t_token **token, t_node *left)
 		{
 			tmp = ft_strjoin(left->data.str, (*token)->lexeme);
 			free(left->data.str);
+			left->data.str = ft_strdup(tmp);
 			*token = (*token)->next;
+			free(tmp);
 		}
 	}
-	printf("here : %s\n", left->data.str)
+	printf("here : %s\n", left->data.str);
 	if ((*token)->type == END_TOKEN)
 		*token = (*token)->prev;
 }
