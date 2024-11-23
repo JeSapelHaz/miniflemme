@@ -6,11 +6,19 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/23 17:08:47 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/23 21:53:46 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+static int	ft_is_lexeme(char c)
+{
+	if (c != ' ' && c != '|' && c != '<' && c != '>' && c != '\"'
+		&& c != '\'' && c != '(' && c != ')')
+		return (0);
+	return (1);
+}
 
 void	ft_add_token(t_token **token, t_token_type type, char *lexeme)
 {
@@ -51,8 +59,8 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 		i++;
 	start = i;
 	while (str[i] && str[i] != '\n' && str[i] != '|'
-		&& str[i] != '>' && str[i] != '<'
-		&& str[i] != ')' && str[i] != '\"' && str[i] != '\'')
+		&& str[i] != '>' && str[i] != '<' && str[i] != ')'
+		&& str[i] != '\"' && str[i] != '\'')
 	{
 		if (type == CHAR_TOKEN && str[i] == ' ')
 			break ;
@@ -60,7 +68,7 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 			i++;
 	}
 	found = 0;
-	if (str[i] == '|' || str[i] == '>' || str[i] == '<' || str[i] == ' ')
+	if (ft_is_lexeme(str[i]) == 1)
 		found = 1;
 	lexeme = ft_strndup(&str[start], i - start);
 	ft_add_token(token_list, type, lexeme);
@@ -75,18 +83,12 @@ static int	which_token(int i, char *str, t_token **token_list)
 		ft_add_token(token_list, SPACE_TOKEN, ft_strdup(" "));
 	else if (str[i] == '|')
 		ft_add_token(token_list, PIPE, ft_strdup("|"));
-	else if (str[i] == '(')
-	{
-		i = ft_str_to_lexeme(i, str, token_list, PAREN_TOKEN);
-		if (str[i - 1] != ')')
-			return (-1);
-		else
-			return (-2);
-	}
-	else if (str[i] == '\'')
-		i = ft_str_to_lexeme(i, str, token_list, SINGLE_QUOTE);
-	else if (str[i] == '\"')
-		i = ft_str_to_lexeme(i, str, token_list, DOUBLE_QUOTE);
+	else if (str[i] == '(' || str[i] == ')')
+		return (ft_not_close(str[i]), -1);
+	else if (str[i] == '\'' && (i = d_and_s_token(i, str, token_list)) == -1)
+		return (-1);
+	else if (str[i] == '\"' && (i = d_and_s_token(i, str, token_list)) == -1)
+		return (-1);
 	else if (str[i] == '>' && str[i + 1] != '>')
 		ft_add_token(token_list, O_DIR, ft_strdup(">"));
 	else if (str[i] == '>' && str[i + 1] == '>')
@@ -97,13 +99,6 @@ static int	which_token(int i, char *str, t_token **token_list)
 	return (i);
 }
 
-static int	ft_is_lexeme(char c)
-{
-	if (c != ' ' && c != '|' && c != '<' && c != '>' && c != '\"'
-		&& c != '\'' && c != '(' && c != ')')
-		return (0);
-	return (1);
-}
 
 t_token	*tokenize(char *str)
 {
@@ -116,8 +111,6 @@ t_token	*tokenize(char *str)
 	{
 		if ((i = which_token(i, str, &token_list)) == -1)
 			return (ft_free_token(&token_list), NULL);
-		if (i == -2)
-			continue ;
 		if (str[i] == '<' && str[i + 1] != '<')
 			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
 		else if (str[i] == '<' && str[i + 1] == '<')
@@ -131,5 +124,6 @@ t_token	*tokenize(char *str)
 	}
 	if (token_list)
 		ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
+	print_token_list(token_list);
 	return (token_list);
 }

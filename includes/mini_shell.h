@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 17:55:39 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/23 21:34:04 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,20 @@ t_node	*pair_dir(t_node *left, t_token **token);
 void	ft_free_all_node(t_node **node);
 t_node	*set_right_file(t_token **token, t_node *left);
 void	heredoc_parse(t_token **token);
+void	set_right_space(t_node *left, t_node *right);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
 void	ft_add_next(t_token *last, t_token **token_list, t_token *new_node);
+int		ft_str_to_lexeme(int i, char *str, t_token **tok, t_token_type type);
 void	ft_free_token(t_token **token_list);
 void	remove_end(t_token **token);
 t_token	*last_token(t_token *token);
 char	*ft_last_pipe(t_token **token_list, char *str);
 int		ft_verrif_tok(t_token **token_list);
 int		ft_is_dir(t_token *token);
+void	ft_not_close(char c);
+int		d_and_s_token(int i, char *str, t_token **token_list);
 
 /* UTILS STR */
 int		ft_strcmp(char *s1, char *s2);
@@ -91,12 +95,12 @@ void	rl_clear_history(void);
 t_node	*build_command_tree(t_token *tokens);
 
 // Prototype des fonctions builtins
-void				ft_cd(char **args);
-void				ft_echo(char **args);
-void				ft_env(char **args);
-void				ft_export(char **args);
-void				ft_exit(char **args);
-void				ft_pwd(char **args);
-void				ft_unset(char **args);
+void	ft_cd(char **args);
+void	ft_echo(char **args);
+void	ft_env(char **args);
+void	ft_export(char **args);
+void	ft_exit(char **args);
+void	ft_pwd(char **args);
+void	ft_unset(char **args);
 
 #endif

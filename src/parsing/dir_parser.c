@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 17:17:00 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/23 19:21:32 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ t_node	*pair_dir(t_node *left, t_token **token)
 	while ((*token)->type == SPACE_TOKEN)
 		*token = (*token)->next;
 	right = str_node(token, 0);
-	//right = set_right_file(token, left);
 	if (!right)
 	{
 		ft_free_node(&new_node);
 		return (ft_free_all_node(&left), NULL);
 	}
+	set_right_space(left, right);
 	new_node->data.pair.right = right;
 	return (new_node);
 }

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:03:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/22 10:49:15 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/23 19:18:52 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,30 @@ t_node	*set_right_file(t_token **token, t_node *left)
 		*token = (*token)->next;
 	set_left_arg(token, left);
 	return (node);
+}
+
+void	set_right_space(t_node *left, t_node *right)
+{
+	char	**str;
+	int		i;
+	char	*tmp;
+	char	*space;
+
+	str = ft_split(right->data.str, ' ');
+	i = 1;
+	while (str[i] != NULL)
+	{
+		space = ft_strjoin(left->data.str, " ");
+		tmp = ft_strjoin(space, str[i]);
+		free(space);
+		free(left->data.str);
+		left->data.str = tmp;
+		i++;
+	}
+	if (str[1] != NULL)
+	{
+		free(right->data.str);
+		right->data.str = ft_strdup(str[0]);
+	}
+	ft_free_str(str);
 }
