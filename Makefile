@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/22 18:54:04 by hbutt            ###   ########.fr        #
+#    Updated: 2024/11/23 16:57:11 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
 
 SRC_EXE = $(SRCDIR)/exe/exe.c \
           $(SRCDIR)/exe/dir_choice.c \
+          $(SRCDIR)/exe/path.c \
           $(SRCDIR)/exe/dir_exe.c
 
 # All source files and corresponding object files

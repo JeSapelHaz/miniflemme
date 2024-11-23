@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/22 11:25:54 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/23 17:03:27 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_token	*re_do_token(char **str)
 	if (!(*str) || (*str)[0] == '\0')
 		return (NULL);
 	token_list = tokenize(*str);
+	if (!token_list)
+		add_history(*str);
 	return (token_list);
 }
 
@@ -53,9 +55,9 @@ int	main(int ac, char **av, char **envp)
 		add_history(str);
 		if (ft_verrif_tok(&token_list) == 0)
 		{
-//			print_token_list(token_list);
+			print_token_list(token_list);
 			node = parse(&token_list);
-//			print_node(node);
+			print_node(node);
 			ft_exe(node, envp);
 		}
 		ft_free_all_node(&node);

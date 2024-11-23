@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/21 16:39:52 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/23 17:08:47 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,7 @@ t_token	*tokenize(char *str)
 	i = 0;
 	while (str[i])
 	{
-		i = which_token(i, str, &token_list);
-		if (i == -1)
+		if ((i = which_token(i, str, &token_list)) == -1)
 			return (ft_free_token(&token_list), NULL);
 		if (i == -2)
 			continue ;
@@ -130,6 +129,7 @@ t_token	*tokenize(char *str)
 			i = ft_str_to_lexeme(i, str, &token_list, 1);
 		i++;
 	}
-	ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
+	if (token_list)
+		ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
 	return (token_list);
 }

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 21:27:17 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/23 18:34:09 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_exe(t_node *node, char **envp)
 			if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
 				output_append(right, left, end, envp);
 	    		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-				di_to_dir(right, left, envp);
+					di_to_dir(right, left, end, envp);
         	}
 	}
 	close(end[1]);

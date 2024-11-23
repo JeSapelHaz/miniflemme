@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 13:13:29 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/23 18:34:50 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	output_dir(t_node *right, t_node *left, int *end, char **envp)
 {
 	int		fd;
 
-	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		perror("open file fails\n");
 	if (dup2(fd, STDOUT_FILENO) == -1)
@@ -64,49 +64,13 @@ void	output_append(t_node *right, t_node *left, int *end, char **envp)
 	first_process(left, envp);
 }
 
-void	gnl_heredoc(int *end, char *delimiter)
+void	di_to_dir(t_node *right, t_node *left, int *end, char **envp)
 {
-	char	*str;
+	int	status;
 
-	while (1)
-	{
-		str = readline("> ");
-		if (str == NULL)
-			break ;
-		if (ft_strlen(delimiter) == 0 && str[0] == '\n')
-			return (free(str), exit(0));
-		if (ft_strlen(delimiter) > 0 && ft_strncmp(str, delimiter,
-				ft_strlen(delimiter)) == 0)
-		{
-			free(str);
-			break ;
-		}
-		write(end[1], str, ft_strlen(str));
-		write(end[1], "\n", 1);
-		free(str);
-	}
-	close(end[1]);
-	close(end[0]);
-	exit(0);
-}
-
-void	di_to_dir(t_node *right, t_node *left, char **envp)
-{
-	int		end[2];
-	int		status;
-
-	pipe(end);
 	status = fork();
-	if (status < 0)
-		return (perror("fork fails\n"));
 	if (status == 0)
-		gnl_heredoc(end, right->data.str);
-	else
-	{
-		close(end[1]);
-		dup2(end[0], STDIN_FILENO);
-		close(end[0]);
-		wait(NULL);
-		first_process(left, envp);
-	}
+		input_dir(right, left, end, envp);
+	wait(NULL);
+	unlink(right->data.str);
 }
