@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 18:34:09 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/25 16:56:46 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_builtin(char **args)
 	return (0);
 }
 
-void	first_process(t_node *node, char **envp)
+void	first_process(t_node *node, char **env)
 {
 	char	*path;
 	char	**split_cmd;
@@ -48,12 +48,12 @@ void	first_process(t_node *node, char **envp)
 	split_cmd = ft_split(node->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;
-	path = find_path(envp, split_cmd);
-	execve(path, split_cmd, envp);
+	path = find_path(env, split_cmd);
+	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
 }
 
-void	pipe_process(t_node *node, char **envp, int *end)
+void	pipe_process(t_node *node, char **env, int *end)
 {
 	char	*path;
 	char	**split_cmd;
@@ -61,14 +61,14 @@ void	pipe_process(t_node *node, char **envp, int *end)
 	split_cmd = ft_split(node->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;
-	path = find_path(envp, split_cmd);
+	path = find_path(env, split_cmd);
 	close(end[0]);
 	close(end[1]);
-	execve(path, split_cmd, envp);
+	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
 }
 
-void	ft_exe(t_node *node, char **envp)
+void	ft_exe(t_node *node, char **env)
 {
 	int		status;
 	int		end[2];
@@ -76,27 +76,27 @@ void	ft_exe(t_node *node, char **envp)
 	t_node	*right;
 
 	pipe(end);
-	status = fork();
+	status = fork(); 
 	if (status < 0)
 		return (perror("fork fails\n"));
 	if (status == 0)
 	{
 		if (node->type == STR_NODE)
-			first_process(node, envp);
+			first_process(node, env);
 		else if (node->type == PAIR_NODE)
 		{
 			left = node->data.pair.left;
 			right = node->data.pair.right;
 			if (node->data.pair.opera[0] == '|')
-				exe_pipe(node, envp, end);
+				exe_pipe(node, env, end);
 			if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
-				input_dir(right, left, end, envp);
+				input_dir(right, left, end, env);
 			if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
-				output_dir(right, left, end, envp);
+				output_dir(right, left, end, env);
 			if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-				output_append(right, left, end, envp);
+				output_append(right, left, end, env);
 	    		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-					di_to_dir(right, left, end, envp);
+					di_to_dir(right, left, end, env);
         	}
 	}
 	close(end[1]);

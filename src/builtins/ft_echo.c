@@ -6,24 +6,37 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/14 18:01:39 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/25 16:20:21 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void ft_echo(char **args)
-{
+#include <stdio.h>
+#include <string.h>
+
+int	is_valid_n_option(char *arg) {
+    int i = 1;
+
+    if (arg[0] != '-')
+        return (0);
+    while (arg[i]) {
+        if (arg[i] != 'n')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+void	ft_echo(char **args) {
     int i = 1;
     int newline = 1;
 
-    if (args[i] && ft_strcmp(args[i], "-n") == 0)
-    {
+    while (args[i] && is_valid_n_option(args[i])) {
         newline = 0;
         i++;
     }
-    while (args[i])
-    {
+    while (args[i]) {
         printf("%s", args[i]);
         if (args[i + 1])
             printf(" ");
