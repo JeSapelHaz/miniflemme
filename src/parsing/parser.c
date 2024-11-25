@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 21:07:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/25 14:57:20 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 		node->data.str = ft_strdup(str);
 		free(str);
 		*token = (*token)->next;
+		if ((*token)->type == SINGLE_QUOTE
+			|| (*token)->type == DOUBLE_QUOTE)
+		{
+			str = ft_strjoin(node->data.str, " ");
+			free(node->data.str);
+			node->data.str = ft_strdup(str);
+			free(str);
+		}
 	}
 }
 

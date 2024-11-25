@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 17:03:27 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/25 17:07:34 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int ac, char **av, char **envp)
 	t_token	*token_list;
 	t_node	*node;
 	t_token	*tmp;
+	int	end[2];
 
 	check_args(ac, av);
 	str = NULL;
@@ -55,10 +56,10 @@ int	main(int ac, char **av, char **envp)
 		add_history(str);
 		if (ft_verrif_tok(&token_list) == 0)
 		{
-			print_token_list(token_list);
+//			print_token_list(token_list);
 			node = parse(&token_list);
-			print_node(node);
-			ft_exe(node, envp);
+//			print_node(node);
+			ft_exe(node, envp, end);
 		}
 		ft_free_all_node(&node);
 		ft_free_token(&token_list);

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 18:34:09 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/25 17:05:44 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ void	first_process(t_node *node, char **envp)
 {
 	char	*path;
 	char	**split_cmd;
+	t_node	*tmp;
 
-	split_cmd = ft_split(node->data.str, ' ');
+	tmp = node;
+	//while (tmp->type == PAIR_NODE)
+//		tmp = tmp->data.pair.left;
+	split_cmd = ft_split(tmp->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;
 	path = find_path(envp, split_cmd);
@@ -68,14 +72,14 @@ void	pipe_process(t_node *node, char **envp, int *end)
 	ft_execv_error(split_cmd);
 }
 
-void	ft_exe(t_node *node, char **envp)
+void	ft_exe(t_node *node, char **envp, int *end)
 {
 	int		status;
-	int		end[2];
 	t_node	*left;
 	t_node	*right;
 
-	pipe(end);
+	if (end[0] == 0)
+		pipe(end);
 	status = fork();
 	if (status < 0)
 		return (perror("fork fails\n"));
@@ -98,6 +102,9 @@ void	ft_exe(t_node *node, char **envp)
 	    		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 					di_to_dir(right, left, end, envp);
         	}
+		close(end[1]);
+		close(end[0]);
+		exit(0);
 	}
 	close(end[1]);
 	close(end[0]);

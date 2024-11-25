@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 18:32:25 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/25 12:48:02 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "mini_shell.h"
 
-void	ft_exe(t_node *node, char **envp);
+void	ft_exe(t_node *node, char **envp, int *end);
 char	*find_path(char **envp, char **cmd);
 void	ft_free_str(char **str);
 void	pipex(t_node *node, char **envp, int *end);

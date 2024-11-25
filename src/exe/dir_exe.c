@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 18:34:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/25 17:06:04 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	input_dir(t_node *right, t_node *left, int *end, char **envp)
 	close(fd);
 	close(end[0]);
 	close(end[1]);
-	first_process(left, envp);
+	if (left->type == PAIR_NODE)
+		ft_exe(left, envp, end);
+	else
+		first_process(left, envp);
 }
 
 void	output_dir(t_node *right, t_node *left, int *end, char **envp)
