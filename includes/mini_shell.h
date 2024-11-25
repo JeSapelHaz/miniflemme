@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 21:34:04 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/25 17:04:40 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_node	*build_command_tree(t_token *tokens);
 // Prototype des fonctions builtins
 void	ft_cd(char **args);
 void	ft_echo(char **args);
-void	ft_env(char **args);
+void	ft_env(char **args, char **env);
 void	ft_export(char **args);
 void	ft_exit(char **args);
 void	ft_pwd(char **args);

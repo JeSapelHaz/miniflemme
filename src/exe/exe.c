@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/25 16:56:46 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/25 17:09:32 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static void	ft_execv_error(char **split_cmd)
 	exit(1);
 }
 
-int	exec_builtin(char **args)
+int	exec_builtin(char **args, char **env)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (ft_cd(args), 1);
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (ft_echo(args), 1);
 	if (ft_strcmp(args[0], "env") == 0)
-		return (ft_env(args), 1);
+		return (ft_env(args, env), 1);
 	if (ft_strcmp(args[0], "exit") == 0)
 		return (ft_exit(args), 1);
 	if (ft_strcmp(args[0], "export") == 0)
@@ -46,7 +46,7 @@ void	first_process(t_node *node, char **env)
 	char	**split_cmd;
 
 	split_cmd = ft_split(node->data.str, ' ');
-	if (exec_builtin(split_cmd))
+	if (exec_builtin(split_cmd, env))
 		return ;
 	path = find_path(env, split_cmd);
 	execve(path, split_cmd, env);
@@ -59,7 +59,7 @@ void	pipe_process(t_node *node, char **env, int *end)
 	char	**split_cmd;
 
 	split_cmd = ft_split(node->data.str, ' ');
-	if (exec_builtin(split_cmd))
+	if (exec_builtin(split_cmd, env))
 		return ;
 	path = find_path(env, split_cmd);
 	close(end[0]);
