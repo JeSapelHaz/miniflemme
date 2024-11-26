@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/25 16:40:18 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:08:03 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,17 @@ t_node	*weird_dir(t_token **token)
 	if (!new_node)
 		return (NULL);
 	new_node->data.pair.opera = (*token)->lexeme;
+	if ((*token)->type == DI_DIR)
+		heredoc_parse(token);
 	*token = (*token)->next;
 	new_node->data.pair.right = one_str(token);
 	if (!new_node->data.pair.right)
 		return (ft_free_all_node(&new_node), NULL);
 	new_node->data.pair.left = str_node(token, 0);
 	if (!new_node->data.pair.left)
-	{
 		new_node->data.pair.left = one_str(NULL);
-		if (!new_node->data.pair.left)
-			return (ft_free_all_node(&new_node), NULL);
-	}
+	if (!new_node->data.pair.left)
+		return (ft_free_all_node(&new_node), NULL);
 	if ((*token)->type == END_TOKEN)
 		*token = (*token)->prev;
 	return (new_node);

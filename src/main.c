@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 13:27:59 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 14:39:09 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ t_token	*re_do_token(char **str)
 {
 	t_token	*token_list;
 
+	if (str || *str)
+		add_history(*str);
 	*str = readline("mini-flemme$ ");
 	if (!(*str) || (*str)[0] == '\0')
 		return (NULL);
 	token_list = tokenize(*str);
-	if (!token_list)
-		add_history(*str);
 	return (token_list);
 }
 

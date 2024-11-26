@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/25 17:05:44 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 14:34:38 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	ft_execv_error(char **split_cmd)
 {
-	write(1, "mini-flemme: ", 13);
-	write(1, split_cmd[0], ft_strlen(split_cmd[0]));
-	write(1, ": command not found\n", 20);
+	write(2, "mini-flemme: ", 13);
+	write(2, split_cmd[0], ft_strlen(split_cmd[0]));
+	write(2, ": command not found\n", 20);
 	ft_free_str(split_cmd);
 	exit(1);
 }

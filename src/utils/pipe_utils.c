@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:06:11 by alama             #+#    #+#             */
-/*   Updated: 2024/11/22 14:20:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 14:13:03 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static char	*new_pipe(t_token **t, char **str, t_token **token_list)
 	tmp = *t;
 	new_rd = readline("> ");
 	new_token = tokenize(new_rd);
+	if (!new_token)
+		return (free(*str),free(new_rd), NULL);
 	while (tmp->next->type != END_TOKEN)
 		tmp = tmp->next;
 	remove_end(token_list);
