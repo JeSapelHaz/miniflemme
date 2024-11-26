@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 11:27:01 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:33:20 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_free_all_node(t_node **node);
 t_node	*set_right_file(t_token **token, t_node *left);
 void	heredoc_parse(t_token **token);
 void	set_right_space(t_node *left, t_node *right);
+t_node	*one_str(t_token **token);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);

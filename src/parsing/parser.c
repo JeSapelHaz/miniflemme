@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 13:15:37 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:32:31 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 	char	*str;
 
 	str = NULL;
+	if (ft_is_dir((*token)) == 1)
+	{
+		node = one_str(NULL);
+		return ;
+	}
 	node->data.str = ft_strdup((*token)->lexeme);
 	if (pipe == 1)
 		return ;

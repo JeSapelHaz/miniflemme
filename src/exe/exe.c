@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 14:34:38 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 18:10:55 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static void	ft_execv_error(char **split_cmd)
 {
 	write(2, "mini-flemme: ", 13);
 	write(2, split_cmd[0], ft_strlen(split_cmd[0]));
-	write(2, ": command not found\n", 20);
+	if (split_cmd[0][0] == '/')
+		write(2, ": No such file or directory\n", 28);
+	else
+		write(2, ": command not found\n", 20);
 	ft_free_str(split_cmd);
 	exit(1);
 }
@@ -47,8 +50,6 @@ void	first_process(t_node *node, char **envp)
 	t_node	*tmp;
 
 	tmp = node;
-	//while (tmp->type == PAIR_NODE)
-//		tmp = tmp->data.pair.left;
 	split_cmd = ft_split(tmp->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;

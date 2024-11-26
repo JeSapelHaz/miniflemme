@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 16:08:03 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:32:56 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_node	*pair_dir(t_node *left, t_token **token)
 	return (new_node);
 }
 
-static t_node	*one_str(t_token **token)
+t_node	*one_str(t_token **token)
 {
 	t_node	*node;
 
