@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 20:29:37 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 22:03:12 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 13:28:34 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,5 @@ int	d_and_s_token(int i, char *str, t_token **token_list)
 		if (i == -1)
 			ft_not_close('\"');
 	}
-	if (i != -1)
-		i++;
 	return (i);
 }

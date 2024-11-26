@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/25 17:07:34 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 13:27:59 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,22 @@ int	main(int ac, char **av, char **envp)
 	t_node	*node;
 	t_token	*tmp;
 	int	end[2];
+	int	added;
 
+	added = 0;
 	check_args(ac, av);
-	str = NULL;
-	token_list = NULL;
 	while (1)
 	{
+		token_list = NULL;
+		str = NULL;
 		while (ft_verrif_tok(&token_list) == 1)
+		{
+			ft_free_token(&token_list);
+			free(str);
 			token_list = re_do_token(&str);
+			add_history(str);
+			added  = 1;
+		}
 		tmp = last_token(token_list);
 		if (tmp->prev)
 			tmp = tmp->prev;
@@ -52,8 +60,10 @@ int	main(int ac, char **av, char **envp)
 			tmp = tmp->prev;
 			while (tmp->type == SPACE_TOKEN)
 				tmp = tmp->prev;
+			added = 0;
 		}
-		add_history(str);
+		if (added == 0)
+			add_history(str);
 		if (ft_verrif_tok(&token_list) == 0)
 		{
 //			print_token_list(token_list);

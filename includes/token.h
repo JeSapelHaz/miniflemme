@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/11/22 14:32:20 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 11:32:02 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef enum s_token_type
 	O_DIR = 7,  // output directory
 	I_DIR = 8,  // input directory
 	OA_DIR = 9, // output append
-	DI_DIR = 10 // directory to directory
+	DI_DIR = 10, // directory to directory
+	DOLLAR = 11 
 }					t_token_type;
 
 typedef struct s_token
