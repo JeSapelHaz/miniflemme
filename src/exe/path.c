@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 23:12:01 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 18:06:38 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/28 13:54:06 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*find_path(char **envp, char **cmd)
 		return (cmd[0]);
 	path = set_path(envp);
 	tmp = ft_strjoin("/", cmd[0]);
-	if (tmp[0] == '/' && tmp[1] == '/')
+	if ((tmp[0] == '/' && tmp[1] == '/') || (tmp[0] == '/' && tmp[1] == '.'))
 		return (NULL);
 	i = 0;
 	while (path[i])

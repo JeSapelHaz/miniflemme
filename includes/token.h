@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 11:32:02 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/28 15:50:33 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ struct					s_node
 {
  	t_node_type			type;
  	t_node_value		data;
+	int	quote;
 }; 
 
 #endif

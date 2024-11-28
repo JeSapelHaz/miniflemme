@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/25 13:03:28 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/28 11:58:24 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 
 static int	which_token(int i, char *str, t_token **token_list)
 {
-	if (str[i + 1] && str[i] == ' ' && str[i + 1] != ' ')
+	if (str[i +1] && str[i] == ' ' && str[i + 1] != ' ')
 		ft_add_token(token_list, SPACE_TOKEN, ft_strdup(" "));
 	else if (str[i] == '|')
 		ft_add_token(token_list, PIPE, ft_strdup("|"));

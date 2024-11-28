@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 17:33:20 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/28 14:02:45 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*get_path(char *cmd, char **env);
 void	execute_commands(char *input, char **env);
 
 /* UTILS */
+int	only_space(char *str);
 void	ft_quit(void);
 
 /* UTILS PRINT */
@@ -79,6 +80,7 @@ int		ft_verrif_tok(t_token **token_list);
 int		ft_is_dir(t_token *token);
 void	ft_not_close(char c);
 int		d_and_s_token(int i, char *str, t_token **token_list);
+t_token	*find_pipe(t_token *token_list);
 
 /* UTILS STR */
 int		ft_strcmp(char *s1, char *s2);

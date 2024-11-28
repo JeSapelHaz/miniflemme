@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:06:11 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 14:13:03 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/28 13:18:59 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ static char	*new_pipe(t_token **t, char **str, t_token **token_list)
 	free(new_rd);
 	new_rd = NULL;
 	return (new);
+}
+
+t_token	*find_pipe(t_token *token_list)
+{
+	t_token	*tmp;
+
+	if (token_list == NULL)
+		return (NULL);
+	tmp = last_token(token_list);
+	if (tmp->prev)
+		tmp = tmp->prev;
+	while (tmp->type == SPACE_TOKEN && tmp->prev != END_TOKEN)
+		tmp = tmp->prev;
+	return (tmp);
 }
 
 char	*ft_last_pipe(t_token **token_list, char *str)

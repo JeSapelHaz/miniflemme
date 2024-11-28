@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 18:10:55 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/28 16:14:29 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,19 @@ static void	ft_execv_error(char **split_cmd)
 {
 	write(2, "mini-flemme: ", 13);
 	write(2, split_cmd[0], ft_strlen(split_cmd[0]));
-	if (split_cmd[0][0] == '/')
+	if (split_cmd[0][0] == '/' || (split_cmd[0][0] == '.'
+		&& split_cmd[0][1] == '/'))
+	{
+		ft_free_str(split_cmd);
 		write(2, ": No such file or directory\n", 28);
+		exit(126);
+	}
 	else
+	{
+		ft_free_str(split_cmd);
 		write(2, ": command not found\n", 20);
-	ft_free_str(split_cmd);
-	exit(1);
+		exit(127);
+	}
 }
 
 int	exec_builtin(char **args)
@@ -50,7 +57,14 @@ void	first_process(t_node *node, char **envp)
 	t_node	*tmp;
 
 	tmp = node;
-	split_cmd = ft_split(tmp->data.str, ' ');
+	if (tmp->quote != 0)
+	{
+		split_cmd = malloc(sizeof(char *) * 2);
+		split_cmd[0] = ft_strdup(tmp->data.str);
+		split_cmd[1] = NULL;
+	}
+	else	
+		split_cmd = ft_split(tmp->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;
 	path = find_path(envp, split_cmd);
