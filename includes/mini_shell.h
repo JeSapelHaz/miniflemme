@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/29 14:59:04 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/29 17:02:20 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "token.h"
 # include "ft_exe.h"
 # include <fcntl.h>
-# include <libft.h>
+# include "../libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdlib.h>
@@ -88,6 +88,7 @@ char	*ft_strdel(char *str, const char *del);
 
 /* SIGNAL */
 void	ft_handle_signals(int signal);
+void	initialize_signals(void);
 
 void	rl_replace_line(const char *text, int clear_undo);
 void	rl_clear_history(void);

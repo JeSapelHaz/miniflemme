@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/29 16:09:39 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/29 17:23:41 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*re_do_token(char **str)
 	t_token	*token_list;
 	t_token *verify_exit;
 
-	*str = readline("\001\033[0;31m\002mini-flemme$ \001\033[0m\002");
+	*str = readline("mini-flemme$ ");
 	if (!(*str) || (*str)[0] == '\0')
 		return (NULL);
 	token_list = tokenize(*str);
@@ -52,6 +52,7 @@ int	main(int ac, char **av, char **envp)
 	t_token	*tmp;
 	char	**env;
 
+	// initialize_signals();
 	env = copy_env(envp);
 	check_args(ac, av);
 	str = NULL;

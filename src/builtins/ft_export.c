@@ -6,11 +6,10 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:16 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/29 14:32:40 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/29 17:03:07 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mini_shell.h"
 
 static void	ft_print_var(char *var)
