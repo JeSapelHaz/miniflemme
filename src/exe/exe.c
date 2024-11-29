@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/29 15:52:38 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/29 17:42:00 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_exe(t_node *node, char **env)
 	t_node	*right;
 
 	pipe(end);
-	status = fork(); 
+	status = fork();
 	if (status < 0)
 		return (perror("fork fails\n"));
 	if (status == 0)
@@ -93,9 +93,10 @@ void	ft_exe(t_node *node, char **env)
 				output_dir(right, left, end, env);
 			if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
 				output_append(right, left, end, env);
-	    		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-					di_to_dir(right, left, end, env);
-        	}
+			if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+				di_to_dir(right, left, end, env);
+		}
+		exit(0);
 	}
 	close(end[1]);
 	close(end[0]);
