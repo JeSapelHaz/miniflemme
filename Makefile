@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/23 20:29:28 by alama            ###   ########.fr        #
+#    Updated: 2024/11/26 15:03:26 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC_PARSING = $(SRCDIR)/parsing/parser.c \
 SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/utils_token.c \
             $(SRCDIR)/utils/utils_print_tokens.c \
+            $(SRCDIR)/utils/utils_env.c \
             $(SRCDIR)/utils/pipe_utils.c \
             $(SRCDIR)/utils/signals.c \
             $(SRCDIR)/utils/utils_node.c \
