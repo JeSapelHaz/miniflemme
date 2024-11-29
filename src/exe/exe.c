@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/28 16:53:37 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/29 15:52:38 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	exec_builtin(char **args, char **env)
 		return (ft_echo(args), 1);
 	if (ft_strcmp(args[0], "env") == 0)
 		return (ft_env(args, env), 1);
-	if (ft_strcmp(args[0], "exit") == 0)
-		return (ft_exit(args), 1);
 	if (ft_strcmp(args[0], "export") == 0)
 		return (ft_export(args, &env), 1);
 	if (ft_strcmp(args[0], "pwd") == 0)

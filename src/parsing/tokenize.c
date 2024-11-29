@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/23 21:53:46 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/29 15:51:06 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,6 @@ t_token	*tokenize(char *str)
 	}
 	if (token_list)
 		ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
-	print_token_list(token_list);
+	// print_token_list(token_list);
 	return (token_list);
 }

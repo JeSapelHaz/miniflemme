@@ -6,16 +6,13 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/25 16:20:21 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/29 14:32:25 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-#include <stdio.h>
-#include <string.h>
-
-int	is_valid_n_option(char *arg) {
+static int	is_valid_n_option(char *arg) {
     int i = 1;
 
     if (arg[0] != '-')

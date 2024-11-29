@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:16 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/29 14:03:35 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/29 14:32:40 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	ft_sort_env(char **env)
 	}
 }
 
-void	ft_add_to_env(char ***env, char *arg)
+static void	ft_add_to_env(char ***env, char *arg)
 {
 	int		i;
 	char	**env_temp;

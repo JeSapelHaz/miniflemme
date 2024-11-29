@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/28 16:54:01 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/11/29 14:59:04 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_cd(char **args);
 void	ft_echo(char **args);
 void	ft_env(char **args, char **env);
 void	ft_export(char **args, char ***env);
-void	ft_exit(char **args);
+void	ft_exit(char *args);
 void	ft_pwd(char **args);
 void	ft_unset(char **args, char ***env);
 
