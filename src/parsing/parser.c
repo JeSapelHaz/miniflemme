@@ -20,40 +20,32 @@
 static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 {
 	char	*str;
-	char	single[2];
 
 	str = NULL;
-	single[0] = 1;
-	single[0] = '\0';
 	if (ft_is_dir((*token)) == 1)
 	{
 		node = one_str(NULL);
 		return ;
 	}
-	node->data.str = ft_strdup((*token)->lexeme);
 	if (pipe == 1)
 		return ;
+	node->data.str = ft_strdup((*token)->lexeme);
 	while (ft_is_dir(*token) == 0 && ((*token)->next->type != END_TOKEN
 			&& ft_is_dir((*token)->next) == 0))
 	{
-		if ((*token)->type == SINGLE_QUOTE
-			|| (*token)->type == DOUBLE_QUOTE)
-		{
-			str = ft_strjoin(single, node->data.str);
-			printf("[%c] %s\n", str[0], str);
-			free(node->data.str);
-			node->data.str = ft_strdup(str);
-			free(str);
-			str = ft_strjoin(node->data.str, single);
-			free(node->data.str);
-			node->data.str = ft_strdup(str);
-			free(str);
-		}
 		str = ft_strjoin(node->data.str, (*token)->next->lexeme);
 		free(node->data.str);
 		node->data.str = ft_strdup(str);
 		free(str);
 		*token = (*token)->next;
+		if ((*token)->type == SINGLE_QUOTE
+			|| (*token)->type == DOUBLE_QUOTE)
+		{
+			str = ft_strjoin(" ", node->data.str);
+			free(node->data.str);
+			node->data.str = ft_strdup(str);
+			free(str);
+		}
 	}
 }
 
@@ -69,12 +61,6 @@ t_node	*str_node(t_token **token, int pipe)
 	node->type = STR_NODE;
 	while ((*token)->type == SPACE_TOKEN)
 		*token = (*token)->next;
-	if ((*token)->type == DOUBLE_QUOTE)
-		node->quote = 1;
-	else if ((*token)->type == SINGLE_QUOTE)
-		node->quote = 2;
-	else
-		node->quote = 0;
 	add_lexeme_to_node(token, node, pipe);
 	return (node);
 }

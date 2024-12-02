@@ -57,14 +57,7 @@ void	first_process(t_node *node, char **envp)
 	t_node	*tmp;
 
 	tmp = node;
-	if (tmp->quote != 0)
-	{
-		split_cmd = malloc(sizeof(char *) * 2);
-		split_cmd[0] = ft_strdup(tmp->data.str);
-		split_cmd[1] = NULL;
-	}
-	else	
-		split_cmd = ft_split(tmp->data.str, ' ');
+	split_cmd = ft_split(tmp->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;
 	path = find_path(envp, split_cmd);

@@ -65,7 +65,6 @@ struct					s_node
 {
  	t_node_type			type;
  	t_node_value		data;
-	int	quote;
 }; 
 
 #endif

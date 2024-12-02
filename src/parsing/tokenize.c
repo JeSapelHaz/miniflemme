@@ -58,7 +58,7 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 	if (type != CHAR_TOKEN)
 		i++;
 	start = i;
-	while (str[i] && str[i] != '\n' && str[i] != '|'
+	while (str[i] != '\0' && str[i] != '\n' && str[i] != '|'
 		&& str[i] != '>' && str[i] != '<' && str[i] != ')'
 		&& str[i] != '\"' && str[i] != '\'')
 	{
@@ -120,7 +120,8 @@ t_token	*tokenize(char *str)
 		}
 		else if (ft_is_lexeme(str[i]) == 0)
 			i = ft_str_to_lexeme(i, str, &token_list, 1);
-		i++;
+        if (str[i] != '\0')
+            i++;
 	}
 	if (token_list)
 		ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
