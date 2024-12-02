@@ -120,7 +120,8 @@ t_token	*tokenize(char *str)
 		}
 		else if (ft_is_lexeme(str[i]) == 0)
 			i = ft_str_to_lexeme(i, str, &token_list, 1);
-		i++;
+		if (str[i] != '\0')
+			i++;
 	}
 	if (token_list)
 		ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));

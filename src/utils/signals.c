@@ -10,34 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include <signal.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-void	ft_handle_signals(int signal)
+// void	rl_replace_line(const char *text, int clear_undo);
+// void	rl_clear_history(void);
+
+void	handle_sigint(int sig)
 {
-	(void)signal;
-	// rl_replace_line("", 0);
-	rl_on_new_line();
+    (void)sig;
 	write(1, "\n", 1);
-	rl_redisplay();
+    rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
 }
 
-void	initialize_signals(void)
+void	handle_sigquit(int sig)
 {
-	signal(SIGINT, ft_handle_signals);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
+    (void)sig;
 }
-// #include <stdio.h>
-// #include <readline/readline.h>
-// #include <readline/history.h>
 
-// int main(void) {
-//     char *input;
+// int	main(void)
+// {
+//     char	*str;
 
-//     input = readline("Test readline: ");
-//     if (input) {
-//         rl_replace_line("Replacement text", 0);
-//         printf("Input replaced with: %s\n", rl_line_buffer);
+//     signal(SIGINT, handle_sigint);
+//     signal(SIGQUIT, handle_sigquit); 
+
+//     while (1)
+//     {
+//         str = readline("mini-flemme$ ");
+//         if (!str)  // Gérer Ctrl-D
+//         {
+//             printf("exit\n");
+//             break;
+//         }
+//         add_history(str);
+//         free(str);
 //     }
-//     return 0;
+//     return (0);
 // }

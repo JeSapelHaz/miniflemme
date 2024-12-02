@@ -86,9 +86,9 @@ char	*ft_strndup(const char *src, size_t n);
 char	*ft_strcat(char *dest, const char *src);
 char	*ft_strdel(char *str, const char *del);
 
-/* SIGNAL */
-void	ft_handle_signals(int signal);
-void	initialize_signals(void);
+// /* SIGNAL */
+// void	ft_handle_signals(int signal);
+// void	initialize_signals(void);
 
 void	rl_replace_line(const char *text, int clear_undo);
 void	rl_clear_history(void);
@@ -106,5 +106,17 @@ void	ft_export(char **args, char ***env);
 void	ft_exit(char *args);
 void	ft_pwd(char **args);
 void	ft_unset(char **args, char ***env);
+
+void	handle_sigquit(int sig);
+void	handle_sigint(int signal);
+
+
+typedef struct	s_sig
+{
+	int				sigint;
+	int				sigquit;
+	int				exit_status;
+	pid_t			pid;
+}				t_sig;
 
 #endif

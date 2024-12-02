@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+#include <signal.h>
 
 void	exit_or_not(t_token **token_list)
 {
@@ -31,11 +32,12 @@ void	exit_or_not(t_token **token_list)
 t_token	*re_do_token(char **str)
 {
 	t_token	*token_list;
-	t_token *verify_exit;
-
+	t_token *verify_exit; 
+	
+	
 	*str = readline("mini-flemme$ ");
 	if (!(*str) || (*str)[0] == '\0')
-		return (NULL);
+		return (printf("exit\n"), NULL);
 	token_list = tokenize(*str);
 	verify_exit = tokenize(*str);
 	exit_or_not(&verify_exit);
@@ -49,42 +51,44 @@ int	main(int ac, char **av, char **envp)
 	char	*str;
 	t_token	*token_list;
 	t_node	*node;
-	t_token	*tmp;
+	// t_token	*tmp;
 	char	**env;
-
-	// initialize_signals();
+	
+	
+	
 	env = copy_env(envp);
 	check_args(ac, av);
 	str = NULL;
 	token_list = NULL;
 	while (1)
 	{
-		while (ft_verrif_tok(&token_list) == 1)
-			token_list = re_do_token(&str);
-		tmp = last_token(token_list);
-		if (tmp->prev)
-			tmp = tmp->prev;
-		while (tmp->type == SPACE_TOKEN && tmp->prev != END_TOKEN)
-			tmp = tmp->prev;
-		while (tmp->type == PIPE)
-		{
-			str = ft_last_pipe(&token_list, str);
-			tmp = last_token(token_list);
-			tmp = tmp->prev;
-			while (tmp->type == SPACE_TOKEN)
-				tmp = tmp->prev;
-		}
-		add_history(str);
-		if (ft_verrif_tok(&token_list) == 0)
-		{
-			// print_token_list(token_list);
-			node = parse(&token_list);
-			// print_node(node);
-			ft_exe(node, env);
-		}
-		ft_free_all_node(&node);
-		ft_free_token(&token_list);
-		free(str);
+    	signal(SIGINT, handle_sigint);
+    	signal(SIGQUIT, handle_sigquit);
+
+    
+    	str = readline("mini-flemme$ ");
+    	if (!str || str[0] == '\0') 
+    	{
+    	    printf("exit\n");
+    	    break;
+    	}
+
+    	token_list = tokenize(str);
+    	if (!token_list)
+    	{
+     	add_history(str);
+     	free(str);
+     	continue;
+    	}
+
+    	exit_or_not(&token_list);
+
+    	node = parse(&token_list);
+    	ft_exe(node, env);
+
+    	ft_free_all_node(&node);
+    	ft_free_token(&token_list);
+    	free(str);
 	}
 	clear_history();
 	free(str);
