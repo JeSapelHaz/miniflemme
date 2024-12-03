@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/23 19:21:32 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:32:56 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_node	*pair_dir(t_node *left, t_token **token)
 	return (new_node);
 }
 
-static t_node	*one_str(t_token **token)
+t_node	*one_str(t_token **token)
 {
 	t_node	*node;
 
@@ -67,17 +67,17 @@ t_node	*weird_dir(t_token **token)
 	if (!new_node)
 		return (NULL);
 	new_node->data.pair.opera = (*token)->lexeme;
+	if ((*token)->type == DI_DIR)
+		heredoc_parse(token);
 	*token = (*token)->next;
 	new_node->data.pair.right = one_str(token);
 	if (!new_node->data.pair.right)
 		return (ft_free_all_node(&new_node), NULL);
 	new_node->data.pair.left = str_node(token, 0);
 	if (!new_node->data.pair.left)
-	{
 		new_node->data.pair.left = one_str(NULL);
-		if (!new_node->data.pair.left)
-			return (ft_free_all_node(&new_node), NULL);
-	}
+	if (!new_node->data.pair.left)
+		return (ft_free_all_node(&new_node), NULL);
 	if ((*token)->type == END_TOKEN)
 		*token = (*token)->prev;
 	return (new_node);

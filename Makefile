@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/12/03 16:03:18 by hbutt            ###   ########.fr        #
+#    Updated: 2024/12/03 16:12:46 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ WHITE		= \033[0;97m
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 SRCDIR = src
 OBJDIR = .build
 
@@ -60,6 +60,7 @@ SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
 SRC_EXE = $(SRCDIR)/exe/exe.c \
           $(SRCDIR)/exe/dir_choice.c \
           $(SRCDIR)/exe/path.c \
+          $(SRCDIR)/exe/split_for_exe.c \
           $(SRCDIR)/exe/dir_exe.c
 
 SRC = $(SRC_MAIN) $(SRC_PARSING) $(SRC_UTILS) $(SRC_BUILTINS) $(SRC_EXE)

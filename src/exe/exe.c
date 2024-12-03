@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/29 17:42:00 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/03 16:14:23 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 
 static void	ft_execv_error(char **split_cmd)
 {
-	write(1, "mini-flemme: ", 13);
-	write(1, split_cmd[0], ft_strlen(split_cmd[0]));
-	write(1, ": command not found\n", 20);
-	ft_free_str(split_cmd);
-	exit(1);
+	write(2, "mini-flemme: ", 13);
+	write(2, split_cmd[0], ft_strlen(split_cmd[0]));
+	if (split_cmd[0][0] == '/' || (split_cmd[0][0] == '.'
+		&& split_cmd[0][1] == '/'))
+	{
+		ft_free_str(split_cmd);
+		write(2, ": No such file or directory\n", 28);
+		exit(126);
+	}
+	else
+	{
+		ft_free_str(split_cmd);
+		write(2, ": command not found\n", 20);
+		exit(127);
+	}
 }
 
 int	exec_builtin(char **args, char **env)
@@ -42,10 +52,15 @@ void	first_process(t_node *node, char **env)
 {
 	char	*path;
 	char	**split_cmd;
+	t_node	*tmp;
 
-	split_cmd = ft_split(node->data.str, ' ');
+	tmp = node;
+	split_for_exe(tmp);
+	split_cmd = ft_split(tmp->data.str, ' ');
 	if (exec_builtin(split_cmd, env))
 		return ;
+	add_space_split(split_cmd);
+	remove_quote(split_cmd);
 	path = find_path(env, split_cmd);
 	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
@@ -56,24 +71,27 @@ void	pipe_process(t_node *node, char **env, int *end)
 	char	*path;
 	char	**split_cmd;
 
+	split_for_exe(node);
 	split_cmd = ft_split(node->data.str, ' ');
 	if (exec_builtin(split_cmd, env))
 		return ;
-	path = find_path(env, split_cmd);
+	add_space_split(split_cmd);
+	remove_quote(split_cmd);
+	path = find_path(envp, split_cmd);
 	close(end[0]);
 	close(end[1]);
 	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
 }
 
-void	ft_exe(t_node *node, char **env)
+void	ft_exe(t_node *node, char **envp, int *end)
 {
 	int		status;
-	int		end[2];
 	t_node	*left;
 	t_node	*right;
 
-	pipe(end);
+	if (end[0] == 0)
+		pipe(end);
 	status = fork();
 	if (status < 0)
 		return (perror("fork fails\n"));
@@ -92,10 +110,12 @@ void	ft_exe(t_node *node, char **env)
 			if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
 				output_dir(right, left, end, env);
 			if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-				output_append(right, left, end, env);
-			if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-				di_to_dir(right, left, end, env);
-		}
+				output_append(right, left, end, envp);
+	    		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+					di_to_dir(right, left, end, envp);
+        	}
+		close(end[1]);
+		close(end[0]);
 		exit(0);
 	}
 	close(end[1]);

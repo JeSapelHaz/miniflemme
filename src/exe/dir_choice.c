@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 13:40:52 by alama            ###   ########.fr       */
+/*   Updated: 2024/11/25 12:48:11 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 		}
 		if (left->type == STR_NODE)
 			pipe_process(left, envp, end);
+		else
+			ft_exe(left, envp, end);
 	}
 	else
 	{
@@ -50,6 +52,8 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 			}
 			if (right->type == STR_NODE)
 				pipe_process(right, envp, end);
+			else
+				ft_exe(right, envp, end);
 		}
 	}
 	close(end[0]);
@@ -58,3 +62,10 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 	wait(NULL);
 	exit(0);
 }
+
+/*
+void	ft_dir_choice(t_node *node, char **envp)
+{
+	
+}
+*/

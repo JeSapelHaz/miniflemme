@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 14:40:20 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/03 16:12:14 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "mini_shell.h"
 
-void	ft_exe(t_node *node, char **envp);
+void	ft_exe(t_node *node, char **envp, int *end);
 char	*find_path(char **envp, char **cmd);
 void	ft_free_str(char **str);
 void	pipex(t_node *node, char **envp, int *end);
@@ -29,5 +29,8 @@ void	first_process(t_node *node, char **envp);
 void	di_to_dir(t_node *right, t_node *left, int *end, char **envp);
 void	exe_pipe(t_node *node, char **envp, int *end);
 void	pipe_process(t_node *node, char **envp, int *end);
+void	split_for_exe(t_node *node);
+void	add_space_split(char **data);
+void	remove_quote(char **data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/11/20 21:07:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/03 12:13:46 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 	char	*str;
 
 	str = NULL;
-	node->data.str = ft_strdup((*token)->lexeme);
+	if (ft_is_dir((*token)) == 1)
+	{
+		node = one_str(NULL);
+		return ;
+	}
 	if (pipe == 1)
 		return ;
+	node->data.str = ft_strdup((*token)->lexeme);
 	while (ft_is_dir(*token) == 0 && ((*token)->next->type != END_TOKEN
 			&& ft_is_dir((*token)->next) == 0))
 	{
@@ -33,6 +38,16 @@ static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 		node->data.str = ft_strdup(str);
 		free(str);
 		*token = (*token)->next;
+		/*
+		if ((*token)->type == SINGLE_QUOTE
+			|| (*token)->type == DOUBLE_QUOTE)
+		{
+			str = ft_strjoin(" ", node->data.str);
+			free(node->data.str);
+			node->data.str = ft_strdup(str);
+			free(str);
+		}
+	*/
 	}
 }
 

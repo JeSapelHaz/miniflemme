@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/29 17:02:20 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/03 16:12:10 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*get_path(char *cmd, char **env);
 void	execute_commands(char *input, char **env);
 
 /* UTILS */
+int	only_space(char *str);
 void	ft_quit(void);
 
 /* UTILS PRINT */
@@ -65,6 +66,7 @@ void	ft_free_all_node(t_node **node);
 t_node	*set_right_file(t_token **token, t_node *left);
 void	heredoc_parse(t_token **token);
 void	set_right_space(t_node *left, t_node *right);
+t_node	*one_str(t_token **token);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);
@@ -78,6 +80,7 @@ int		ft_verrif_tok(t_token **token_list);
 int		ft_is_dir(t_token *token);
 void	ft_not_close(char c);
 int		d_and_s_token(int i, char *str, t_token **token_list);
+t_token	*find_pipe(t_token *token_list);
 
 /* UTILS STR */
 int		ft_strcmp(char *s1, char *s2);
