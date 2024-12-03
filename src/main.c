@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/28 18:19:45 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/03 17:40:25 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av, char **envp)
 			add_history(str);
 		if (ft_verrif_tok(&token_list) == 0)
 		{
-			print_token_list(token_list);
+//			print_token_list(token_list);
 			node = parse(&token_list);
 //			print_node(node);
 			ft_exe(node, envp, end);

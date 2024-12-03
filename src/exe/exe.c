@@ -6,16 +6,29 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 15:59:49 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/03 18:02:11 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
+static void	ft_print(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '\'' && str[i] != '\"')
+			write(2, &str[i], 1);
+		i++;
+	}
+}
+
 static void	ft_execv_error(char **split_cmd)
 {
 	write(2, "mini-flemme: ", 13);
-	write(2, split_cmd[0], ft_strlen(split_cmd[0]));
+	ft_print(split_cmd[0]);
 	if (split_cmd[0][0] == '/' || (split_cmd[0][0] == '.'
 		&& split_cmd[0][1] == '/'))
 	{
@@ -59,10 +72,10 @@ void	first_process(t_node *node, char **envp)
 	tmp = node;
 	split_for_exe(tmp);
 	split_cmd = ft_split(tmp->data.str, ' ');
-	if (exec_builtin(split_cmd))
-		return ;
 	add_space_split(split_cmd);
 	remove_quote(split_cmd);
+	if (exec_builtin(split_cmd))
+		return ;
 	path = find_path(envp, split_cmd);
 	execve(path, split_cmd, envp);
 	ft_execv_error(split_cmd);
@@ -75,10 +88,10 @@ void	pipe_process(t_node *node, char **envp, int *end)
 
 	split_for_exe(node);
 	split_cmd = ft_split(node->data.str, ' ');
-	if (exec_builtin(split_cmd))
-		return ;
 	add_space_split(split_cmd);
 	remove_quote(split_cmd);
+	if (exec_builtin(split_cmd))
+		return ;
 	path = find_path(envp, split_cmd);
 	close(end[0]);
 	close(end[1]);

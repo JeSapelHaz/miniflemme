@@ -39,7 +39,6 @@ int	ft_quote_to_lexeme(int i, char *str, t_token **tok, t_token_type type)
 	if (str[i] == '\0')
 		return (-1);
 	lexeme = ft_strndup(&str[start -1], i - start + 2);
-    printf("%d %d\n", i, start);
 	ft_add_token(tok, type, lexeme);
 	return (i);
 }
