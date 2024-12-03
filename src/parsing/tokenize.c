@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/29 15:51:06 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/03 15:46:18 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ t_token	*tokenize(char *str)
 		}
 		else if (ft_is_lexeme(str[i]) == 0)
 			i = ft_str_to_lexeme(i, str, &token_list, 1);
-		if (str[i] != '\0')
-			i++;
+		// if (str[i] != '\0')
+		// 	i++;
 	}
 	if (token_list)
 		ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/11/29 17:23:41 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/03 16:05:19 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ int	main(int ac, char **av, char **envp)
 	token_list = NULL;
 	while (1)
 	{
-    	signal(SIGINT, handle_sigint);
-    	signal(SIGQUIT, handle_sigquit);
-
-    
+    	// signal(SIGINT, handle_sigint);
+    	// signal(SIGQUIT, handle_sigquit);
     	str = readline("mini-flemme$ ");
     	if (!str || str[0] == '\0') 
     	{
@@ -80,12 +78,9 @@ int	main(int ac, char **av, char **envp)
      	free(str);
      	continue;
     	}
-
     	exit_or_not(&token_list);
-
     	node = parse(&token_list);
     	ft_exe(node, env);
-
     	ft_free_all_node(&node);
     	ft_free_token(&token_list);
     	free(str);
