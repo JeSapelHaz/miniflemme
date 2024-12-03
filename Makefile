@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/11/25 18:09:45 by alama            ###   ########.fr        #
+#    Updated: 2024/12/03 12:27:25 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
 SRC_EXE = $(SRCDIR)/exe/exe.c \
           $(SRCDIR)/exe/dir_choice.c \
           $(SRCDIR)/exe/path.c \
+          $(SRCDIR)/exe/split_for_exe.c \
           $(SRCDIR)/exe/dir_exe.c
 
 SRC = $(SRC_MAIN) $(SRC_PARSING) $(SRC_UTILS) $(SRC_BUILTINS) $(SRC_EXE)

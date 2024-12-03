@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/11/28 16:14:29 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/03 15:59:49 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ void	first_process(t_node *node, char **envp)
 	t_node	*tmp;
 
 	tmp = node;
+	split_for_exe(tmp);
 	split_cmd = ft_split(tmp->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;
+	add_space_split(split_cmd);
+	remove_quote(split_cmd);
 	path = find_path(envp, split_cmd);
 	execve(path, split_cmd, envp);
 	ft_execv_error(split_cmd);
@@ -70,9 +73,12 @@ void	pipe_process(t_node *node, char **envp, int *end)
 	char	*path;
 	char	**split_cmd;
 
+	split_for_exe(node);
 	split_cmd = ft_split(node->data.str, ' ');
 	if (exec_builtin(split_cmd))
 		return ;
+	add_space_split(split_cmd);
+	remove_quote(split_cmd);
 	path = find_path(envp, split_cmd);
 	close(end[0]);
 	close(end[1]);

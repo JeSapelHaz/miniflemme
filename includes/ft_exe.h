@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2024/11/25 12:48:02 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/03 16:00:19 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@ void	first_process(t_node *node, char **envp);
 void	di_to_dir(t_node *right, t_node *left, int *end, char **envp);
 void	exe_pipe(t_node *node, char **envp, int *end);
 void	pipe_process(t_node *node, char **envp, int *end);
+void	split_for_exe(t_node *node);
+void	add_space_split(char **data);
+void	remove_quote(char **data);
 
 #endif
