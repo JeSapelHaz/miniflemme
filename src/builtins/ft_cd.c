@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:07 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/29 14:31:19 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/03 16:34:02 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_cd(char **args)
 
 	if (!args[1])
 	{
-		home = getenv("HOME"); // Utilisation de getenv pour obtenir HOME
+		home = getenv("HOME"); 
 		if (!home)
 		{
 			fprintf(stderr, "minishell: cd: HOME not set\n");

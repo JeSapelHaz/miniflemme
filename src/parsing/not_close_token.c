@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   not_close_token.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 20:29:37 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 13:28:34 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/03 16:28:14 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ int	ft_quote_to_lexeme(int i, char *str, t_token **tok, t_token_type type)
 
 	i++;
 	start = i;
-    if (type == SINGLE_QUOTE)
-    {
-	    while (str[i] && (str[i] != '\'' && str[i -1] != '\\'))
-	    	i++;
-    }
-    else if (type == DOUBLE_QUOTE)
-    {
-	    while (str[i] && (str[i] != '\"' && str[i -1] != '\\'))
-	    	i++;
-    }
+	if (type == SINGLE_QUOTE)
+	{
+		while (str[i] && (str[i] != '\'' && str[i - 1] != '\\'))
+			i++;
+	}
+	else if (type == DOUBLE_QUOTE)
+	{
+		while (str[i] && (str[i] != '\"' && str[i - 1] != '\\'))
+			i++;
+	}
 	if (str[i] == '\0')
 		return (-1);
-	lexeme = ft_strndup(&str[start -1], i - start + 2);
-    printf("%d %d\n", i, start);
+	lexeme = ft_strndup(&str[start - 1], i - start + 2);
+	printf("%d %d\n", i, start);
 	ft_add_token(tok, type, lexeme);
 	return (i);
 }

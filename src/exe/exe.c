@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 16:14:23 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/03 16:28:18 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_execv_error(char **split_cmd)
 	write(2, "mini-flemme: ", 13);
 	write(2, split_cmd[0], ft_strlen(split_cmd[0]));
 	if (split_cmd[0][0] == '/' || (split_cmd[0][0] == '.'
-		&& split_cmd[0][1] == '/'))
+			&& split_cmd[0][1] == '/'))
 	{
 		ft_free_str(split_cmd);
 		write(2, ": No such file or directory\n", 28);
@@ -77,18 +77,18 @@ void	pipe_process(t_node *node, char **env, int *end)
 		return ;
 	add_space_split(split_cmd);
 	remove_quote(split_cmd);
-	path = find_path(envp, split_cmd);
+	path = find_path(env, split_cmd);
 	close(end[0]);
 	close(end[1]);
 	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
 }
 
-void	ft_exe(t_node *node, char **envp, int *end)
+void	ft_exe(t_node *node, char **env, int *end)
 {
-	int		status;
-	t_node	*left;
-	t_node	*right;
+	int status;
+	t_node *left;
+	t_node *right;
 
 	if (end[0] == 0)
 		pipe(end);
@@ -110,10 +110,10 @@ void	ft_exe(t_node *node, char **envp, int *end)
 			if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
 				output_dir(right, left, end, env);
 			if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-				output_append(right, left, end, envp);
-	    		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-					di_to_dir(right, left, end, envp);
-        	}
+				output_append(right, left, end, env);
+			if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+				di_to_dir(right, left, end, env);
+		}
 		close(end[1]);
 		close(end[0]);
 		exit(0);
