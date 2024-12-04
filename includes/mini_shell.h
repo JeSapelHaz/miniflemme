@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 16:12:10 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:42:52 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,7 @@ void	ft_add_token(t_token **token, t_token_type type, char *lexeme);
 t_token	*tokenize(char *str);
 
 /* PARSING */
-// t_node	*parse_simple_command(t_token **token_list);
-// t_node	*parse_command(t_token **token_list);
 t_node	*parse(t_token **token_list);
-
-/* ENV */
-char	*get_path(char *cmd, char **env);
-
-/* EXEC COMMANDES */
-void	execute_commands(char *input, char **env);
 
 /* UTILS */
 int	only_space(char *str);
@@ -89,11 +81,8 @@ char	*ft_strndup(const char *src, size_t n);
 char	*ft_strcat(char *dest, const char *src);
 char	*ft_strdel(char *str, const char *del);
 
-// /* SIGNAL */
-// void	ft_handle_signals(int signal);
-// void	initialize_signals(void);
 
-void	rl_replace_line(const char *text, int clear_undo);
+void rl_replace_line(const char *text, int clear_undo);
 void	rl_clear_history(void);
 
 t_node	*build_command_tree(t_token *tokens);
@@ -112,6 +101,8 @@ void	ft_unset(char **args, char ***env);
 
 void	handle_sigquit(int sig);
 void	handle_sigint(int signal);
+
+void	initialize_signals(void);
 
 
 typedef struct	s_sig

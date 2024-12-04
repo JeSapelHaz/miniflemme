@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/04 11:41:21 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:47:14 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_token	*re_do_token(char **str)
 
 	*str = readline("mini-flemme$ ");
 	if (!(*str) || (*str)[0] == '\0')
-		return (printf("exit\n"), NULL);
+		return (ft_exit(0), NULL);
 	token_list = tokenize(*str);
 	verify_exit = tokenize(*str);
 	exit_or_not(&verify_exit);
@@ -57,9 +57,9 @@ int	main(int ac, char **av, char **envp)
 
 	env = copy_env(envp);
 	check_args(ac, av);
-	check_args(ac, av);
 	while (1)
 	{
+		initialize_signals();
 		token_list = NULL;
 		str = NULL;
 		while (ft_verrif_tok(&token_list) == 1)
@@ -73,8 +73,7 @@ int	main(int ac, char **av, char **envp)
 		while (tmp->type == PIPE)
 		{
 			str = ft_last_pipe(&token_list, str);
-			tmp = last_token(token_list);
-			tmp = tmp->prev;
+			tmp = last_token(token_list)->prev;
 			while (tmp->type == SPACE_TOKEN)
 				tmp = tmp->prev;
 			added = 0;
@@ -85,7 +84,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			print_token_list(token_list);
 			node = parse(&token_list);
-			//			print_node(node);
+			// print_node(node); // Pour afficher l'arbre de parsing
 			ft_exe(node, env, end);
 		}
 		ft_free_all_node(&node);

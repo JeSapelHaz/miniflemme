@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:06:11 by alama             #+#    #+#             */
-/*   Updated: 2024/11/28 13:18:59 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:44:37 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*new_pipe(t_token **t, char **str, t_token **token_list)
 	new_rd = readline("> ");
 	new_token = tokenize(new_rd);
 	if (!new_token)
-		return (free(*str),free(new_rd), NULL);
+		return (free(*str), free(new_rd), NULL);
 	while (tmp->next->type != END_TOKEN)
 		tmp = tmp->next;
 	remove_end(token_list);

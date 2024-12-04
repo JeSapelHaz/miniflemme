@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/12/03 16:12:46 by hbutt            ###   ########.fr        #
+#    Updated: 2024/12/04 12:46:16 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ WHITE		= \033[0;97m
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 SRCDIR = src
 OBJDIR = .build
 
@@ -66,6 +66,11 @@ SRC_EXE = $(SRCDIR)/exe/exe.c \
 SRC = $(SRC_MAIN) $(SRC_PARSING) $(SRC_UTILS) $(SRC_BUILTINS) $(SRC_EXE)
 OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
+READLINE_PATH = $(HOME)/.brew/Cellar/readline/8.2.13/
+
+LFLAGS = -L$(READLINE_PATH)/lib -lreadline -lhistory
+INCLUDES = -I$(READLINE_PATH)/include
+
 LIBFT = ./libft/libft.a
 
 all: $(NAME)
@@ -74,7 +79,7 @@ $(NAME): $(OBJ) | $(OBJDIR)
 	@echo "$(YELLOW)Building libft...$(DEF_COLOR)"
 	@make -C ./libft --silent
 	@echo "$(YELLOW)Linking $(NAME)...$(DEF_COLOR)"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $(NAME) -I./includes -I./libft
+	@$(CC) $(CFLAGS) $(OBJ) $(INCLUDES) $(LIBFT) -lreadline -o $(NAME) -I./includes -I./libft $(LFLAGS)
 	@echo "$(GREEN)$(NAME) compiled successfully!$(DEF_COLOR)"
 
 $(OBJDIR):

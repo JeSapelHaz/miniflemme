@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_choice.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2024/11/25 12:48:11 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:44:01 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,4 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 	exit(0);
 }
 
-/*
-void	ft_dir_choice(t_node *node, char **envp)
-{
-	
-}
-*/
+

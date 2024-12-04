@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   weird_dir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:03:43 by alama             #+#    #+#             */
-/*   Updated: 2024/11/25 17:00:42 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:44:34 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
 /*
 static void	set_left_arg(t_token **token, t_node *left)
 {

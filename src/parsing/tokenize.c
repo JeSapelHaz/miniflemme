@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/03 16:12:52 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:44:25 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	ft_is_lexeme(char c)
 {
-	if (c != ' ' && c != '|' && c != '<' && c != '>' && c != '\"'
-		&& c != '\'' && c != '(' && c != ')')
+	if (c != ' ' && c != '|' && c != '<' && c != '>' && c != '\"' && c != '\''
+		&& c != '(' && c != ')')
 		return (0);
 	return (1);
 }
@@ -58,9 +58,8 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 	if (type != CHAR_TOKEN)
 		i++;
 	start = i;
-	while (str[i] != '\0' && str[i] != '\n' && str[i] != '|'
-		&& str[i] != '>' && str[i] != '<' && str[i] != ')'
-		&& str[i] != '\"' && str[i] != '\'')
+	while (str[i] != '\0' && str[i] != '\n' && str[i] != '|' && str[i] != '>'
+		&& str[i] != '<' && str[i] != ')' && str[i] != '\"' && str[i] != '\'')
 	{
 		if (type == CHAR_TOKEN && str[i] == ' ')
 			break ;
@@ -79,7 +78,7 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 
 static int	which_token(int i, char *str, t_token **token_list)
 {
-	if (str[i +1] && str[i] == ' ' && str[i + 1] != ' ')
+	if (str[i + 1] && str[i] == ' ' && str[i + 1] != ' ')
 		ft_add_token(token_list, SPACE_TOKEN, ft_strdup(" "));
 	else if (str[i] == '|')
 		ft_add_token(token_list, PIPE, ft_strdup("|"));
@@ -98,7 +97,6 @@ static int	which_token(int i, char *str, t_token **token_list)
 	}
 	return (i);
 }
-
 
 t_token	*tokenize(char *str)
 {
@@ -120,8 +118,8 @@ t_token	*tokenize(char *str)
 		}
 		else if (ft_is_lexeme(str[i]) == 0)
 			i = ft_str_to_lexeme(i, str, &token_list, 1);
-        if (str[i] != '\0')
-            i++;
+		if (str[i] != '\0')
+			i++;
 	}
 	if (token_list)
 		ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));

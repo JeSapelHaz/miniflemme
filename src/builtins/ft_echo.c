@@ -6,39 +6,47 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/29 14:32:25 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:43:57 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-static int	is_valid_n_option(char *arg) {
-    int i = 1;
+static int	is_valid_n_option(char *arg)
+{
+	int	i;
 
-    if (arg[0] != '-')
-        return (0);
-    while (arg[i]) {
-        if (arg[i] != 'n')
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 1;
+	if (arg[0] != '-')
+		return (0);
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-void	ft_echo(char **args) {
-    int i = 1;
-    int newline = 1;
+void	ft_echo(char **args)
+{
+	int	i;
+	int	newline;
 
-    while (args[i] && is_valid_n_option(args[i])) {
-        newline = 0;
-        i++;
-    }
-    while (args[i]) {
-        printf("%s", args[i]);
-        if (args[i + 1])
-            printf(" ");
-        i++;
-    }
-    if (newline)
-        printf("\n");
+	i = 1;
+	newline = 1;
+	while (args[i] && is_valid_n_option(args[i]))
+	{
+		newline = 0;
+		i++;
+	}
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (newline)
+		printf("\n");
 }

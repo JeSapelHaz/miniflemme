@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_exe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/11/25 17:49:25 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:44:03 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	input_dir(t_node *right, t_node *left, int *end, char **envp)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(right->data.str, O_RDONLY);
 	if (dup2(fd, STDIN_FILENO) == -1)
@@ -33,7 +33,7 @@ void	input_dir(t_node *right, t_node *left, int *end, char **envp)
 
 void	output_dir(t_node *right, t_node *left, int *end, char **envp)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
@@ -54,7 +54,7 @@ void	output_dir(t_node *right, t_node *left, int *end, char **envp)
 
 void	output_append(t_node *right, t_node *left, int *end, char **envp)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(right->data.str, O_CREAT | O_WRONLY | O_APPEND, 0664);
 	if (fd == -1)
