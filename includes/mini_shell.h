@@ -6,18 +6,18 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/12/04 14:42:52 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/03 17:55:15 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 
+# include "libft.h"
 # include <stdio.h>
 # include "token.h"
 # include "ft_exe.h"
 # include <fcntl.h>
-# include "../libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdlib.h>
