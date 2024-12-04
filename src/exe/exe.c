@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 16:28:18 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/04 11:36:25 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,6 @@ void	ft_exe(t_node *node, char **env, int *end)
 			if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 				di_to_dir(right, left, end, env);
 		}
-		close(end[1]);
-		close(end[0]);
-		exit(0);
 	}
 	close(end[1]);
 	close(end[0]);
