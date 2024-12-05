@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:26:50 by alama             #+#    #+#             */
-/*   Updated: 2024/12/04 14:44:11 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/05 16:57:06 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	split_for_exe(t_node *node)
 					str[i] = str[i] * -1;
 				i++;
 			}
+			i++;
 		}
 		if (str[i] == '\"')
 		{
@@ -59,6 +60,7 @@ void	split_for_exe(t_node *node)
 					str[i] = str[i] * -1;
 				i++;
 			}
+			i++;
 		}
 		i++;
 	}

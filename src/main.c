@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 17:40:25 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/05 17:54:55 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ t_token	*re_do_token(char **str)
 {
 	t_token	*token_list;
 	t_token	*verify_exit;
+	t_token	*tmp;
 
 	*str = readline("mini-flemme$ ");
-	if (!(*str) || (*str)[0] == '\0')
+	if (!(*str))
 		return (ft_exit(0), NULL);
 	token_list = tokenize(*str);
+	tmp = find_pipe(token_list);
+	if (!tmp || tmp->type != PIPE)
+		add_history(*str);
 	verify_exit = tokenize(*str);
 	exit_or_not(&verify_exit);
-	if (!token_list)
-		add_history(*str);
 	return (token_list);
 }
 
@@ -55,8 +57,8 @@ int	main(int ac, char **av, char **envp)
 	int		end[2];
 	int		added;
 
-	env = copy_env(envp);
 	check_args(ac, av);
+	env = copy_env(envp);
 	while (1)
 	{
 		initialize_signals();
@@ -84,7 +86,7 @@ int	main(int ac, char **av, char **envp)
 		{
 //			print_token_list(token_list);
 			node = parse(&token_list);
-			// print_node(node); // Pour afficher l'arbre de parsing
+//			print_node(node); // Pour afficher l'arbre de parsing
 			ft_exe(node, env, end);
 		}
 		ft_free_all_node(&node);

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/04 16:24:21 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/05 18:23:28 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	first_process(t_node *node, char **env)
 	char	*path;
 	char	**split_cmd;
 	t_node	*tmp;
+	int	status;
 
 	tmp = node;
 	split_for_exe(tmp);
@@ -74,15 +75,23 @@ void	first_process(t_node *node, char **env)
 	remove_quote(split_cmd);
 	if (exec_builtin(split_cmd, env))
 		return ;
-	path = find_path(env, split_cmd);
-	execve(path, split_cmd, env);
-	ft_execv_error(split_cmd);
+	status = fork();
+	if (status < 0)
+		return (perror("fork fails\n"));
+	if (status == 0)
+	{
+		path = find_path(env, split_cmd);
+		execve(path, split_cmd, env);
+		ft_execv_error(split_cmd);
+	}
+	wait(NULL);
 }
 
 void	pipe_process(t_node *node, char **env, int *end)
 {
 	char	*path;
 	char	**split_cmd;
+	int	status;
 
 	split_for_exe(node);
 	split_cmd = ft_split(node->data.str, ' ');
@@ -90,26 +99,41 @@ void	pipe_process(t_node *node, char **env, int *end)
 	remove_quote(split_cmd);
 	if (exec_builtin(split_cmd, env))
 		return ;
-	path = find_path(env, split_cmd);
-	close(end[0]);
-	close(end[1]);
-	execve(path, split_cmd, env);
-	ft_execv_error(split_cmd);
-}
-
-void	ft_exe(t_node *node, char **env, int *end)
-{
-	int status;
-	t_node *left;
-	t_node *right;
-
-	if (end[0] == 0)
-		pipe(end);
 	status = fork();
 	if (status < 0)
 		return (perror("fork fails\n"));
 	if (status == 0)
 	{
+		path = find_path(env, split_cmd);
+		close(end[0]);
+		close(end[1]);
+		execve(path, split_cmd, env);
+		ft_execv_error(split_cmd);
+	}
+	close(end[0]);
+	close(end[1]);
+	wait(NULL);
+}
+
+
+// en gros le vrai probleme c'etait que les builtins ils executaient dans un child
+// donc par exemple si tu faisais en env et un export ca modifiait le child mais pas l'enfant
+// du coup plutot que tout child comme je le faisais je fork seulement dans lexe et
+// APRES la verrif de si c'est un builtins donc la ca remarche,
+// j'ai du juste re-mettre des exit(0) dans les nouveaux childs et dans celui des pipes
+void	ft_exe(t_node *node, char **env, int *end)
+{
+//	int status;
+	t_node *left;
+	t_node *right;
+
+	if (end[0] == 0)
+		pipe(end);
+//	status = fork();
+//	if (status < 0)
+//		return (perror("fork fails\n"));
+//	if (status == 0)
+//	{
 		if (node->type == STR_NODE)
 			first_process(node, env);
 		else if (node->type == PAIR_NODE)
@@ -127,8 +151,9 @@ void	ft_exe(t_node *node, char **env, int *end)
 			if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 				di_to_dir(right, left, end, env);
 		}
-	}
+//		exit(0);
+//	}
 	close(end[1]);
 	close(end[0]);
-	wait(NULL);
+	//wait(NULL);
 }
