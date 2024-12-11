@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/12/04 14:44:03 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/11 14:27:48 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,14 @@ void	output_append(t_node *right, t_node *left, int *end, char **envp)
 
 void	di_to_dir(t_node *right, t_node *left, int *end, char **envp)
 {
+	int	pid;
 	int	status;
 
-	status = fork();
-	if (status == 0)
+	pid = fork();
+	if (pid == 0)
 		input_dir(right, left, end, envp);
-	wait(NULL);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		excode = WEXITSTATUS(status);
 	unlink(right->data.str);
 }

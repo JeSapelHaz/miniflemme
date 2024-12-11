@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 17:55:15 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/11 16:31:09 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+/* exite code 8*/
+int	excode;
 
 /* CHECK ARGS */
 void	check_args(int ac, char **av);
@@ -59,6 +62,7 @@ t_node	*set_right_file(t_token **token, t_node *left);
 void	heredoc_parse(t_token **token);
 void	set_right_space(t_node *left, t_node *right);
 t_node	*one_str(t_token **token);
+void	add_dollar(t_node *node, char **env);
 
 /* UTILS TOKEN */
 void	ft_if_not_last(t_token **token_list, t_token **new_node);

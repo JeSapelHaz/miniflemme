@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/05 17:54:55 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/11 16:57:56 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	main(int ac, char **av, char **envp)
 	int		end[2];
 	int		added;
 
+	excode = 0;
 	check_args(ac, av);
 	env = copy_env(envp);
 	while (1)
@@ -86,14 +87,16 @@ int	main(int ac, char **av, char **envp)
 		{
 //			print_token_list(token_list);
 			node = parse(&token_list);
+//			add_dollar(node, env);
 //			print_node(node); // Pour afficher l'arbre de parsing
 			ft_exe(node, env, end);
 		}
 		ft_free_all_node(&node);
 		ft_free_token(&token_list);
 		free(str);
+		printf("echo : %d\n", excode);
 	}
 	clear_history();
 	free(str);
-	return (0);
+	return (excode);
 }

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2024/12/05 18:19:55 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/11 14:51:39 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 	int		child2;
 	t_node	*left;
 	t_node	*right;
+	int		status;
 
 	left = node->data.pair.left;
 	right = node->data.pair.right;
@@ -37,7 +38,7 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 			pipe_process(left, envp, end);
 		else
 			ft_exe(left, envp, end);
-		exit(0);
+		exit(excode);
 	}
 	else
 	{
@@ -55,14 +56,13 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 				pipe_process(right, envp, end);
 			else
 				ft_exe(right, envp, end);
-			exit(0);
+			exit(excode);
 		}
 	}
 	close(end[0]);
 	close(end[1]);
-	wait(NULL);
-	wait(NULL);
-//	exit(0);
+	waitpid(child1, &status, 0);
+	waitpid(child2, &status, 0);
+	if (WIFEXITED(status))
+		excode = WEXITSTATUS(status);
 }
-
-
