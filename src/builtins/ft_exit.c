@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/29 17:25:21 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/12 16:03:08 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,28 @@ int	is_numeric(const char *str)
 	return (1);
 }
 
-void	ft_exit(char *args)
+void	ft_exit(char **args)
 {
-	int exit_code;
-
-	printf("exit\n");
-
-	if (!args)
+	write(1, "exit\n", 5);
+	if (args[1] == NULL)
+		exit(0);
+	if (!is_numeric(args[1]))
 	{
-		exit(0);
-		exit(0);
-		exit(0);
-	}
-	if (!is_numeric(args))
-	{
-		fprintf(stderr, "minishell: exit: %s: numeric argument required\n",
-			args);
+		// utilise write pas fprintf car interdit
+		//fprintf(stderr, "minishell: exit: %s: numeric argument required\n",
+		//	args);
+		write(2, "minishell: exit: ", 17);
+		write(2, args[1], ft_strlen(args[1]));
+		write(2, ": numeric argument required\n", 28);
 		exit(255);
 	}
-
-	exit_code = atoi(args);
-
-	exit(exit_code);
+	if (args[2] != NULL)
+	{
+		write(2, "minishell: exit: ", 17);
+		write(2, "too many argument\n", 18);
+		excode = 1;
+		return ;
+	}
+	excode = atoi(args[1]);
+	exit(excode);
 }

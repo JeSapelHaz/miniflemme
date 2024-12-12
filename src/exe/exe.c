@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/11 15:41:45 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/12 16:09:31 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	ft_execv_error(char **split_cmd)
 
 int	exec_builtin(char **args, char **env)
 {
+	if (ft_strcmp(args[0], "exit") == 0)
+		return (ft_exit(args), 1);
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (ft_cd(args), 1);
 	if (ft_strcmp(args[0], "echo") == 0)

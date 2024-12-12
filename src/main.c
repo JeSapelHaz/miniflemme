@@ -6,13 +6,14 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/11 16:57:56 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/12 16:41:19 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <signal.h>
 
+/*
 void	exit_or_not(t_token **token_list)
 {
 	while ((*token_list))
@@ -28,11 +29,12 @@ void	exit_or_not(t_token **token_list)
 		*token_list = (*token_list)->next;
 	}
 }
+*/
 
 t_token	*re_do_token(char **str)
 {
 	t_token	*token_list;
-	t_token	*verify_exit;
+//	t_token	*verify_exit;
 	t_token	*tmp;
 
 	*str = readline("mini-flemme$ ");
@@ -42,8 +44,8 @@ t_token	*re_do_token(char **str)
 	tmp = find_pipe(token_list);
 	if (!tmp || tmp->type != PIPE)
 		add_history(*str);
-	verify_exit = tokenize(*str);
-	exit_or_not(&verify_exit);
+//	verify_exit = tokenize(*str);
+//	exit_or_not(&verify_exit);
 	return (token_list);
 }
 
@@ -67,6 +69,7 @@ int	main(int ac, char **av, char **envp)
 		str = NULL;
 		while (ft_verrif_tok(&token_list) == 1)
 		{
+			printf("token : %d\n", excode);
 			ft_free_token(&token_list);
 			free(str);
 			token_list = re_do_token(&str);
@@ -94,7 +97,7 @@ int	main(int ac, char **av, char **envp)
 		ft_free_all_node(&node);
 		ft_free_token(&token_list);
 		free(str);
-		printf("echo : %d\n", excode);
+		printf("exit status : %d\n", excode);
 	}
 	clear_history();
 	free(str);
