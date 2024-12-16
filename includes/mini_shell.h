@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/12/12 15:20:05 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/16 18:47:35 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <unistd.h>
 
 /* exite code 8*/
-int	excode;
+extern int	excode;
 
 /* CHECK ARGS */
 void	check_args(int ac, char **av);

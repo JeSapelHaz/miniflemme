@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/12 16:09:31 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/16 19:31:29 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	first_process(t_node *node, char **env)
 	split_cmd = ft_split(tmp->data.str, ' ');
 	add_space_split(split_cmd);
 	remove_quote(split_cmd);
+	printf("couco\n");
 	if (exec_builtin(split_cmd, env))
 	{
 		ft_free_str(split_cmd);
@@ -158,6 +159,9 @@ void	ft_exe(t_node *node, char **env, int *end)
 		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 			di_to_dir(right, left, end, env);
 	}
-	close(end[1]);
-	close(end[0]);
+	if (end[0])
+	{
+		close(end[1]);
+		close(end[0]);
+	}
 }

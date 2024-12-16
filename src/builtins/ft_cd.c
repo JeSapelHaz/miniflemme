@@ -12,7 +12,6 @@
 
 #include "mini_shell.h"
 
-
 // il faut renvoyer le bon exit code
 void	ft_cd(char **args)
 {

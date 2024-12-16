@@ -6,11 +6,12 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/12 16:03:08 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/16 19:26:38 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
+
 
 int	is_numeric(const char *str)
 {
@@ -30,7 +31,7 @@ int	is_numeric(const char *str)
 
 void	ft_exit(char **args)
 {
-	write(1, "exit\n", 5);
+	write(1, "exit\n", 6);
 	if (args[1] == NULL)
 		exit(0);
 	if (!is_numeric(args[1]))
