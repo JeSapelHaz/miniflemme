@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:26:50 by alama             #+#    #+#             */
-/*   Updated: 2024/12/05 16:57:06 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/16 17:42:58 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,25 @@ void	split_for_exe(t_node *node)
 void	remove_quote(char **data)
 {
 	int		i;
-	int		j;
+//	int		j;
 	char	*str;
 
 	i = 0;
-	while (data[i])
+	while (data[i] != NULL)
 	{
+		if (data[i][0] == '\'')
+		{
+			str = ft_strtrim(data[i], "\'");
+			free(data[i]);
+			data[i] = str;
+		}
+		if (data[i][0] == '\"')
+		{
+			str = ft_strtrim(data[i], "\"");
+			free(data[i]);
+			data[i] = str;
+		}
+		/*
 		j = 0;
 		while (data[i][j])
 		{
@@ -94,6 +107,7 @@ void	remove_quote(char **data)
 			}
 			j++;
 		}
+		*/
 		i++;
 	}
 }
