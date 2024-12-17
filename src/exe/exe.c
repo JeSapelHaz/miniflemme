@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/16 19:31:29 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/17 12:31:02 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,11 @@ void	ft_exe(t_node *node, char **env, int *end)
 	t_node *left;
 	t_node *right;
 
-	if (end[0] == 0)
-		pipe(end);
 	if (node->type == STR_NODE)
 		first_process(node, env);
 	else if (node->type == PAIR_NODE)
 	{
+		pipe(end);
 		left = node->data.pair.left;
 		right = node->data.pair.right;
 		if (node->data.pair.opera[0] == '|')
@@ -158,9 +157,6 @@ void	ft_exe(t_node *node, char **env, int *end)
 			output_append(right, left, end, env);
 		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 			di_to_dir(right, left, end, env);
-	}
-	if (end[0])
-	{
 		close(end[1]);
 		close(end[0]);
 	}
