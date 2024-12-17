@@ -107,7 +107,7 @@ void	handle_sigquit(int sig);
 void	handle_sigint(int signal);
 
 void	initialize_signals(void);
-
+void	replace_env_in_nodes(t_node *node, char **env);
 
 typedef struct	s_sig
 {

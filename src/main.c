@@ -15,6 +15,8 @@
 
 int	excode = 0;
 
+
+
 t_token	*re_do_token(char **str)
 {
 	t_token	*token_list;
@@ -75,8 +77,9 @@ int	main(int ac, char **av, char **envp)
 		{
 //			print_token_list(token_list);
 			node = parse(&token_list);
-//			add_dollar(node, env);
+			add_dollar(node, env);
 //			print_node(node); // Pour afficher l'arbre de parsing
+
 			ft_exe(node, env, end);
 		}
 		ft_free_all_node(&node);
