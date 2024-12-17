@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/17 12:31:29 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/17 15:42:04 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ int	main(int ac, char **av, char **envp)
 		initialize_signals();
 		token_list = NULL;
 		str = NULL;
-		while (ft_verrif_tok(&token_list) == 1)
+		while (ft_verrif_tok(&token_list) != 0)
 		{
 			ft_free_token(&token_list);
-		//	free(str);
-		//	str = NULL;
+			free(str);
+			str = NULL;
 			token_list = NULL;
 			token_list = re_do_token(&str);
 			added = 1;
+			excode = 258;
 		}
 		tmp = find_pipe(token_list);
 		while (tmp->type == PIPE)

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/17 12:31:02 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/17 15:14:46 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	first_process(t_node *node, char **env)
 	split_cmd = ft_split(tmp->data.str, ' ');
 	add_space_split(split_cmd);
 	remove_quote(split_cmd);
-	printf("couco\n");
 	if (exec_builtin(split_cmd, env))
 	{
 		ft_free_str(split_cmd);
@@ -140,24 +139,28 @@ void	ft_exe(t_node *node, char **env, int *end)
 	t_node *left;
 	t_node *right;
 
+	if (end[1] != 0)
+		pipe(end);
 	if (node->type == STR_NODE)
 		first_process(node, env);
 	else if (node->type == PAIR_NODE)
 	{
-		pipe(end);
 		left = node->data.pair.left;
 		right = node->data.pair.right;
 		if (node->data.pair.opera[0] == '|')
 			exe_pipe(node, env, end);
-		if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
+		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
 			input_dir(right, left, end, env);
-		if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
+		else if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
 			output_dir(right, left, end, env);
-		if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
+		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
 			output_append(right, left, end, env);
-		if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 			di_to_dir(right, left, end, env);
-		close(end[1]);
+	}
+	if (end[1] == STDOUT_FILENO)
+	{
 		close(end[0]);
+		close(end[1]);
 	}
 }

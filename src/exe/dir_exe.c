@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/12/11 14:27:48 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/17 15:13:11 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	input_dir(t_node *right, t_node *left, int *end, char **envp)
 		perror(right->data.str);
 		exit(1);
 	}
-	close(fd);
-	close(end[0]);
-	close(end[1]);
 	if (left->type == PAIR_NODE)
 		ft_exe(left, envp, end);
 	else
 		first_process(left, envp);
+	close(fd);
+	dup2(end[0], STDIN_FILENO);
+	dup2(end[1], STDOUT_FILENO);
 }
 
 void	output_dir(t_node *right, t_node *left, int *end, char **envp)
@@ -43,13 +43,13 @@ void	output_dir(t_node *right, t_node *left, int *end, char **envp)
 		perror(NULL);
 		exit(1);
 	}
-	close(fd);
-	close(end[0]);
-	close(end[1]);
 	if (left->type == PAIR_NODE)
 		ft_exe(left, envp, end);
 	else
 		first_process(left, envp);
+	close(fd);
+	dup2(end[0], STDIN_FILENO);
+	dup2(end[1], STDOUT_FILENO);
 }
 
 void	output_append(t_node *right, t_node *left, int *end, char **envp)
@@ -64,13 +64,13 @@ void	output_append(t_node *right, t_node *left, int *end, char **envp)
 		perror(NULL);
 		exit(1);
 	}
-	close(fd);
-	close(end[0]);
-	close(end[1]);
 	if (left->type == PAIR_NODE)
 		ft_exe(left, envp, end);
 	else
 		first_process(left, envp);
+	close(fd);
+	dup2(end[0], STDIN_FILENO);
+	dup2(end[1], STDOUT_FILENO);
 }
 
 void	di_to_dir(t_node *right, t_node *left, int *end, char **envp)
