@@ -79,7 +79,7 @@
 // 			free(last);
 // 			free(join);
 // 			break ;
-// 		}		
+// 		}
 // 		i++;
 // 	}
 // 	(void) env;
@@ -108,8 +108,7 @@
 
 // }
 
-
-
+/* Cherche la valeur d'une variable dans env et verifie qu'elle finit par = */
 char	*get_env_value(char *var, char **env)
 {
 	int		i;
@@ -125,42 +124,42 @@ char	*get_env_value(char *var, char **env)
 			return (&env[i][var_len + 1]);
 		i++;
 	}
-	return ("");  
+	return ("");
 }
 
+/* Parcourt la chaine
+	si $, extraction du nom
+	concatene la valeur de la variable */
 char	*replace_dollar_str(char *str, char **env)
 {
 	char	*result;
 	char	*temp;
-	int start;
 	int		i;
-	int  j;
+	int		j;
 	char	var_name[256];
-	
+	char	*var_value;
+	char	substr[2];
+
 	i = 0;
-	start = 0;
-	(void) start;
 	result = ft_strdup("");
 	while (str[i])
 	{
-		if (str[i] == '$') 
+		if (str[i] == '$')
 		{
 			i++;
-			start = i;
 			j = 0;
 			while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 				var_name[j++] = str[i++];
 			var_name[j] = '\0';
-
-			char *var_value = get_env_value(var_name, env);
-
+			var_value = get_env_value(var_name, env);
 			temp = result;
 			result = ft_strjoin(temp, var_value);
 			free(temp);
 		}
 		else
 		{
-			char substr[2] = {str[i], '\0'};
+			substr[0] = str[i];
+			substr[1] = '\0';
 			temp = result;
 			result = ft_strjoin(temp, substr);
 			free(temp);
@@ -170,21 +169,23 @@ char	*replace_dollar_str(char *str, char **env)
 	return (result);
 }
 
+/* remplace la chaine du node par la nouvelle chaine */
 void	replace_dollar(t_node *node, char **env)
 {
-	char *new_str;
+	char	*new_str;
 
 	if (!node || !node->data.str)
-		return;
+		return ;
 	new_str = replace_dollar_str(node->data.str, env);
 	free(node->data.str);
 	node->data.str = new_str;
 }
 
+/* Parcourt l'arbre et appelle replace dollar sur chaque node STR */
 void	add_dollar(t_node *node, char **env)
 {
 	if (!node)
-		return;
+		return ;
 	if (node->type == STR_NODE)
 		replace_dollar(node, env);
 	else

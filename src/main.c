@@ -77,7 +77,9 @@ int	main(int ac, char **av, char **envp)
 		{
 //			print_token_list(token_list);
 			node = parse(&token_list);
+			
 			add_dollar(node, env);
+			clean_str_nodes(node);
 //			print_node(node); // Pour afficher l'arbre de parsing
 
 			ft_exe(node, env, end);

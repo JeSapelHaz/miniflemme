@@ -108,6 +108,9 @@ void	handle_sigint(int signal);
 
 void	initialize_signals(void);
 void	replace_env_in_nodes(t_node *node, char **env);
+char *remove_backslashes(const char *str);
+void clean_str_nodes(t_node *node);
+
 
 typedef struct	s_sig
 {

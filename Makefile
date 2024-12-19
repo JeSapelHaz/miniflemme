@@ -38,7 +38,8 @@ SRC_PARSING = $(SRCDIR)/parsing/parser.c \
               $(SRCDIR)/parsing/heredoc.c \
               $(SRCDIR)/parsing/not_close_token.c \
               $(SRCDIR)/parsing/dollar.c \
-              $(SRCDIR)/parsing/weird_dir.c
+              $(SRCDIR)/parsing/weird_dir.c \
+              $(SRCDIR)/parsing/clean_str.c
 
 SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/utils_token.c \

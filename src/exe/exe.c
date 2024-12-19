@@ -90,6 +90,7 @@ void	first_process(t_node *node, char **env)
 		execve(path, split_cmd, env);
 		ft_execv_error(split_cmd);
 	}
+	ft_free_str(split_cmd);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		excode = WEXITSTATUS(status);
@@ -124,6 +125,7 @@ void	pipe_process(t_node *node, char **env, int *end)
 	}
 	close(end[0]);
 	close(end[1]);
+	ft_free_str(split_cmd);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		excode = WEXITSTATUS(status);
