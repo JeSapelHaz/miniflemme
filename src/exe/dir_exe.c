@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/12/22 16:08:36 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/22 19:39:32 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,10 @@ void	input_dir(t_node *right, t_node *left, int *end, char **envp)
 	int	child;
 	int	status;
 
-	child = fork();
-	if (child < 0)
-		exit(1);
-	if (child == 0)
-	{
-		fd = open(right->data.str, O_RDONLY);
-		if (dup2(fd, STDIN_FILENO) == -1)
-		{
-			perror(right->data.str);
-			exit(1);
-		}
-		if (left->type == PAIR_NODE)
-			ft_exe(left, envp, end);
-		else
-			first_process(left, envp);
-		close(fd);
-		dup2(end[0], STDIN_FILENO);
-		dup2(end[1], STDOUT_FILENO);
-		exit(excode);
-	}
-	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
+	fd = open(right->data.str, O_RDONLY);
+	//update context
+	ft_exe(left, envp, context);
+	close(fd);
 }
 
 void	output_dir(t_node *right, t_node *left, int *end, char **envp)

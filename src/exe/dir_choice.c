@@ -6,22 +6,28 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2024/12/22 14:13:01 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/22 19:37:16 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	exe_pipe(t_node *node, char **envp, int *end)
+void	exe_pipe(t_node *node, char **envp)
 {
 	int		child1;
 	int		child2;
 	t_node	*left;
 	t_node	*right;
 	int		status;
+	int	end[2];
 
 	left = node->data.pair.left;
 	right = node->data.pair.right;
+	//update context
+	left.ctxt.outfile = end[0];
+	ft_exe(left, left_ctxt);
+	ft_exe(right, right_ctxt);
+	/*
 	pipe(end);
 	child2 = 0;
 	child1 = fork();
@@ -59,6 +65,7 @@ void	exe_pipe(t_node *node, char **envp, int *end)
 			exit(excode);
 		}
 	}
+	*/
 	close(end[0]);
 	close(end[1]);
 	waitpid(child1, &status, 0);

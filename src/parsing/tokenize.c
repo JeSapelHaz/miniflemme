@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/04 14:44:25 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/22 17:06:20 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_is_lexeme(char c)
 {
 	if (c != ' ' && c != '|' && c != '<' && c != '>' && c != '\"' && c != '\''
-		&& c != '(' && c != ')')
+		&& c != '(' && c != ')' && c != ';' && c != '\\')
 		return (0);
 	return (1);
 }
@@ -59,7 +59,7 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 		i++;
 	start = i;
 	while (str[i] != '\0' && str[i] != '\n' && str[i] != '|' && str[i] != '>'
-		&& str[i] != '<' && str[i] != ')' && str[i] != '\"' && str[i] != '\'')
+		&& str[i] != '<' && str[i] != ')' && str[i] != '\"' && str[i] != '\'' && str[i] != '\\' && str[i] != ';')
 	{
 		if (type == CHAR_TOKEN && str[i] == ' ')
 			break ;
@@ -95,6 +95,8 @@ static int	which_token(int i, char *str, t_token **token_list)
 		ft_add_token(token_list, OA_DIR, ft_strdup(">>"));
 		i++;
 	}
+	else if (str[i] == '\\' || str[i] == ';')
+		return (ft_not_close(str[i]), -1);
 	return (i);
 }
 

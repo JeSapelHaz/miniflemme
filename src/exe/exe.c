@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/22 15:54:42 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/22 18:00:07 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	first_process(t_node *node, char **env)
 		path = find_path(env, split_cmd);
 		execve(path, split_cmd, env);
 		ft_execv_error(split_cmd);
-		exit(excode);
 	}
 	ft_free_str(split_cmd);
 	waitpid(pid, &status, 0);
@@ -143,8 +142,6 @@ void	ft_exe(t_node *node, char **env, int *end)
 	t_node *left;
 	t_node *right;
 
-	if (end[1] != 0)
-		pipe(end);
 	if (node->type == STR_NODE)
 		first_process(node, env);
 	else if (node->type == PAIR_NODE)
@@ -161,11 +158,5 @@ void	ft_exe(t_node *node, char **env, int *end)
 			output_append(right, left, end, env);
 		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 			di_to_dir(right, left, end, env);
-	}
-	
-	if (end[1] == STDOUT_FILENO)
-	{
-		close(end[0]);
-		close(end[1]);
 	}
 }

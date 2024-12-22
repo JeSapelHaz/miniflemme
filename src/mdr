@@ -1,0 +1,10 @@
+total 4
+drwxr-xr-x 6 alama 2024_s19   96 Dec 22 18:36 .
+drwxr-xr-x 8 alama 2024_s19  150 Dec 22 18:01 ..
+drwxr-xr-x 2 alama 2024_s19  124 Dec 22 16:34 builtins
+drwxr-xr-x 2 alama 2024_s19  111 Dec 22 18:06 exe
+-rw-r--r-- 1 alama 2024_s19 2495 Dec 22 16:50 main.c
+-rw-r--r-- 1 alama 2024_s19    0 Dec 22 18:36 mdr
+drwxr-xr-x 2 alama 2024_s19  198 Dec 22 17:53 parsing
+-rw-r--r-- 1 alama 2024_s19    0 Dec 22 18:36 pi
+drwxr-xr-x 2 alama 2024_s19  165 Dec 16 18:34 utils
