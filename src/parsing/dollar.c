@@ -3,196 +3,201 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:54:15 by alama             #+#    #+#             */
-/*   Updated: 2024/12/11 18:17:16 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/20 17:15:43 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-// static char	*find_dollar(char *str, char **env)
-// {
-// 	int	i;
-// 	//char	*tmp;
-
-// 	//tmp = NULL;
-// 	(void) env;
-// 	i = 1;
-// 	if (str[i] == '?')
-// 		return (ft_itoa(excode));
-// 	printf("nop\n");
-// 	return (NULL);
-// 	/*
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '?')
-// 			return (ft_itoa(excode));
-// 	}
-// 	return (tmp);
-// 	*/
-// }
-
-// static void	replace_dollar(t_node *node, char **env)
-// {
-// 	int	i;
-// 	char	*answer;
-// 	char	*tmp;
-// 	char	*join;
-// 	int	r;
-// 	int	j;
-// 	char	*last;
-
-// 	i = 0;
-// 	answer = NULL;
-// 	while (node->data.str[i])
-// 	{
-// 		if (node->data.str[i] == '$')
-// 		{
-// 			answer = find_dollar(&node->data.str[i], env);
-// 			tmp = malloc(sizeof(char) * i + 1);
-// 			ft_strlcat(tmp, node->data.str, i);
-// 			join = ft_strjoin(tmp, answer);
-// 			r = i;
-// 			while (node->data.str[r] != '\0' || node->data.str[r] != '<'
-// 				|| node->data.str[r] != '>'
-// 				|| node->data.str[r] != '|'
-// 				|| node->data.str[r] != ')'
-// 				|| node->data.str[r] != '('
-// 				|| node->data.str[r] != '{'
-// 				|| node->data.str[r] != '}'
-// 				|| node->data.str[r] != '\\'
-// 				|| node->data.str[r] != ']'
-// 				|| node->data.str[r] != '?')
-// 				r++;
-// 			j = r;
-// 			while (node->data.str[j])
-// 				j++;
-// 			j = j - r;
-// 			last = malloc(sizeof(char) * j + 1);
-// 			last[j + 1] = '\0';
-// 			r = r - i;
-// 			free(answer);
-// 			free(node->data.str);
-// 			node->data.str = ft_strjoin(join, last);
-// 			free(last);
-// 			free(join);
-// 			break ;
-// 		}
-// 		i++;
-// 	}
-// 	(void) env;
-// }
-
-// void	add_dollar(t_node *node, char **env)
-// {
-// 	if (node->type == STR_NODE)
-// 		replace_dollar(node, env);
-// 	else
-// 	{
-// 		if (node->data.pair.left)
-// 			add_dollar(node->data.pair.left, env);
-// 		if (node->data.pair.right)
-// 			add_dollar(node->data.pair.right, env);
-// 	}
-// }
-
-// void replace_dollar(t_node *node, char **env)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while(node->data.str[i])
-// 		if (node->data.str[i] == '$')
-
-// }
-
-/* Cherche la valeur d'une variable dans env et verifie qu'elle finit par = */
-char	*get_env_value(char *var, char **env)
+char *get_env_value(char *var, char **env)
 {
-	int		i;
-	size_t	var_len;
+    int i;
+    size_t var_len;
 
-	if (!var || !env)
-		return (NULL);
-	var_len = ft_strlen(var);
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], var, var_len) && env[i][var_len] == '=')
-			return (&env[i][var_len + 1]);
-		i++;
-	}
-	return ("");
+    if (!var || !env)
+        return (NULL);
+    var_len = strlen(var);
+    i = 0;
+    while (env[i])
+    {
+        if (!strncmp(env[i], var, var_len) && env[i][var_len] == '=')
+            return (&env[i][var_len + 1]);
+        i++;
+    }
+    return ("");
 }
 
-/* Parcourt la chaine
-	si $, extraction du nom
-	concatene la valeur de la variable */
-char	*replace_dollar_str(char *str, char **env)
+char *itoa_exit_code(int n)
 {
-	char	*result;
+    char *result;
+    int tmp;
+    int len = (n <= 0);
+    int is_negative = (n < 0);
+
+    tmp = n;
+    while (tmp && ++len)
+        tmp /= 10;
+    result = (char *)malloc(len + 1);
+    if (!result)
+        return (NULL);
+    result[len] = '\0';
+    if (n == 0)
+        result[0] = '0';
+    if (is_negative)
+        n = -n;
+    while (n)
+    {
+        result[--len] = (n % 10) + '0';
+        n /= 10;
+    }
+    if (is_negative)
+        result[--len] = '-';
+    return (result);
+}
+char	*handle_simple_dollar(char **result)
+{
+	char	substr[2];
 	char	*temp;
-	int		i;
-	int		j;
+
+	substr[0] = '$';
+	substr[1] = '\0';
+	temp = *result;
+	*result = ft_strjoin(temp, substr);
+	free(temp);
+	return (*result);
+}
+char	*handle_exit_code(char **result)
+{
+	char	*temp;
+	char	*exit_code_str;
+
+	exit_code_str = itoa_exit_code(excode);
+	if (!exit_code_str)
+		return (NULL);
+	temp = *result;
+	*result = ft_strjoin(temp, exit_code_str);
+	free(temp);
+	free(exit_code_str);
+	return (*result);
+}
+
+char	*handle_dollar(char **result, char *str, int *i, char **env)
+{
 	char	var_name[256];
 	char	*var_value;
-	char	substr[2];
+	char	*temp;
+	int		j;
 
-	i = 0;
-	result = ft_strdup("");
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			i++;
-			j = 0;
-			while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
-				var_name[j++] = str[i++];
-			var_name[j] = '\0';
-			var_value = get_env_value(var_name, env);
-			temp = result;
-			result = ft_strjoin(temp, var_value);
-			free(temp);
-		}
-		else
-		{
-			substr[0] = str[i];
-			substr[1] = '\0';
-			temp = result;
-			result = ft_strjoin(temp, substr);
-			free(temp);
-			i++;
-		}
-	}
+	(*i)++;
+	if (str[*i] == '\0' || (str[*i] != '?' &&
+		!(ft_isalnum(str[*i]) || str[*i] == '_')))
+		return (handle_simple_dollar(result));
+
+	if (str[*i] == '?')
+		return (handle_exit_code(result));
+
+	j = 0;
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+		var_name[j++] = str[(*i)++];
+	var_name[j] = '\0';
+	var_value = get_env_value(var_name, env);
+	temp = *result;
+	*result = ft_strjoin(temp, var_value);
+	free(temp);
+	return (*result);
+}
+
+char	*add_char_to_result(char *result, char c)
+{
+	char	substr[2];
+	char	*temp;
+
+	substr[0] = c;
+	substr[1] = '\0';
+	temp = result;
+	result = ft_strjoin(temp, substr);
+	free(temp);
 	return (result);
 }
 
-/* remplace la chaine du node par la nouvelle chaine */
-void	replace_dollar(t_node *node, char **env)
+char *replace_dollar_str(char *str, char **env)
 {
-	char	*new_str;
+    char    *result;
+    int     i;
+    int     in_single_quotes;
+    int     in_double_quotes;
 
-	if (!node || !node->data.str)
-		return ;
-	new_str = replace_dollar_str(node->data.str, env);
-	free(node->data.str);
-	node->data.str = new_str;
+    result = ft_strdup("");
+    if (!result)
+        return (NULL);
+
+    in_single_quotes = 0;
+    in_double_quotes = 0;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == '\'' && !in_double_quotes)
+        {
+            in_single_quotes = !in_single_quotes;
+            result = add_char_to_result(result, str[i]);
+        }
+        else if (str[i] == '"' && !in_single_quotes)
+        {
+            in_double_quotes = !in_double_quotes;
+            result = add_char_to_result(result, str[i]);
+        }
+        else if (str[i] == '$' && !in_single_quotes)
+        {
+            if (str[i + 1] == '?') 
+            {
+                result = handle_exit_code(&result);
+                i++; 
+            }
+            else
+            {
+                result = handle_dollar(&result, str, &i, env);
+                if (!result)
+                    return (NULL);
+                continue;
+            }
+        }
+        else
+        {
+            result = add_char_to_result(result, str[i]);
+            if (!result)
+                return (NULL);
+        }
+        i++;
+    }
+    return (result);
 }
 
-/* Parcourt l'arbre et appelle replace dollar sur chaque node STR */
-void	add_dollar(t_node *node, char **env)
+void replace_dollar(t_node *node, char **env)
 {
-	if (!node)
-		return ;
-	if (node->type == STR_NODE)
-		replace_dollar(node, env);
-	else
-	{
-		if (node->data.pair.left)
-			add_dollar(node->data.pair.left, env);
-		if (node->data.pair.right)
-			add_dollar(node->data.pair.right, env);
-	}
+    char *new_str;
+
+    if (!node || !node->data.str)
+        return;
+    new_str = replace_dollar_str(node->data.str, env);
+    free(node->data.str);
+    node->data.str = new_str;
+}
+
+void add_dollar(t_node *node, char **env)
+{
+    if (!node)
+        return;
+    if (node->type == STR_NODE)
+        replace_dollar(node, env);
+    else
+    {
+        if (node->data.pair.left)
+            add_dollar(node->data.pair.left, env);
+        if (node->data.pair.right)
+            add_dollar(node->data.pair.right, env);
+    }
 }

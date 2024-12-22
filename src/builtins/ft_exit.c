@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/17 13:19:15 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/20 17:25:21 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@ void	ft_exit(char **args)
 		exit(0);
 	if (!is_numeric(args[1]))
 	{
-		// utilise write pas fprintf car interdit
-		//fprintf(stderr, "minishell: exit: %s: numeric argument required\n",
-		//	args);
 		write(2, "minishell: exit: ", 17);
 		write(2, args[1], ft_strlen(args[1]));
 		write(2, ": numeric argument required\n", 28);
-		exit(255);
+		exit(2);
 	}
 	if (args[2] != NULL)
 	{

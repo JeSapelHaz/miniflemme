@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/17 15:42:04 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/22 14:43:16 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <signal.h>
 
 int	excode = 0;
-
-
 
 t_token	*re_do_token(char **str)
 {
@@ -80,14 +78,14 @@ int	main(int ac, char **av, char **envp)
 			
 			add_dollar(node, env);
 			clean_str_nodes(node);
-//			print_node(node); // Pour afficher l'arbre de parsing
-
+			// print_node(node); // Pour afficher l'arbre de parsing
 			ft_exe(node, env, end);
 		}
 		ft_free_all_node(&node);
 		ft_free_token(&token_list);
 		free(str);
-		printf("exit status : %d\n", excode);
+		// exit(excode);
+		// printf("exit status : %d\n", excode);
 	}
 	clear_history();
 	free(str);

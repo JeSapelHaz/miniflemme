@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/17 15:14:46 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/22 14:40:04 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	first_process(t_node *node, char **env)
 		path = find_path(env, split_cmd);
 		execve(path, split_cmd, env);
 		ft_execv_error(split_cmd);
+		exit(excode);
 	}
 	ft_free_str(split_cmd);
 	waitpid(pid, &status, 0);
@@ -122,6 +123,7 @@ void	pipe_process(t_node *node, char **env, int *end)
 		close(end[1]);
 		execve(path, split_cmd, env);
 		ft_execv_error(split_cmd);
+		exit(excode);
 	}
 	close(end[0]);
 	close(end[1]);
@@ -160,6 +162,7 @@ void	ft_exe(t_node *node, char **env, int *end)
 		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 			di_to_dir(right, left, end, env);
 	}
+	
 	if (end[1] == STDOUT_FILENO)
 	{
 		close(end[0]);
