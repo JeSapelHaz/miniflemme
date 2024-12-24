@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/22 14:30:06 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/22 14:45:44 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ void ft_echo(char **args)
             printf(" ");
         i++;
     }
-
-    // Affiche un saut de ligne si l'option -n n'est pas utilisée
     if (newline)
         printf("\n");
 }
