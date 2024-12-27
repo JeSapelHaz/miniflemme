@@ -6,100 +6,112 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/12/22 19:39:32 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/27 21:46:57 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	input_dir(t_node *right, t_node *left, int *end, char **envp)
+void	input_dir(t_node *right, t_node *left, char **envp)
 {
 	int	fd;
-	int	child;
-	int	status;
-
-	fd = open(right->data.str, O_RDONLY);
-	//update context
-	ft_exe(left, envp, context);
-	close(fd);
-}
-
-void	output_dir(t_node *right, t_node *left, int *end, char **envp)
-{
-	int	fd;
-	int	child;
-	int	status;
-
-	child = fork();
-	if (child < 0)
-		exit(1);
-	if (child == 0)
-	{
-		fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (fd == -1)
-			perror("open file fails\n");
-		if (dup2(fd, STDOUT_FILENO) == -1)
-		{
-			perror(NULL);
-			exit(1);
-		}
-		if (left->type == PAIR_NODE)
-			ft_exe(left, envp, end);
-		else
-			first_process(left, envp);
-		close(fd);
-		dup2(end[0], STDIN_FILENO);
-		dup2(end[1], STDOUT_FILENO);
-		exit(excode);
-	}
-	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
-}
-
-void	output_append(t_node *right, t_node *left, int *end, char **envp)
-{
-	int	fd;
-	int	child;
-	int	status;
-
-	child = fork();
-	if (child < 0)
-		exit(1);
-	if (child == 0)
-	{
-		fd = open(right->data.str, O_CREAT | O_WRONLY | O_APPEND, 0664);
-		if (fd == -1)
-			perror("open file fails\n");
-		if (dup2(fd, STDOUT_FILENO) == -1)
-		{
-			perror(NULL);
-			exit(1);
-		}
-		if (left->type == PAIR_NODE)
-			ft_exe(left, envp, end);
-		else
-			first_process(left, envp);
-		close(fd);
-		dup2(end[0], STDIN_FILENO);
-		dup2(end[1], STDOUT_FILENO);
-		exit(excode);
-	}
-	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
-}
-
-void	di_to_dir(t_node *right, t_node *left, int *end, char **envp)
-{
+	int	end[2];
 	int	pid;
 	int	status;
 
+	pipe(end);
+	fd = open(right->data.str, O_RDONLY);
 	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork input fails");
+		exit(1);
+	}
 	if (pid == 0)
-		input_dir(right, left, end, envp);
+	{
+		if (dup2(fd, STDIN_FILENO) == -1)
+		{
+			perror(NULL);
+			exit(1);
+		}
+		ft_exe_dir(left, envp, end);
+		exit(excode);
+	}
+	close(fd);
+	close(end[1]);
+	close(end[0]);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		excode = WEXITSTATUS(status);
+}
+
+void	output_dir(t_node *right, t_node *left, char **envp)
+{
+	int	fd;
+	int	child;
+	int	status;
+	int	end[2];
+
+	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+		perror("open file fails\n");
+	pipe(end);
+	child = fork();
+	if (child < 0)
+		exit(1);
+	if (child == 0)
+	{
+		if (dup2(fd, STDOUT_FILENO) == -1)
+		{
+			perror(NULL);
+			exit(1);
+		}
+		close(fd);
+		ft_exe_dir(left, envp, end);
+		exit(excode);
+	}
+	close(fd);
+	close(end[0]);
+	close(end[1]);
+	waitpid(child, &status, 0);
+	if (WIFEXITED(status))
+		excode = WEXITSTATUS(status);
+}
+
+void	output_append(t_node *right, t_node *left, char **envp)
+{
+	int	fd;
+	int	child;
+	int	status;
+	int	end[2];
+
+	fd = open(right->data.str, O_CREAT | O_WRONLY | O_APPEND, 0664);
+	if (fd == -1)
+		perror("open file fails\n");
+	pipe(end);
+	child = fork();
+	if (child < 0)
+		exit(1);
+	if (child == 0)
+	{
+		if (dup2(fd, STDOUT_FILENO) == -1)
+		{
+			perror(NULL);
+			exit(1);
+		}
+		ft_exe_dir(left, envp, end);
+		exit(excode);
+	}
+	close(fd);
+	close(end[0]);
+	close(end[1]);
+	waitpid(child, &status, 0);
+	if (WIFEXITED(status))
+		excode = WEXITSTATUS(status);
+}
+
+void	di_to_dir(t_node *right, t_node *left, char **envp)
+{
+	input_dir(right, left, envp);
 	unlink(right->data.str);
 }

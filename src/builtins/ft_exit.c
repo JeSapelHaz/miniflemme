@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/20 17:25:21 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/27 21:52:30 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_numeric(const char *str)
 void	ft_exit(char **args)
 {
 	write(1, "exit\n", 5);
-	if (args[1] == NULL)
+	if (!args || args[1] == NULL)
 		exit(0);
 	if (!is_numeric(args[1]))
 	{

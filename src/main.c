@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/22 16:50:04 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/27 21:52:41 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ t_token	*re_do_token(char **str)
 	t_token	*tmp;
 
 	*str = readline("mini-flemme$ ");
-//	if (!(*str))
-//	{
-//		printf("coucou ah oui make sanse\n");
-//		return (ft_exit(0), NULL);
-//	}
+	if (!(*str))
+		return (ft_exit(NULL), NULL);
 	token_list = tokenize(*str);
 	tmp = find_pipe(token_list);
 	if (!tmp || tmp->type != PIPE)
@@ -40,7 +37,6 @@ int	main(int ac, char **av, char **envp)
 	char	**env;
 	char	*str;
 	t_token	*tmp;
-	int	end[2];
 	int	added;
 
 	check_args(ac, av);
@@ -59,7 +55,6 @@ int	main(int ac, char **av, char **envp)
 			token_list = re_do_token(&str);
 			added = 1;
 			excode = 258;
-			printf("exit status : %d\n", excode);
 		}
 		tmp = find_pipe(token_list);
 		while (tmp->type == PIPE)
@@ -80,7 +75,7 @@ int	main(int ac, char **av, char **envp)
 			add_dollar(node, env);
 			clean_str_nodes(node);
 			// print_node(node); // Pour afficher l'arbre de parsing
-			ft_exe(node, env, end);
+			ft_exe(node, env);
 		}
 		ft_free_all_node(&node);
 		ft_free_token(&token_list);
