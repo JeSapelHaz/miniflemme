@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/27 21:48:46 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/30 19:25:49 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_execv_error(char **split_cmd)
 	else
 	{
 		ft_free_str(split_cmd);
-		write(2, ": command not found\n", 20);
+		write(2, ": command not founda\n", 20);
 		exit(127);
 	}
 }
@@ -68,8 +68,8 @@ void	first_process(t_node *node, char **env)
 	char	*path;
 	char	**split_cmd;
 	t_node	*tmp;
-	int	pid;
-	int	status;
+	int		pid;
+	int		status;
 
 	tmp = node;
 	split_for_exe(tmp);
@@ -126,8 +126,8 @@ void	dir_process(t_node *node, char **env, int *end)
 // j'ai du juste re-mettre des exit(0) dans les nouveaux childs et dans celui des pipes
 void	ft_exe(t_node *node, char **env)
 {
-	t_node *left;
-	t_node *right;
+	t_node	*left;
+	t_node	*right;
 
 	if (node->type == STR_NODE)
 		first_process(node, env);

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/30 18:28:55 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/30 19:05:57 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int ac, char **av, char **envp)
 		ft_free_token(&token_list);
 		free(str);
 		// exit(excode);
-		printf("exit status : %d\n", excode);
+		// printf("exit status : %d\n", excode);
 	}
 	clear_history();
 	free(str);
