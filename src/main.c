@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2024/12/27 21:52:41 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/30 18:28:55 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int ac, char **av, char **envp)
 	char	*str;
 	t_token	*tmp;
 	int	added;
+//	static t_all	*all;
 
 	check_args(ac, av);
 	env = copy_env(envp);

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2024/12/23 16:35:36 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/30 18:00:18 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,13 @@ struct	s_node
  	t_node_value	data;
 	t_ctxt		ctxt;
 };
+
+typedef	struct s_all
+{
+	t_node	*node;
+	t_token	*token;
+	char	*read_str;
+	int	is_child;
+}	t_all;
 
 #endif
