@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verrif_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:50:36 by alama             #+#    #+#             */
-/*   Updated: 2024/12/12 16:21:47 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:12:07 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,24 @@ int	ft_verrif_tok(t_token **token_list)
 
 	if (!token_list || !*token_list)
 		return (1);
-	excode = 258;
 	if (first_verrif(*token_list) == 1)
 	{
 		ft_free_token(token_list);
+		excode = 258;
 		return (1);
 	}
 	tmp = *token_list;
 	if (ft_verrif_dir(tmp) == 1)
 	{
 		ft_free_token(token_list);
+		excode = 258;
 		return (1);
 	}
 	if (last_verrif(tmp) == 1)
 	{
 		ft_free_token(token_list);
+		excode = 258;
 		return (1);
 	}
-	excode = 0;
 	return (0);
 }

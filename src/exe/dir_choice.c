@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2024/12/27 20:39:50 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/02 17:39:28 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	exe_pipe(t_node *node, char **envp)
 {
 	t_node	*left;
 	t_node	*right;
-	int	child1;
-	int	child2;
-	int	status;
-	int	end[2];
+	int		child1;
+	int		child2;
+	int		status;
+	int		end[2];
 
 	left = node->data.pair.left;
 	right = node->data.pair.right;
@@ -58,8 +58,8 @@ void	exe_pipe(t_node *node, char **envp)
 
 void	ft_exe_dir(t_node *node, char **env, int *end)
 {
-	t_node *left;
-	t_node *right;
+	t_node	*left;
+	t_node	*right;
 
 	if (node->type == STR_NODE)
 		dir_process(node, env, end);

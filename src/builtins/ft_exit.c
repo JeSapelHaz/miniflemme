@@ -6,12 +6,11 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/30 18:05:04 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/02 17:56:03 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
-
 
 int	is_numeric(const char *str)
 {
@@ -33,7 +32,7 @@ void	ft_exit(char **args)
 {
 	write(1, "exit\n", 5);
 	if (!args || args[1] == NULL)
-		exit(0);
+		exit(excode);
 	if (!is_numeric(args[1]))
 	{
 		write(2, "minishell: exit: ", 17);

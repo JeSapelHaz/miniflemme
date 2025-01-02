@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/30 19:25:49 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 16:46:18 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_execv_error(char **split_cmd)
 	else
 	{
 		ft_free_str(split_cmd);
-		write(2, ": command not founda\n", 20);
+		write(2, ": command not found\n", 20);
 		exit(127);
 	}
 }
@@ -90,10 +90,11 @@ void	first_process(t_node *node, char **env)
 		execve(path, split_cmd, env);
 		ft_execv_error(split_cmd);
 	}
-	ft_free_str(split_cmd);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		excode = WEXITSTATUS(status);
+	// exit (excode);
+	ft_free_str(split_cmd);
 }
 
 void	dir_process(t_node *node, char **env, int *end)

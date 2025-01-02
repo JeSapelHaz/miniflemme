@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/22 17:06:20 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:14:25 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 		i++;
 	start = i;
 	while (str[i] != '\0' && str[i] != '\n' && str[i] != '|' && str[i] != '>'
-		&& str[i] != '<' && str[i] != ')' && str[i] != '\"' && str[i] != '\'' && str[i] != '\\' && str[i] != ';')
+		&& str[i] != '<' && str[i] != ')' && str[i] != '\"' && str[i] != '\''
+		&& str[i] != '\\' && str[i] != ';')
 	{
 		if (type == CHAR_TOKEN && str[i] == ' ')
 			break ;

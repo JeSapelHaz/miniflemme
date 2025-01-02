@@ -6,19 +6,18 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:16 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/22 14:43:51 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 16:56:29 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
 
 static void	ft_print_var(char *var)
 {
 	int	i;
 
 	if (!var)
-		return;
+		return ;
 	i = 0;
 	write(1, "declare -x ", 11);
 	while (var[i] && var[i] != '=')
@@ -47,7 +46,7 @@ static void	ft_sort_env(char **env)
 	char	*temp;
 
 	if (!env)
-		return;
+		return ;
 	i = 0;
 	while (env[i])
 	{
@@ -78,7 +77,7 @@ static void	ft_add_to_env(char ***env, char *arg)
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 2));
 	if (!new_env)
-		return;
+		return ;
 	for (i = 0; env_temp[i]; i++)
 		new_env[i] = env_temp[i];
 	new_env[i] = ft_strdup(arg);
@@ -118,8 +117,7 @@ void	ft_export(char **args, char ***env)
 	i = 0;
 	current_env = *env;
 	if (!current_env)
-		return;
-
+		return ;
 	if (!args[1])
 	{
 		ft_sort_env(current_env);
@@ -128,15 +126,14 @@ void	ft_export(char **args, char ***env)
 			ft_print_var(current_env[i]);
 			i++;
 		}
-		return;
+		return ;
 	}
-
 	for (i = 1; args[i]; i++)
 	{
 		if (!verify_export_name(args[i]))
 		{
 			write_error(args[i]);
-			excode = 1; 
+			excode = 1;
 		}
 		else
 		{
