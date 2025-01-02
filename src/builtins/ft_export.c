@@ -6,38 +6,11 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:16 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/02 16:56:29 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/24 15:30:20 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-static void	ft_print_var(char *var)
-{
-	int	i;
-
-	if (!var)
-		return ;
-	i = 0;
-	write(1, "declare -x ", 11);
-	while (var[i] && var[i] != '=')
-	{
-		write(1, &var[i], 1);
-		i++;
-	}
-	if (var[i] == '=')
-	{
-		write(1, "=\"", 2);
-		i++;
-		while (var[i])
-		{
-			write(1, &var[i], 1);
-			i++;
-		}
-		write(1, "\"", 1);
-	}
-	write(1, "\n", 1);
-}
 
 static void	ft_sort_env(char **env)
 {
@@ -45,7 +18,7 @@ static void	ft_sort_env(char **env)
 	int		j;
 	char	*temp;
 
-	if (!env)
+	if (!env || !env[0])
 		return ;
 	i = 0;
 	while (env[i])
@@ -65,79 +38,162 @@ static void	ft_sort_env(char **env)
 	}
 }
 
-static void	ft_add_to_env(char ***env, char *arg)
+static void	ft_print_env(char **env)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (env[i])
+	{
+		write(1, "declare -x ", 11);
+		j = 0;
+		while (env[i][j] && env[i][j] != '=')
+		{
+			write(1, &env[i][j], 1);
+			j++;
+		}
+		if (env[i][j] == '=')
+		{
+			write(1, "=\"", 2);
+			j++;
+			while (env[i][j])
+				write(1, &env[i][j++], 1);
+			write(1, "\"", 1);
+		}
+		write(1, "\n", 1);
+		i++;
+	}
+}
+static int	get_env_index(char **env, const char *arg)
 {
 	int		i;
-	char	**env_temp;
-	char	**new_env;
+	size_t	len;
 
-	env_temp = *env;
+	len = 0;
+	while (arg[len] && arg[len] != '=')
+		len++;
 	i = 0;
-	while (env_temp[i])
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], arg, len) && env[i][len] == '=')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static void	replace_env_value(char **env, const char *arg, int index)
+{
+	free(env[index]);
+	env[index] = ft_strdup(arg);
+}
+
+static void	add_new_env_variable(char ***env, const char *arg)
+{
+	char	**new_env;
+	int		i;
+
+	i = 0;
+	while ((*env)[i])
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 2));
 	if (!new_env)
 		return ;
-	for (i = 0; env_temp[i]; i++)
-		new_env[i] = env_temp[i];
+	i = 0;
+	while ((*env)[i])
+	{
+		new_env[i] = (*env)[i];
+		i++;
+	}
 	new_env[i] = ft_strdup(arg);
 	new_env[i + 1] = NULL;
-	free(env_temp);
+	free(*env);
 	*env = new_env;
 }
 
-int	verify_export_name(const char *str)
+static int	verify_export_name(const char *str)
 {
 	int	i;
 
-	if (!str || (!isalpha(str[0]) && str[0] != '_'))
+	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (0);
 	i = 1;
 	while (str[i] && str[i] != '=')
 	{
-		if (!isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-void	write_error(const char *name)
+static void	handle_export_error(const char *arg)
 {
 	write(2, "export: `", 9);
-	write(2, name, ft_strlen(name));
+	write(2, arg, ft_strlen(arg));
 	write(2, "': not a valid identifier\n", 26);
+}
+void	free_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		free(env[i]);
+		i++;
+	}
+	free(env);
 }
 
 void	ft_export(char **args, char ***env)
 {
-	size_t	i;
-	char	**current_env;
+	int		i;
+	int		index;
+	char	*temp;
 
-	i = 0;
-	current_env = *env;
-	if (!current_env)
-		return ;
 	if (!args[1])
 	{
-		ft_sort_env(current_env);
-		while (current_env[i])
-		{
-			ft_print_var(current_env[i]);
-			i++;
-		}
+		char **sorted_env = copy_env(*env);
+		if (!sorted_env)
+			return ;
+		ft_sort_env(sorted_env);
+		ft_print_env(sorted_env);
+		free_env(sorted_env);
 		return ;
 	}
-	for (i = 1; args[i]; i++)
+	i = 1;
+	while (args[i])
 	{
 		if (!verify_export_name(args[i]))
 		{
-			write_error(args[i]);
+			handle_export_error(args[i]);
 			excode = 1;
 		}
 		else
 		{
-			ft_add_to_env(env, args[i]);
+			if (!ft_strchr(args[i], '='))
+			{
+				temp = ft_strjoin(args[i], "=");
+				if (!temp)
+					return ;
+				index = get_env_index(*env, temp);
+				if (index != -1)
+					replace_env_value(*env, temp, index);
+				else
+					add_new_env_variable(env, temp);
+				free(temp);
+			}
+			else
+			{
+				index = get_env_index(*env, args[i]);
+				if (index != -1)
+					replace_env_value(*env, args[i], index);
+				else
+					add_new_env_variable(env, args[i]);
+			}
 		}
+		i++;
 	}
 }

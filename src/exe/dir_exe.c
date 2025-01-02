@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 17:39:30 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 17:17:27 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,25 @@
 
 void	input_dir(t_node *right, t_node *left, char **envp)
 {
-	int	fd;
-	int	end[2];
-	int	pid;
-	int	status;
+	int		fd;
+	int		end[2];
+	int		pid;
+	int		status;
+	char	*trim;
 
 	if (pipe(end) == -1)
 	{
 		perror("pipe failed");
 		exit(1);
 	}
-	fd = open(right->data.str, O_RDONLY);
+	trim = trim_file(right);
+	fd = open(trim, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror("open failed");
+		exit(1);
+	}
+	fd = open(trim, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("open failed");
@@ -46,31 +54,33 @@ void	input_dir(t_node *right, t_node *left, char **envp)
 		}
 		close(fd);
 		ft_exe_dir(left, envp, end);
+		free(trim);
 		exit(excode);
 	}
 	close(fd);
 	close(end[1]);
 	close(end[0]);
+	free(trim);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-	{
 		excode = WEXITSTATUS(status);
-	}
 }
 
 void	output_dir(t_node *right, t_node *left, char **envp)
 {
-	int	fd;
-	int	child;
-	int	status;
-	int	end[2];
+	int		fd;
+	int		child;
+	int		status;
+	int		end[2];
+	char	*trim;
 
 	if (pipe(end) == -1)
 	{
 		perror("pipe failed");
 		exit(1);
 	}
-	fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	trim = trim_file(right);
+	fd = open(trim, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		perror("open failed");
@@ -94,16 +104,16 @@ void	output_dir(t_node *right, t_node *left, char **envp)
 		close(end[0]);
 		close(end[1]);
 		ft_exe_dir(left, envp, end);
+		free(trim);
 		exit(excode);
 	}
-	close(fd);
 	close(end[0]);
 	close(end[1]);
+	close(fd);
+	free(trim);
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
-	{
 		excode = WEXITSTATUS(status);
-	}
 }
 
 void	output_append(t_node *right, t_node *left, char **envp)

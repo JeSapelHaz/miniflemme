@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2024/12/27 17:19:20 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/02 17:09:09 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	add_space_split(char **data);
 void	remove_quote(char **data);
 void	ft_exe_dir(t_node *node, char **env, int *end);
 void	dir_process(t_node *node, char **env, int *end);
+char	*trim_file(t_node *node);
 
 #endif

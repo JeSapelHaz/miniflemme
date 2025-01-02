@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 18:13:52 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:08:21 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ t_token	*re_do_token(char **str)
 
 	*str = readline("mini-flemme$ ");
 	if (!(*str))
+	{
 		return (ft_exit(NULL), NULL);
+	}
 	token_list = tokenize(*str);
 	tmp = find_pipe(token_list);
 	if (!tmp || tmp->type != PIPE)
@@ -37,9 +39,9 @@ int	main(int ac, char **av, char **envp)
 	char	**env;
 	char	*str;
 	t_token	*tmp;
-	int		added;
+	int	added;
 
-	//	static t_all	*all;
+	excode = 0;
 	check_args(ac, av);
 	env = copy_env(envp);
 	while (1)
@@ -80,7 +82,7 @@ int	main(int ac, char **av, char **envp)
 		ft_free_token(&token_list);
 		free(str);
 		// exit(excode);
-		// printf("exit status : %d\n", excode);
+		//printf("exit status : %d\n", excode);
 	}
 	clear_history();
 	free(str);
