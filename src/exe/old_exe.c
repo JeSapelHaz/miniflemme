@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/30 19:25:49 by hbutt            ###   ########.fr       */
+/*   Updated: 2024/12/22 18:00:07 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	first_process(t_node *node, char **env)
 	char	*path;
 	char	**split_cmd;
 	t_node	*tmp;
-	int		pid;
-	int		status;
+	int	pid;
+	int	status;
 
 	tmp = node;
 	split_for_exe(tmp);
@@ -96,27 +96,40 @@ void	first_process(t_node *node, char **env)
 		excode = WEXITSTATUS(status);
 }
 
-void	dir_process(t_node *node, char **env, int *end)
+void	pipe_process(t_node *node, char **env, int *end)
 {
 	char	*path;
 	char	**split_cmd;
-	t_node	*tmp;
+	int	status;
+	int	pid;
 
-	tmp = node;
-	split_for_exe(tmp);
-	split_cmd = ft_split(tmp->data.str, ' ');
+	split_for_exe(node);
+	split_cmd = ft_split(node->data.str, ' ');
 	add_space_split(split_cmd);
 	remove_quote(split_cmd);
 	if (exec_builtin(split_cmd, env))
 	{
 		ft_free_str(split_cmd);
+		return ;
+	}
+	pid = fork();
+	if (pid < 0)
+		return (perror("fork fails\n"));
+	if (pid == 0)
+	{
+		path = find_path(env, split_cmd);
+		close(end[0]);
+		close(end[1]);
+		execve(path, split_cmd, env);
+		ft_execv_error(split_cmd);
 		exit(excode);
 	}
-	path = find_path(env, split_cmd);
 	close(end[0]);
 	close(end[1]);
-	execve(path, split_cmd, env);
-	ft_execv_error(split_cmd);
+	ft_free_str(split_cmd);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		excode = WEXITSTATUS(status);
 }
 
 // en gros le vrai probleme c'etait que les builtins ils executaient dans un child
@@ -124,10 +137,10 @@ void	dir_process(t_node *node, char **env, int *end)
 // du coup plutot que tout child comme je le faisais je fork seulement dans lexe et
 // APRES la verrif de si c'est un builtins donc la ca remarche,
 // j'ai du juste re-mettre des exit(0) dans les nouveaux childs et dans celui des pipes
-void	ft_exe(t_node *node, char **env)
+void	ft_exe(t_node *node, char **env, int *end)
 {
-	t_node	*left;
-	t_node	*right;
+	t_node *left;
+	t_node *right;
 
 	if (node->type == STR_NODE)
 		first_process(node, env);
@@ -136,14 +149,14 @@ void	ft_exe(t_node *node, char **env)
 		left = node->data.pair.left;
 		right = node->data.pair.right;
 		if (node->data.pair.opera[0] == '|')
-			exe_pipe(node, env);
+			exe_pipe(node, env, end);
 		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
-			input_dir(right, left, env);
+			input_dir(right, left, end, env);
 		else if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
-			output_dir(right, left, env);
+			output_dir(right, left, end, env);
 		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-			output_append(right, left, env);
+			output_append(right, left, end, env);
 		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-			di_to_dir(right, left, env);
+			di_to_dir(right, left, end, env);
 	}
 }

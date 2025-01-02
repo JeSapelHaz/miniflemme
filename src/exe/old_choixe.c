@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2024/12/27 20:39:50 by alama            ###   ########.fr       */
+/*   Updated: 2024/12/22 19:37:16 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,68 +14,62 @@
 
 void	exe_pipe(t_node *node, char **envp)
 {
+	int		child1;
+	int		child2;
 	t_node	*left;
 	t_node	*right;
-	int	child1;
-	int	child2;
-	int	status;
+	int		status;
 	int	end[2];
 
 	left = node->data.pair.left;
 	right = node->data.pair.right;
+	//update context
+	left.ctxt.outfile = end[0];
+	ft_exe(left, left_ctxt);
+	ft_exe(right, right_ctxt);
+	/*
 	pipe(end);
+	child2 = 0;
 	child1 = fork();
 	if (child1 < 0)
-	{
-		perror("fork child1 fails\n");
-		exit(1);
-	}
+		return (perror("fork fails\n"));
 	if (child1 == 0)
 	{
-		dup2(end[1], STDOUT_FILENO);
-		ft_exe_dir(left, envp, end);
+		if (dup2(end[STDOUT_FILENO], STDOUT_FILENO) == -1)
+		{
+			perror(NULL);
+			exit(1);
+		}
+		if (left->type == STR_NODE)
+			pipe_process(left, envp, end);
+		else
+			ft_exe(left, envp, end);
 		exit(excode);
 	}
-	waitpid(child1, &status, 0);
-	child2 = fork();
-	if (child2 < 0)
+	else
 	{
-		perror("fork child1 fails\n");
-		exit(1);
+		child2 = fork();
+		if (child2 < 0)
+			return (perror("fork fails\n"));
+		if (child2 == 0)
+		{
+			if (dup2(end[STDIN_FILENO], STDIN_FILENO) == -1)
+			{
+				perror(NULL);
+				exit(1);
+			}
+			if (right->type == STR_NODE)
+				pipe_process(right, envp, end);
+			else
+				ft_exe(right, envp, end);
+			exit(excode);
+		}
 	}
-	if (child2 == 0)
-	{
-		dup2(end[0], STDIN_FILENO);
-		ft_exe_dir(right, envp, end);
-		exit(excode);
-	}
+	*/
 	close(end[0]);
 	close(end[1]);
+	waitpid(child1, &status, 0);
 	waitpid(child2, &status, 0);
 	if (WIFEXITED(status))
 		excode = WEXITSTATUS(status);
-}
-
-void	ft_exe_dir(t_node *node, char **env, int *end)
-{
-	t_node *left;
-	t_node *right;
-
-	if (node->type == STR_NODE)
-		dir_process(node, env, end);
-	else if (node->type == PAIR_NODE)
-	{
-		left = node->data.pair.left;
-		right = node->data.pair.right;
-		if (node->data.pair.opera[0] == '|')
-			exe_pipe(node, env);
-		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
-			input_dir(right, left, env);
-		else if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
-			output_dir(right, left, env);
-		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-			output_append(right, left, env);
-		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-			di_to_dir(right, left, env);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 16:12:14 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 17:09:09 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,24 @@
 
 # include "mini_shell.h"
 
-void	ft_exe(t_node *node, char **envp, int *end);
+void	ft_exe(t_node *node, char **envp);
 char	*find_path(char **envp, char **cmd);
 void	ft_free_str(char **str);
 void	pipex(t_node *node, char **envp, int *end);
-void	pipe_right(t_node *right, t_node *left, int *end, char **envp);
-void	pipe_left(t_node *right, t_node *left, int *end, char **envp);
+void	pipe_right(t_node *right, t_node *left, char **envp);
+void	pipe_left(t_node *right, t_node *left, char **envp);
 // que passa si je fais une cmd genre cmd >> file > file
-void	input_dir(t_node *right, t_node *left, int *end, char **envp);
-void	output_dir(t_node *right, t_node *left, int *end, char **envp);
-void	output_append(t_node *right, t_node *left, int *end, char **envp);
+void	input_dir(t_node *right, t_node *left, char **envp);
+void	output_dir(t_node *right, t_node *left, char **envp);
+void	output_append(t_node *right, t_node *left, char **envp);
 void	first_process(t_node *node, char **envp);
-void	di_to_dir(t_node *right, t_node *left, int *end, char **envp);
-void	exe_pipe(t_node *node, char **envp, int *end);
-void	pipe_process(t_node *node, char **envp, int *end);
+void	di_to_dir(t_node *right, t_node *left, char **envp);
+void	exe_pipe(t_node *node, char **envp);
 void	split_for_exe(t_node *node);
 void	add_space_split(char **data);
 void	remove_quote(char **data);
+void	ft_exe_dir(t_node *node, char **env, int *end);
+void	dir_process(t_node *node, char **env, int *end);
+char	*trim_file(t_node *node);
 
 #endif

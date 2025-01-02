@@ -3,122 +3,172 @@
 /*                                                        :::      ::::::::   */
 /*   dir_exe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2024/12/22 16:08:36 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/02 17:17:27 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	input_dir(t_node *right, t_node *left, int *end, char **envp)
+void	input_dir(t_node *right, t_node *left, char **envp)
 {
-	int	fd;
-	int	child;
-	int	status;
+	int		fd;
+	int		end[2];
+	int		pid;
+	int		status;
+	char	*trim;
 
-	child = fork();
-	if (child < 0)
-		exit(1);
-	if (child == 0)
+	if (pipe(end) == -1)
 	{
-		fd = open(right->data.str, O_RDONLY);
+		perror("pipe failed");
+		exit(1);
+	}
+	trim = trim_file(right);
+	fd = open(trim, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror("open failed");
+		exit(1);
+	}
+	fd = open(trim, O_RDONLY);
+	if (fd == -1)
+	{
+		perror("open failed");
+		exit(1);
+	}
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork failed");
+		exit(1);
+	}
+	if (pid == 0)
+	{
 		if (dup2(fd, STDIN_FILENO) == -1)
 		{
-			perror(right->data.str);
+			perror("dup2 failed");
+			close(fd);
 			exit(1);
 		}
-		if (left->type == PAIR_NODE)
-			ft_exe(left, envp, end);
-		else
-			first_process(left, envp);
 		close(fd);
-		dup2(end[0], STDIN_FILENO);
-		dup2(end[1], STDOUT_FILENO);
+		ft_exe_dir(left, envp, end);
+		free(trim);
 		exit(excode);
 	}
-	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
-}
-
-void	output_dir(t_node *right, t_node *left, int *end, char **envp)
-{
-	int	fd;
-	int	child;
-	int	status;
-
-	child = fork();
-	if (child < 0)
-		exit(1);
-	if (child == 0)
-	{
-		fd = open(right->data.str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (fd == -1)
-			perror("open file fails\n");
-		if (dup2(fd, STDOUT_FILENO) == -1)
-		{
-			perror(NULL);
-			exit(1);
-		}
-		if (left->type == PAIR_NODE)
-			ft_exe(left, envp, end);
-		else
-			first_process(left, envp);
-		close(fd);
-		dup2(end[0], STDIN_FILENO);
-		dup2(end[1], STDOUT_FILENO);
-		exit(excode);
-	}
-	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
-}
-
-void	output_append(t_node *right, t_node *left, int *end, char **envp)
-{
-	int	fd;
-	int	child;
-	int	status;
-
-	child = fork();
-	if (child < 0)
-		exit(1);
-	if (child == 0)
-	{
-		fd = open(right->data.str, O_CREAT | O_WRONLY | O_APPEND, 0664);
-		if (fd == -1)
-			perror("open file fails\n");
-		if (dup2(fd, STDOUT_FILENO) == -1)
-		{
-			perror(NULL);
-			exit(1);
-		}
-		if (left->type == PAIR_NODE)
-			ft_exe(left, envp, end);
-		else
-			first_process(left, envp);
-		close(fd);
-		dup2(end[0], STDIN_FILENO);
-		dup2(end[1], STDOUT_FILENO);
-		exit(excode);
-	}
-	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
-}
-
-void	di_to_dir(t_node *right, t_node *left, int *end, char **envp)
-{
-	int	pid;
-	int	status;
-
-	pid = fork();
-	if (pid == 0)
-		input_dir(right, left, end, envp);
+	close(fd);
+	close(end[1]);
+	close(end[0]);
+	free(trim);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		excode = WEXITSTATUS(status);
-	unlink(right->data.str);
+}
+
+void	output_dir(t_node *right, t_node *left, char **envp)
+{
+	int		fd;
+	int		child;
+	int		status;
+	int		end[2];
+	char	*trim;
+
+	if (pipe(end) == -1)
+	{
+		perror("pipe failed");
+		exit(1);
+	}
+	trim = trim_file(right);
+	fd = open(trim, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror("open failed");
+		exit(1);
+	}
+	child = fork();
+	if (child < 0)
+	{
+		perror("fork failed");
+		exit(1);
+	}
+	if (child == 0)
+	{
+		if (dup2(fd, STDOUT_FILENO) == -1)
+		{
+			perror("dup2 failed");
+			close(fd);
+			exit(1);
+		}
+		close(fd);
+		close(end[0]);
+		close(end[1]);
+		ft_exe_dir(left, envp, end);
+		free(trim);
+		exit(excode);
+	}
+	close(end[0]);
+	close(end[1]);
+	close(fd);
+	free(trim);
+	waitpid(child, &status, 0);
+	if (WIFEXITED(status))
+		excode = WEXITSTATUS(status);
+}
+
+void	output_append(t_node *right, t_node *left, char **envp)
+{
+	int	fd;
+	int	child;
+	int	status;
+	int	end[2];
+
+	if (pipe(end) == -1)
+	{
+		perror("pipe failed");
+		exit(1);
+	}
+	fd = open(right->data.str, O_CREAT | O_WRONLY | O_APPEND, 0664);
+	if (fd == -1)
+	{
+		perror("open failed");
+		exit(1);
+	}
+	child = fork();
+	if (child < 0)
+	{
+		perror("fork failed");
+		exit(1);
+	}
+	if (child == 0)
+	{
+		if (dup2(fd, STDOUT_FILENO) == -1)
+		{
+			perror("dup2 failed");
+			close(fd);
+			exit(1);
+		}
+		close(fd);
+		close(end[0]);
+		close(end[1]);
+		ft_exe_dir(left, envp, end);
+		exit(excode);
+	}
+	close(fd);
+	close(end[0]);
+	close(end[1]);
+	waitpid(child, &status, 0);
+	if (WIFEXITED(status))
+	{
+		excode = WEXITSTATUS(status);
+	}
+}
+
+void	di_to_dir(t_node *right, t_node *left, char **envp)
+{
+	input_dir(right, left, envp);
+	if (unlink(right->data.str) == -1)
+	{
+		perror("unlink failed");
+	}
 }
