@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 18:08:21 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/03 16:27:00 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int		excode = 0;
 
 t_token	*re_do_token(char **str)
 {
-	t_token	*token_list;
-	t_token	*tmp;
+    t_token	*token_list;
+    t_token	*tmp;
 
-	*str = readline("mini-flemme$ ");
-	if (!(*str))
-	{
-		return (ft_exit(NULL), NULL);
-	}
-	token_list = tokenize(*str);
-	tmp = find_pipe(token_list);
-	if (!tmp || tmp->type != PIPE)
-		add_history(*str);
-	return (token_list);
+    *str = readline("mini-flemme$ ");
+    if (!(*str))
+    {
+        return (ft_exit(NULL), NULL);
+    }
+    token_list = tokenize(*str);
+    tmp = find_pipe(token_list);
+    if (!tmp || tmp->type != PIPE)
+        add_history(*str);
+    return (token_list);
 }
 
 int	main(int ac, char **av, char **envp)

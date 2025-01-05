@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 16:46:18 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:49:48 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	first_process(t_node *node, char **env)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		excode = WEXITSTATUS(status);
-	// exit (excode);
 	ft_free_str(split_cmd);
 }
 
@@ -120,11 +119,6 @@ void	dir_process(t_node *node, char **env, int *end)
 	ft_execv_error(split_cmd);
 }
 
-// en gros le vrai probleme c'etait que les builtins ils executaient dans un child
-// donc par exemple si tu faisais en env et un export ca modifiait le child mais pas l'enfant
-// du coup plutot que tout child comme je le faisais je fork seulement dans lexe et
-// APRES la verrif de si c'est un builtins donc la ca remarche,
-// j'ai du juste re-mettre des exit(0) dans les nouveaux childs et dans celui des pipes
 void	ft_exe(t_node *node, char **env)
 {
 	t_node	*left;

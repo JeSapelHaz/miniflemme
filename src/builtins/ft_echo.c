@@ -6,16 +6,12 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/22 14:45:44 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 19:44:42 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-// Vérifie si l'argument commence par "-n" suivi uniquement de n
 static int	is_valid_n_option(char *arg)
 {
 	int	i;
@@ -32,32 +28,48 @@ static int	is_valid_n_option(char *arg)
 	return (1);
 }
 
-// Fonction qui enlève les guillemets simples de la chaîne donnée.
 char	*remove_quotes(const char *str)
 {
 	char	*result;
 	int		i;
+	int		j;
+	int		double_quotes_count;
+	int		single_quotes_count;
 
-	i = 0, j;
-	i = 0, j = 0;
-	if (!str)
-		return (NULL);
+	i = 0;
+	j = 0;
+	double_quotes_count = 0;
+	single_quotes_count = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			double_quotes_count++;
+		if (str[i] == '\'')
+			single_quotes_count++;
+		i++;
+	}
+	i = 0;
 	result = (char *)malloc(strlen(str) + 1);
 	if (!result)
 		return (NULL);
 	while (str[i])
 	{
-		if (str[i] != '\'')
+		if (str[i] == '"' && double_quotes_count % 2 == 0)
 		{
-			result[j++] = str[i];
+			i++; // Skip double quotes
+			continue ;
 		}
-		i++;
+		if (str[i] == '\'' && single_quotes_count % 2 == 0)
+		{
+			i++; // Skip single quotes
+			continue ;
+		}
+		result[j++] = str[i++];
 	}
 	result[j] = '\0';
 	return (result);
 }
 
-// Fonction qui compte le nombre de guillemets simples dans la chaîne.
 int	ft_numbers_of_singlequotes(char *str)
 {
 	int	i;
@@ -74,7 +86,6 @@ int	ft_numbers_of_singlequotes(char *str)
 	return (nbr);
 }
 
-// Fonction principale echo
 void	ft_echo(char **args)
 {
 	int		i;
@@ -105,7 +116,6 @@ void	ft_echo(char **args)
 			printf(" ");
 		i++;
 	}
-	// Affiche un saut de ligne si l'option -n n'est pas utilisée
 	if (newline)
 		printf("\n");
 }

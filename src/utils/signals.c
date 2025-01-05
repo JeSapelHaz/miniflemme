@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:05:03 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/12 16:28:02 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:50:11 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "mini_shell.h"
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <signal.h>
@@ -37,23 +36,3 @@ void	initialize_signals(void)
 	signal(SIGTSTP, SIG_IGN);
 }
 
-// int	main(void)
-// {
-//     char	*str;
-
-//     signal(SIGINT, handle_sigint);
-//     signal(SIGQUIT, handle_sigquit);
-
-//     while (1)
-//     {
-//         str = readline("mini-flemme$ ");
-//         if (!str)  // Gérer Ctrl-D
-//         {
-//             printf("exit\n");
-//             break ;
-//         }
-//         add_history(str);
-//         free(str);
-//     }
-//     return (0);
-// }
