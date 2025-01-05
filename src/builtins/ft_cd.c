@@ -20,7 +20,7 @@ void	ft_cd(char **args)
 	if (args[2])
 	{
 		excode = 1;
-		write(2, " too many arguments\n", 18);
+		write(2, " too many arguments\n", 19);
 		return ;
 	}
 	if (!args[1] || ft_strcmp(args[1], "~") == 0)

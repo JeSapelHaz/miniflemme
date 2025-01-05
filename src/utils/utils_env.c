@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
+#include "../../includes/mini_shell.h"
 
 static size_t	get_2d_array_size(char **array)
 {
