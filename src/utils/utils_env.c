@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:00:16 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/06 11:04:12 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 11:58:59 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,13 @@ char	**copy_env(char **env)
 	char	**new_env;
 
 	i = 0;
-	printf("on rentre dans le copy env -------------------------------------------------\n");
 	env_size = get_2d_array_size(env);
-	printf("on rentre dans le copy env ------------------------------------------------- taille : %ld\n", env_size);
-	new_env = malloc(sizeof(char *) * (env_size + 1));
-	printf("on rentre dans le copy env -------------------------------------------------\n");
+	new_env = malloc(sizeof(char *) * (100));
 	if (!new_env)
 		return (NULL);
-	printf("on rentre dans le copy env -------------------------------------------------\n");
-	printf("%ld\n", i);
 	while (i < env_size)
 	{
-		printf("%ld %s\n", i, env[i]);
 		new_env[i] = ft_strdup(env[i]);
-		printf("%ld %s\n", i, new_env[i]);
 		if (!new_env[i])
 		{
 			while (i > 0)
@@ -55,3 +48,4 @@ char	**copy_env(char **env)
 	new_env[i] = NULL;
 	return (new_env);
 }
+

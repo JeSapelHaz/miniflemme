@@ -6,35 +6,55 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:21 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/02 16:56:32 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 12:11:47 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+static size_t	get_2d_array_size(char **array)
+{
+	size_t	size;
+
+	size = 0;
+	while (array && array[size])
+		size++;
+	return (size);
+}
 
 void	ft_unset(char **args, char ***env)
 {
 	char	**new_env;
 	int		i;
 	int		j;
+	int		k;
+	size_t	env_size;
 
-	i = 0;
+	if (!args || !args[1])
+		return ;
 	new_env = *env;
-	while (new_env[i])
+	env_size = get_2d_array_size(new_env);
+	i = 0;
+	while (i < (int)env_size)
 	{
 		j = 1;
 		while (args[j])
 		{
-			if (ft_strncmp(new_env[i], args[j], ft_strlen(args[j])) == 0
-				&& new_env[i][ft_strlen(args[j])] == '\0')
+			if ((strncmp(new_env[i], args[j], strlen(args[j])) == 0
+					&& new_env[i][strlen(args[j])] == '\0')
+				|| (strncmp(new_env[i], args[j], strlen(args[j])) == 0
+					&& new_env[i][strlen(args[j])] == '='))
 			{
-				new_env[i] = NULL;
-				break ;
-			}
-			if (ft_strncmp(new_env[i], args[j], ft_strlen(args[j])) == 0
-				&& new_env[i][ft_strlen(args[j])] == '=')
-			{
-				new_env[i] = NULL;
+				free(new_env[i]);
+				k = i;
+				while (k < (int)(env_size - 1))
+				{
+					new_env[k] = new_env[k + 1];
+					k++;
+				}
+				new_env[k] = NULL;
+				env_size--;
+				i--;
 				break ;
 			}
 			j++;

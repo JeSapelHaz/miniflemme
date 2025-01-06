@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/03 16:22:39 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 13:28:31 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,19 @@ void	ft_exit(char **args)
 	write(1, "exit\n", 5);
 	if (!args || args[1] == NULL)
 		exit(excode);
-	if (!is_numeric(args[1]))
-	{
-		write(2, "minishell: exit: ", 17);
-		write(2, args[1], ft_strlen(args[1]));
-		write(2, ": numeric argument required\n", 28);
-		exit(2);
-	}
 	if (args[2] != NULL)
 	{
 		write(2, "minishell: exit: ", 17);
 		write(2, "too many arguments\n", 20);
 		excode = 1;
 		return ;
+	}
+	if (!is_numeric(args[1]))
+	{
+		write(2, "minishell: exit: ", 17);
+		write(2, args[1], ft_strlen(args[1]));
+		write(2, ": numeric argument required\n", 28);
+		exit(2);
 	}
 	excode = ft_atoi2(args[1]);
 	exit(excode);

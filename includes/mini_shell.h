@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/12/23 16:48:31 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/06 11:36:46 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ typedef struct	s_sig
 	int	exit_status;
 	pid_t	pid;
 }	t_sig;
+
 
 #endif
