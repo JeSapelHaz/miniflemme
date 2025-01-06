@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:54:15 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 18:40:47 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 10:16:09 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*get_env_value(char *var, char **env)
 
 	if (!var || !env)
 		return (NULL);
-	var_len = strlen(var);
+	var_len = ft_strlen(var);
 	i = 0;
 	while (env[i])
 	{
-		if (!strncmp(env[i], var, var_len) && env[i][var_len] == '=')
+		if (!ft_strncmp(env[i], var, var_len) && env[i][var_len] == '=')
 			return (&env[i][var_len + 1]);
 		i++;
 	}

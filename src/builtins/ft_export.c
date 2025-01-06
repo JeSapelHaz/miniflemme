@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:16 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/24 15:30:20 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 10:35:52 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,17 +152,21 @@ void	ft_export(char **args, char ***env)
 	int		i;
 	int		index;
 	char	*temp;
+	char	**sorted_env;
 
+	printf("ok1 export\n");
+	sorted_env = copy_env(*env);
+	if (!sorted_env)
+		return ;
+	printf("ok2 export\n");
 	if (!args[1])
 	{
-		char **sorted_env = copy_env(*env);
-		if (!sorted_env)
-			return ;
 		ft_sort_env(sorted_env);
 		ft_print_env(sorted_env);
 		free_env(sorted_env);
 		return ;
 	}
+	free_env(sorted_env);
 	i = 1;
 	while (args[i])
 	{

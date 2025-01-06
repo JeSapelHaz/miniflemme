@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:25:14 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/02 18:13:26 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 10:16:15 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*remove_backslashes(const char *str)
 
 	if (!str)
 		return (NULL);
-	result = malloc(strlen(str) + 1);
+	result = malloc(ft_strlen(str) + 1);
 	if (!result)
 		return (NULL);
 	write_ptr = result;

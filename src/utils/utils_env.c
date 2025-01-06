@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:00:16 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/03 14:03:15 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 10:35:11 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,18 @@ char	**copy_env(char **env)
 	char	**new_env;
 
 	i = 0;
+	printf("ok1\n");
 	env_size = get_2d_array_size(env);
-	new_env = malloc(sizeof(char *) * (100));
+	printf("ok2\n");
+	new_env = malloc(sizeof(char *) * (1000));
 	if (!new_env)
 		return (NULL);
+	printf("ok3\n");
 	while (i < env_size)
 	{
-		new_env[i] = strdup(env[i]);
+		printf("ok4\n");
+		new_env[i] = ft_strdup(env[i]);
+		printf("ok4bis\n");
 		if (!new_env[i])
 		{
 			while (i > 0)
@@ -45,6 +50,7 @@ char	**copy_env(char **env)
 		}
 		i++;
 	}
+	printf("ok5\n");
 	new_env[i] = NULL;
 	return (new_env);
 }
