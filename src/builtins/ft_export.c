@@ -44,13 +44,20 @@ static int is_valid_var_name(char *var)
     return (1);
 }
 
+static int len_arg(char *arg)
+{
+    int i;
+    i = 0;
+
+    while(arg[i] && arg[i] != '=')
+        i++;
+    return i;
+}
+
 static int var_exist(char *arg, char **env)
 {
     int i = 0;
-    size_t len = ft_strlen(arg);
-
-    if (arg[len - 1] != '=')
-        return (0);
+    size_t len = len_arg(arg);
 
     while (env[i])
     {
@@ -104,11 +111,11 @@ void ft_export(char **args, char ***env)
     {
         if (is_valid_var_name(args[i]))
         {
+
+			
             if (var_exist(args[i], *env))
             {
                 index_env = find_var_index(get_var_name(args[i]), *env);
-				printf("indice %d\n", index_env);
-				printf("indice %d %s\n", index_env, (*env)[index_env]);
                 free((*env)[index_env]);
                 (*env)[index_env] = ft_strdup(args[i]);
             }
