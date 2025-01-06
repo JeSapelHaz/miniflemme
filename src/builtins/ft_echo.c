@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/06 10:17:01 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 14:26:34 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ char	*remove_quotes(const char *str)
 	{
 		if (str[i] == '"' && double_quotes_count % 2 == 0)
 		{
-			i++; // Skip double quotes
+			i++;
 			continue ;
 		}
 		if (str[i] == '\'' && single_quotes_count % 2 == 0)
 		{
-			i++; // Skip single quotes
+			i++; 
 			continue ;
 		}
 		result[j++] = str[i++];

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:21 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/06 12:11:47 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 14:27:08 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	ft_unset(char **args, char ***env)
 		j = 1;
 		while (args[j])
 		{
-			if ((strncmp(new_env[i], args[j], strlen(args[j])) == 0
-					&& new_env[i][strlen(args[j])] == '\0')
-				|| (strncmp(new_env[i], args[j], strlen(args[j])) == 0
-					&& new_env[i][strlen(args[j])] == '='))
+			if ((strncmp(new_env[i], args[j], ft_strlen(args[j])) == 0
+					&& new_env[i][ft_strlen(args[j])] == '\0')
+				|| (strncmp(new_env[i], args[j], ft_strlen(args[j])) == 0
+					&& new_env[i][ft_strlen(args[j])] == '='))
 			{
 				free(new_env[i]);
 				k = i;
