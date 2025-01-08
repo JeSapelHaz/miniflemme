@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:00:16 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/04 14:44:39 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:10:41 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
-
-static size_t	get_2d_array_size(char **array)
-{
-	size_t	size;
-
-	size = 0;
-	while (array && array[size])
-		size++;
-	return (size);
-}
+#include "../../includes/mini_shell.h"
 
 char	**copy_env(char **env)
 {
@@ -36,7 +25,7 @@ char	**copy_env(char **env)
 		return (NULL);
 	while (i < env_size)
 	{
-		new_env[i] = strdup(env[i]);
+		new_env[i] = ft_strdup(env[i]);
 		if (!new_env[i])
 		{
 			while (i > 0)

@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2025/01/06 18:23:08 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:54:28 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-//	"coucou" " " "mdr" " " "|"
-//	"coucou "
-//	"coucou  mdr"
-//	"coucou  mdr "
 
 static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 {
@@ -41,16 +36,6 @@ static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 		node->data.str = ft_strdup(str);
 		free(str);
 		*token = (*token)->next;
-		/*
-		if ((*token)->type == SINGLE_QUOTE
-			|| (*token)->type == DOUBLE_QUOTE)
-		{
-			str = ft_strjoin(" ", node->data.str);
-			free(node->data.str);
-			node->data.str = ft_strdup(str);
-			free(str);
-		}
-	*/
 	}
 }
 

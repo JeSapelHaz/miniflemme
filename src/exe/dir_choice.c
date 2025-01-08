@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 17:39:28 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:29:40 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exe_pipe(t_node *node, char **envp)
 	{
 		dup2(end[1], STDOUT_FILENO);
 		ft_exe_dir(left, envp, end);
-		exit(excode);
+		exit(g_excode);
 	}
 	waitpid(child1, &status, 0);
 	child2 = fork();
@@ -47,13 +47,13 @@ void	exe_pipe(t_node *node, char **envp)
 	{
 		dup2(end[0], STDIN_FILENO);
 		ft_exe_dir(right, envp, end);
-		exit(excode);
+		exit(g_excode);
 	}
 	close(end[0]);
 	close(end[1]);
 	waitpid(child2, &status, 0);
 	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
+		g_excode = WEXITSTATUS(status);
 }
 
 void	ft_exe_dir(t_node *node, char **env, int *end)

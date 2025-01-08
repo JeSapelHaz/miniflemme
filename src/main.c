@@ -6,14 +6,14 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/06 13:03:17 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:44:13 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <signal.h>
 
-int		excode = 0;
+int		g_excode = 0;
 
 t_token	*re_do_token(char **str)
 {
@@ -37,9 +37,9 @@ int	main(int ac, char **av, char **envp)
 	char	**env;
 	char	*str;
 	t_token	*tmp;
-	int	added;
+	int		added;
 
-	excode = 0;
+	g_excode = 0;
 	check_args(ac, av);
 	env = copy_env(envp);
 	while (1)
@@ -69,20 +69,17 @@ int	main(int ac, char **av, char **envp)
 			add_history(str);
 		if (ft_verrif_tok(&token_list) == 0)
 		{
-			// print_token_list(token_list);
 			node = parse(&token_list);
+			// print_node(node);
 			add_dollar(node, env);
 			clean_str_nodes(node);
-			// print_node(node); // Pour afficher l'arbre de parsing
 			ft_exe(node, env);
 		}
 		ft_free_all_node(&node);
 		ft_free_token(&token_list);
 		free(str);
-		// exit(excode);
-		//printf("exit status : %d\n", excode);
 	}
 	clear_history();
 	free(str);
-	return (excode);
+	return (g_excode);
 }

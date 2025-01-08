@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
+#    By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2025/01/06 14:06:53 by alama            ###   ########.fr        #
+#    Updated: 2025/01/08 15:04:19 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,9 @@ SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
                $(SRCDIR)/builtins/ft_pwd.c \
 			   $(SRCDIR)/builtins/ft_unset.c \
 			   $(SRCDIR)/builtins/ft_export.c \
-               $(SRCDIR)/builtins/ft_echo.c
+               $(SRCDIR)/builtins/ft_export_2.c \
+                $(SRCDIR)/builtins/ft_echo.c \
+                $(SRCDIR)/builtins/ft_echo_2.c
 
 SRC_EXE = $(SRCDIR)/exe/exe.c \
           $(SRCDIR)/exe/dir_choice.c \

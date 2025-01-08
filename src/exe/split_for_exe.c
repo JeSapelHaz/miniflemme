@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_for_exe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:26:50 by alama             #+#    #+#             */
-/*   Updated: 2025/01/05 21:10:00 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:45:33 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	split_for_exe(t_node *node)
 void	remove_quote(char **data)
 {
 	int		i;
-//	int		j;
 	char	*str;
 
 	i = 0;
@@ -87,27 +86,6 @@ void	remove_quote(char **data)
 			free(data[i]);
 			data[i] = str;
 		}
-		/*
-		j = 0;
-		while (data[i][j])
-		{
-			if (data[i][j] && data[i][j + 1] == '\'' && data[i][j] != '\\')
-			{
-				str = ft_strtrim(data[i], "\'");
-				free(data[i]);
-				data[i] = str;
-				break ;
-			}
-			if (data[i][j] && data[i][j + 1] == '\"' && data[i][j] != '\\')
-			{
-				str = ft_strtrim(data[i], "\"");
-				free(data[i]);
-				data[i] = str;
-				break ;
-			}
-			j++;
-		}
-		*/
 		i++;
 	}
 }

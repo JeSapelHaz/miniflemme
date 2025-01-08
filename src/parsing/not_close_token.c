@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   not_close_token.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 20:29:37 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 16:28:14 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 14:23:25 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_quote_to_lexeme(int i, char *str, t_token **tok, t_token_type type)
 	}
 	if (str[i] == '\0')
 		return (-1);
-	lexeme = ft_strndup(&str[start -1], i - start + 2);
+	lexeme = ft_strndup(&str[start - 1], i - start + 2);
 	ft_add_token(tok, type, lexeme);
 	return (i);
 }

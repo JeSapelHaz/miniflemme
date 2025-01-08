@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:54:15 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 17:46:35 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:30:14 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*get_env_value(char *var, char **env)
 
 	if (!var || !env)
 		return (NULL);
-	var_len = strlen(var);
+	var_len = ft_strlen(var);
 	i = 0;
 	while (env[i])
 	{
-		if (!strncmp(env[i], var, var_len) && env[i][var_len] == '=')
+		if (!ft_strncmp(env[i], var, var_len) && env[i][var_len] == '=')
 			return (&env[i][var_len + 1]);
 		i++;
 	}
@@ -59,6 +59,7 @@ char	*itoa_exit_code(int n)
 		result[--len] = '-';
 	return (result);
 }
+
 char	*handle_simple_dollar(char **result)
 {
 	char	substr[2];
@@ -71,12 +72,13 @@ char	*handle_simple_dollar(char **result)
 	free(temp);
 	return (*result);
 }
+
 char	*handle_exit_code(char **result)
 {
 	char	*temp;
 	char	*exit_code_str;
 
-	exit_code_str = itoa_exit_code(excode);
+	exit_code_str = itoa_exit_code(g_excode);
 	if (!exit_code_str)
 		return (NULL);
 	temp = *result;

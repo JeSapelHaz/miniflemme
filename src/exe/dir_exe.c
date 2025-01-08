@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2025/01/06 20:34:13 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:55:43 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	input_dir(t_node *right, t_node *left, char **envp)
 	if (pipe(end) == -1)
 	{
 		perror("pipe failed");
-		excode = 1;
+		g_excode = 1;
 		free(trim);
 		return ;
 	}
@@ -51,20 +51,20 @@ void	input_dir(t_node *right, t_node *left, char **envp)
 		close(end[1]);
 		ft_exe_dir(left, envp, end);
 		free(trim);
-		exit(excode);
+		exit(g_excode);
 	}
 	close(end[1]);
 	close(end[0]);
 	free(trim);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
+		g_excode = WEXITSTATUS(status);
 	if (fd > 0)
 		close(fd);
 	else
 	{
 		perror(" ");
-		excode = 1;
+		g_excode = 1;
 	}
 }
 
@@ -83,7 +83,7 @@ void	output_dir(t_node *right, t_node *left, char **envp)
 		write(2, trim, ft_strlen(trim));
 		write(2, ": ", 2);
 		perror(NULL);
-		excode = 1;
+		g_excode = 1;
 		free(trim);
 		return ;
 	}
@@ -91,14 +91,14 @@ void	output_dir(t_node *right, t_node *left, char **envp)
 	if (child < 0)
 	{
 		perror("fork failed");
-		excode = 1;
+		g_excode = 1;
 		free(trim);
 		return ;
 	}
 	if (pipe(end) == -1)
 	{
 		perror("pipe failed");
-		excode = 1;
+		g_excode = 1;
 		free(trim);
 		return ;
 	}
@@ -115,7 +115,7 @@ void	output_dir(t_node *right, t_node *left, char **envp)
 		close(end[1]);
 		ft_exe_dir(left, envp, end);
 		free(trim);
-		exit(excode);
+		exit(g_excode);
 	}
 	close(end[0]);
 	close(end[1]);
@@ -123,7 +123,7 @@ void	output_dir(t_node *right, t_node *left, char **envp)
 	free(trim);
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
+		g_excode = WEXITSTATUS(status);
 }
 
 void	output_append(t_node *right, t_node *left, char **envp)
@@ -136,21 +136,21 @@ void	output_append(t_node *right, t_node *left, char **envp)
 	if (pipe(end) == -1)
 	{
 		perror("pipe failed");
-		excode = 1;
+		g_excode = 1;
 		return ;
 	}
 	fd = open(right->data.str, O_CREAT | O_WRONLY | O_APPEND, 0664);
 	if (fd == -1)
 	{
 		perror("open failed");
-		excode = 1;
+		g_excode = 1;
 		return ;
 	}
 	child = fork();
 	if (child < 0)
 	{
 		perror("fork failed");
-		excode = 1;
+		g_excode = 1;
 		return ;
 	}
 	if (child == 0)
@@ -165,14 +165,16 @@ void	output_append(t_node *right, t_node *left, char **envp)
 		close(end[0]);
 		close(end[1]);
 		ft_exe_dir(left, envp, end);
-		exit(excode);
+		exit(g_excode);
 	}
 	close(fd);
 	close(end[0]);
 	close(end[1]);
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
+	{
+		g_excode = WEXITSTATUS(status);
+	}
 }
 
 void	di_to_dir(t_node *right, t_node *left, char **envp)
