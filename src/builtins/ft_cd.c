@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:07 by hbutt             #+#    #+#             */
-/*   Updated: 2024/12/20 17:22:04 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:17:31 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_cd(char **args)
 	if (args[2])
 	{
 		excode = 1;
-		write(2, " too many arguments\n", 14);
+		write(2, " too many arguments\n", 18);
 		return ;
 	}
 	if (!args[1] || ft_strcmp(args[1], "~") == 0)

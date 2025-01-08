@@ -12,7 +12,6 @@
 
 #include "../includes/mini_shell.h"
 
-
 int	is_numeric(const char *str)
 {
 	int	i;

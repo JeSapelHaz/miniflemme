@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:21 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/29 14:10:08 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/02 16:56:32 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ void	ft_unset(char **args, char ***env)
 		j = 1;
 		while (args[j])
 		{
-			if (ft_strncmp(new_env[i], args[j], ft_strlen(args[j])) == 0 && new_env[i][ft_strlen(args[j])] == '\0')
+			if (ft_strncmp(new_env[i], args[j], ft_strlen(args[j])) == 0
+				&& new_env[i][ft_strlen(args[j])] == '\0')
 			{
 				new_env[i] = NULL;
-				break;
+				break ;
 			}
-			if (ft_strncmp(new_env[i], args[j], ft_strlen(args[j])) == 0 && new_env[i][ft_strlen(args[j])] == '=')
+			if (ft_strncmp(new_env[i], args[j], ft_strlen(args[j])) == 0
+				&& new_env[i][ft_strlen(args[j])] == '=')
 			{
 				new_env[i] = NULL;
-				break;
+				break ;
 			}
 			j++;
 		}
