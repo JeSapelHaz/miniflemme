@@ -6,21 +6,11 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:00:16 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/06 11:58:59 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:10:41 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini_shell.h"
-
-static size_t	get_2d_array_size(char **array)
-{
-	size_t	size;
-
-	size = 0;
-	while (array && array[size])
-		size++;
-	return (size);
-}
 
 char	**copy_env(char **env)
 {
@@ -48,4 +38,3 @@ char	**copy_env(char **env)
 	new_env[i] = NULL;
 	return (new_env);
 }
-

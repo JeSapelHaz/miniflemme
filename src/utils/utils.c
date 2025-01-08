@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:13:53 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/02 17:08:38 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/08 14:24:47 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_quit(void)
 char	*trim_file(t_node *node)
 {
 	char	*str;
-	int	last;
+	int		last;
 
 	str = NULL;
 	if (node->type != STR_NODE)

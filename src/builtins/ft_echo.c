@@ -6,62 +6,57 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:09 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/06 14:26:34 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 14:48:14 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-static int	is_valid_n_option(char *arg)
+void	ft_count_quotes(const char *str, int *dq_count, int *sq_count)
 {
 	int	i;
 
-	i = 1;
-	if (arg[0] != '-')
-		return (0);
-	while (arg[i])
+	i = 0;
+	while (str[i])
 	{
-		if (arg[i] != 'n')
-			return (0);
+		if (str[i] == '"')
+			(*dq_count)++;
+		if (str[i] == '\'')
+			(*sq_count)++;
 		i++;
 	}
-	return (1);
 }
 
-char	*remove_quotes(const char *str)
+int	ft_should_skip_quote(char c, int dq_count, int sq_count)
+{
+	if (c == '"' && dq_count % 2 == 0)
+		return (1);
+	if (c == '\'' && sq_count % 2 == 0)
+		return (1);
+	return (0);
+}
+
+char	*ft_remove_quotes(const char *str)
 {
 	char	*result;
 	int		i;
 	int		j;
-	int		double_quotes_count;
-	int		single_quotes_count;
+	int		dq_count;
+	int		sq_count;
 
-	i = 0;
-	j = 0;
-	double_quotes_count = 0;
-	single_quotes_count = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			double_quotes_count++;
-		if (str[i] == '\'')
-			single_quotes_count++;
-		i++;
-	}
-	i = 0;
+	dq_count = 0;
+	sq_count = 0;
+	ft_count_quotes(str, &dq_count, &sq_count);
 	result = (char *)malloc(ft_strlen(str) + 1);
 	if (!result)
 		return (NULL);
+	i = 0;
+	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '"' && double_quotes_count % 2 == 0)
+		if (ft_should_skip_quote(str[i], dq_count, sq_count))
 		{
 			i++;
-			continue ;
-		}
-		if (str[i] == '\'' && single_quotes_count % 2 == 0)
-		{
-			i++; 
 			continue ;
 		}
 		result[j++] = str[i++];
@@ -86,36 +81,18 @@ int	ft_numbers_of_singlequotes(char *str)
 	return (nbr);
 }
 
-void	ft_echo(char **args)
+int	ft_is_valid_n_option(char *arg)
 {
-	int		i;
-	int		newline;
-	char	*arg_without_quotes;
+	int	i;
 
+	if (arg[0] != '-')
+		return (0);
 	i = 1;
-	newline = 1;
-	while (args[i] && is_valid_n_option(args[i]))
+	while (arg[i])
 	{
-		newline = 0;
+		if (arg[i] != 'n')
+			return (0);
 		i++;
 	}
-	while (args[i])
-	{
-		if ((ft_numbers_of_singlequotes(args[i]) % 2) == 0)
-		{
-			arg_without_quotes = remove_quotes(args[i]);
-			if (arg_without_quotes)
-			{
-				printf("%s", arg_without_quotes);
-				free(arg_without_quotes);
-			}
-		}
-		else
-			printf("%s", args[i]);
-		if (args[i + 1])
-			printf(" ");
-		i++;
-	}
-	if (newline)
-		printf("\n");
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 18:49:48 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:37:34 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	first_process(t_node *node, char **env)
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
+		g_excode = WEXITSTATUS(status);
 	ft_free_str(split_cmd);
 }
 
@@ -110,7 +110,7 @@ void	dir_process(t_node *node, char **env, int *end)
 	if (exec_builtin(split_cmd, env))
 	{
 		ft_free_str(split_cmd);
-		exit(excode);
+		exit(g_excode);
 	}
 	path = find_path(env, split_cmd);
 	close(end[0]);

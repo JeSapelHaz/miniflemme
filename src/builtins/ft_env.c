@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:12 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/02 16:56:25 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 14:51:59 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	verify_equals(char *env)
 
 void	ft_env(char **args, char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	(void)args;

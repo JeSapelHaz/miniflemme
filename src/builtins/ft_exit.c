@@ -6,11 +6,34 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/06 13:28:31 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:29:31 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
+
+static char	ft_set_sign(char **str)
+{
+	char	sign;
+
+	sign = 1;
+	if (**str == '-' || **str == '+')
+	{
+		if (**str == '-')
+			sign = -1;
+		(*str)++;
+	}
+	return (sign);
+}
+
+static int	ft_handle_overflow(long int result, long int tmp, char sign)
+{
+	if (result < tmp && sign == 1)
+		return (-1);
+	if (result < tmp && sign == -1)
+		return (0);
+	return (1);
+}
 
 int	ft_atoi2(char *str)
 {
@@ -19,16 +42,10 @@ int	ft_atoi2(char *str)
 	long int	tmp;
 
 	result = 0;
-	sign = 1;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
-	}
-	while ((*str >= 48 && *str <= 57) || *str == '"')
+	sign = ft_set_sign(&str);
+	while ((*str >= '0' && *str <= '9') || *str == '"')
 	{
 		if (*str == '"')
 		{
@@ -37,10 +54,8 @@ int	ft_atoi2(char *str)
 		}
 		tmp = result;
 		result = result * 10 + (*str - '0');
-		if (result < tmp && sign == 1)
-			return (-1);
-		if (result < tmp && sign == -1)
-			return (0);
+		if (ft_handle_overflow(result, tmp, sign) != 1)
+			return (ft_handle_overflow(result, tmp, sign));
 		str++;
 	}
 	return (result * sign);
@@ -68,12 +83,12 @@ void	ft_exit(char **args)
 {
 	write(1, "exit\n", 5);
 	if (!args || args[1] == NULL)
-		exit(excode);
+		exit(g_excode);
 	if (args[2] != NULL)
 	{
 		write(2, "minishell: exit: ", 17);
 		write(2, "too many arguments\n", 20);
-		excode = 1;
+		g_excode = 1;
 		return ;
 	}
 	if (!is_numeric(args[1]))
@@ -83,6 +98,6 @@ void	ft_exit(char **args)
 		write(2, ": numeric argument required\n", 28);
 		exit(2);
 	}
-	excode = ft_atoi2(args[1]);
-	exit(excode);
+	g_excode = ft_atoi2(args[1]);
+	exit(g_excode);
 }

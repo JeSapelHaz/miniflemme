@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 17:17:27 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:30:04 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	input_dir(t_node *right, t_node *left, char **envp)
 		close(fd);
 		ft_exe_dir(left, envp, end);
 		free(trim);
-		exit(excode);
+		exit(g_excode);
 	}
 	close(fd);
 	close(end[1]);
@@ -63,7 +63,7 @@ void	input_dir(t_node *right, t_node *left, char **envp)
 	free(trim);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
+		g_excode = WEXITSTATUS(status);
 }
 
 void	output_dir(t_node *right, t_node *left, char **envp)
@@ -105,7 +105,7 @@ void	output_dir(t_node *right, t_node *left, char **envp)
 		close(end[1]);
 		ft_exe_dir(left, envp, end);
 		free(trim);
-		exit(excode);
+		exit(g_excode);
 	}
 	close(end[0]);
 	close(end[1]);
@@ -113,7 +113,7 @@ void	output_dir(t_node *right, t_node *left, char **envp)
 	free(trim);
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
-		excode = WEXITSTATUS(status);
+		g_excode = WEXITSTATUS(status);
 }
 
 void	output_append(t_node *right, t_node *left, char **envp)
@@ -152,7 +152,7 @@ void	output_append(t_node *right, t_node *left, char **envp)
 		close(end[0]);
 		close(end[1]);
 		ft_exe_dir(left, envp, end);
-		exit(excode);
+		exit(g_excode);
 	}
 	close(fd);
 	close(end[0]);
@@ -160,7 +160,7 @@ void	output_append(t_node *right, t_node *left, char **envp)
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
 	{
-		excode = WEXITSTATUS(status);
+		g_excode = WEXITSTATUS(status);
 	}
 }
 

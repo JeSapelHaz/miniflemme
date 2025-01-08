@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:54:15 by alama             #+#    #+#             */
-/*   Updated: 2025/01/06 10:16:09 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:30:14 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*itoa_exit_code(int n)
 		result[--len] = '-';
 	return (result);
 }
+
 char	*handle_simple_dollar(char **result)
 {
 	char	substr[2];
@@ -71,12 +72,13 @@ char	*handle_simple_dollar(char **result)
 	free(temp);
 	return (*result);
 }
+
 char	*handle_exit_code(char **result)
 {
 	char	*temp;
 	char	*exit_code_str;
 
-	exit_code_str = itoa_exit_code(excode);
+	exit_code_str = itoa_exit_code(g_excode);
 	if (!exit_code_str)
 		return (NULL);
 	temp = *result;

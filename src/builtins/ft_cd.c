@@ -6,11 +6,22 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:23:07 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/02 18:17:31 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:29:18 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+static void	ft_change_directory(char *path)
+{
+	if (chdir(path) == -1)
+	{
+		perror("minishell: cd");
+		g_excode = 1;
+	}
+	else
+		g_excode = 0;
+}
 
 void	ft_cd(char **args)
 {
@@ -19,7 +30,7 @@ void	ft_cd(char **args)
 
 	if (args[2])
 	{
-		excode = 1;
+		g_excode = 1;
 		write(2, " too many arguments\n", 19);
 		return ;
 	}
@@ -30,20 +41,11 @@ void	ft_cd(char **args)
 		{
 			error_msg = "minishell: cd: HOME not set\n";
 			write(STDERR_FILENO, error_msg, ft_strlen(error_msg));
-			excode = 0;
+			g_excode = 0;
 			return ;
 		}
-		if (chdir(home) == -1)
-		{
-			perror("minishell: cd");
-			excode = 1;
-		}
-	}
-	else if (chdir(args[1]) == -1)
-	{
-		perror("minishell: cd");
-		excode = 1;
+		ft_change_directory(home);
 	}
 	else
-		excode = 0;
+		ft_change_directory(args[1]);
 }
