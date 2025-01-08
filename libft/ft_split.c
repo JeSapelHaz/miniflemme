@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:05:06 by alama             #+#    #+#             */
-/*   Updated: 2024/04/24 17:55:49 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/06 13:22:46 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,42 +115,43 @@ char	**ft_split(char const *s, char c)
 	ft_add_split(str, s, c);
 	return (str);
 }
-
-// #include <stdio.h>
-// int	main(void)
-// {
-// 	int		i;
-// 	char	**str;
-// 	str = ft_split("coucou commetn ca va", 'c');
-// 	i = 0;
-// 	if (ft_split(NULL, '^') == NULL)
-// 		printf("NULL\n");
-// 	else
-// 	{
-// 		while (str[i])
-// 		{
-// 			printf("%s\n", str[i]);
-// 			i++;
-// 		}
-// 	}
-// 	// char** tabstr;
-// 	// int i = 0;
-// 	// if (!(tabstr = ft_split("lorem ipsum dolor ", 'z')))
-// 	// 	write(1, "flop\n", 5);
-//     //     // ft_print_result("NULL");
-//     // else
-//     // {
-//     //     while (tabstr[i] != NULL)
-//     //     {
-// 	// 		int j = 0;
-//     //         // ft_print_result(tabstr[i]);
-//     //         while (tabstr[i][j] != '\0') {	
-// 	// 			write(1, &tabstr[i][j], 1);
-// 	// 			j++;
-// 	// 		}
-// 	// 		printf("%d\n", j);
-//     //         i++;
-//     //     }
-// 	// 	write(1, "\n", 1);
-//     // }
-// }
+/*
+#include <stdio.h>
+int	main(void)
+{
+	int		i;
+ 	char	**str;
+ 	str = ft_split("\"coucou commetn ca va\"", ' ');
+ 	i = 0;
+ 	if (ft_split(NULL, '^') == NULL)
+ 		printf("NULL\n");
+ 	else
+ 	{
+ 		while (str[i])
+ 		{
+ 			printf("%s\n", str[i]);
+ 			i++;
+ 		}
+ 	}
+ 	// char** tabstr;
+ 	// int i = 0;
+ 	// if (!(tabstr = ft_split("lorem ipsum dolor ", 'z')))
+ 	// 	write(1, "flop\n", 5);
+     //     // ft_print_result("NULL");
+     // else
+     // {
+     //     while (tabstr[i] != NULL)
+     //     {
+ 	// 		int j = 0;
+     //         // ft_print_result(tabstr[i]);
+     //         while (tabstr[i][j] != '\0') {	
+ 	// 			write(1, &tabstr[i][j], 1);
+ 	// 			j++;
+ 	// 		}
+ 	// 		printf("%d\n", j);
+     //         i++;
+     //     }
+ 	// 	write(1, "\n", 1);
+     // }
+}
+*/

@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:17:35 by alama             #+#    #+#             */
-/*   Updated: 2024/04/24 17:54:09 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/05 21:44:24 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!s1[0])
 		return (ft_null());
 	j = ft_strlen(s1) - 1;
+	while (s1[j] == ' ')
+		j--;
 	while (s1[i] && ft_find_trim(set, s1[i]) == 1)
 		i++;
 	while (j > i && ft_find_trim(set, s1[j]) == 1)

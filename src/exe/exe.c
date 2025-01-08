@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2024/12/30 19:25:49 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/06 15:54:36 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	dir_process(t_node *node, char **env, int *end)
 	char	**split_cmd;
 	t_node	*tmp;
 
+	//printf("here : %s\n", node->data.str);
 	tmp = node;
 	split_for_exe(tmp);
 	split_cmd = ft_split(tmp->data.str, ' ');

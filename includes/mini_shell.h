@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2024/12/23 16:48:31 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/06 14:05:17 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	initialize_signals(void);
 void	replace_env_in_nodes(t_node *node, char **env);
 char	*remove_backslashes(const char *str);
 void	clean_str_nodes(t_node *node);
-
+char	**ft_split_quote(char const *str);
 
 typedef struct	s_sig
 {

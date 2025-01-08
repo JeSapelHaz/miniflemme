@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2024/12/11 15:54:51 by alama            ###   ########.fr        #
+#    Updated: 2025/01/06 14:06:53 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/pipe_utils.c \
             $(SRCDIR)/utils/signals.c \
             $(SRCDIR)/utils/utils_node.c \
+            $(SRCDIR)/utils/split_quote.c \
             $(SRCDIR)/utils/utils.c
 
 

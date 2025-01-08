@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 18:08:21 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/06 13:03:17 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ t_token	*re_do_token(char **str)
 
 	*str = readline("mini-flemme$ ");
 	if (!(*str))
-	{
 		return (ft_exit(NULL), NULL);
-	}
 	token_list = tokenize(*str);
 	tmp = find_pipe(token_list);
 	if (!tmp || tmp->type != PIPE)

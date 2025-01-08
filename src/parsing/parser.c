@@ -6,7 +6,7 @@
 /*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2024/12/03 12:13:46 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/06 18:23:08 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ static void	add_lexeme_to_node(t_token **token, t_node *node, int pipe)
 	while (ft_is_dir(*token) == 0 && ((*token)->next->type != END_TOKEN
 			&& ft_is_dir((*token)->next) == 0))
 	{
+		if ((*token)->next->type == SPACE_TOKEN
+			&& ft_is_dir((*token)->next->next) == 1)
+			break ;
 		str = ft_strjoin(node->data.str, (*token)->next->lexeme);
 		free(node->data.str);
 		node->data.str = ft_strdup(str);
