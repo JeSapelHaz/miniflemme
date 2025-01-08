@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 15:37:34 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:22:30 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	dir_process(t_node *node, char **env, int *end)
 	char	**split_cmd;
 	t_node	*tmp;
 
-	//printf("here : %s\n", node->data.str);
+//	printf("here : %s\n", node->data.str);
 	tmp = node;
 	split_for_exe(tmp);
 	split_cmd = ft_split(tmp->data.str, ' ');
@@ -134,12 +134,12 @@ void	ft_exe(t_node *node, char **env)
 		if (node->data.pair.opera[0] == '|')
 			exe_pipe(node, env);
 		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
-			input_dir(right, left, env);
+			input_dir(right, left, env, NULL);
 		else if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
-			output_dir(right, left, env);
+			output_dir(right, left, env, NULL);
 		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-			output_append(right, left, env);
+			output_append(right, left, env, NULL);
 		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-			di_to_dir(right, left, env);
+			di_to_dir(right, left, env, NULL);
 	}
 }

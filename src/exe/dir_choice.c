@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 15:29:40 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:24:03 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,12 @@ void	ft_exe_dir(t_node *node, char **env, int *end)
 	t_node	*right;
 
 	if (node->type == STR_NODE)
-		dir_process(node, env, end);
+	{
+		if (end == NULL)
+			first_process(node, env);
+		else
+			dir_process(node, env, end);
+	}
 	else if (node->type == PAIR_NODE)
 	{
 		left = node->data.pair.left;
@@ -70,12 +75,12 @@ void	ft_exe_dir(t_node *node, char **env, int *end)
 		if (node->data.pair.opera[0] == '|')
 			exe_pipe(node, env);
 		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
-			input_dir(right, left, env);
+			input_dir(right, left, env, end);
 		else if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
-			output_dir(right, left, env);
+			output_dir(right, left, env, end);
 		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-			output_append(right, left, env);
+			output_append(right, left, env, end);
 		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-			di_to_dir(right, left, env);
+			di_to_dir(right, left, env, end);
 	}
 }

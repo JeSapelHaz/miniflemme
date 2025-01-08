@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 17:09:09 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/08 16:54:23 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	pipex(t_node *node, char **envp, int *end);
 void	pipe_right(t_node *right, t_node *left, char **envp);
 void	pipe_left(t_node *right, t_node *left, char **envp);
 // que passa si je fais une cmd genre cmd >> file > file
-void	input_dir(t_node *right, t_node *left, char **envp);
-void	output_dir(t_node *right, t_node *left, char **envp);
-void	output_append(t_node *right, t_node *left, char **envp);
+void	input_dir(t_node *right, t_node *left, char **envp, int *end);
+void	output_dir(t_node *right, t_node *left, char **envp, int *end);
+void	output_append(t_node *right, t_node *left, char **envp, int *end);
 void	first_process(t_node *node, char **envp);
-void	di_to_dir(t_node *right, t_node *left, char **envp);
+void	di_to_dir(t_node *right, t_node *left, char **envp, int *end);
 void	exe_pipe(t_node *node, char **envp);
 void	split_for_exe(t_node *node);
 void	add_space_split(char **data);
