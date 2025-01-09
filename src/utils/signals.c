@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:05:03 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/08 14:24:30 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/09 17:04:31 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ void	initialize_signals(void)
 	signal(SIGINT, ft_handle_signals);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
+}
+
+void	heredoc_signals(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }

@@ -6,13 +6,14 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 20:46:37 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/09 21:54:50 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
 // <
+/*
 void	input_dir(t_node *right, t_node *left, char **envp, int *last)
 {
 	int	fd;
@@ -53,14 +54,14 @@ void	input_dir(t_node *right, t_node *left, char **envp, int *last)
 		g_excode = 1;
 	}
 }
+*/
 
-void	output_dir(t_node *right, t_node *left, char **envp, int *last)
+void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 {
 	int		fd;
 	int		child;
 	int		status;
-	int		end[2];
-	char	*trim;
+	char		*trim;
 
 	trim = trim_file(right);
 	fd = open(trim, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -69,13 +70,6 @@ void	output_dir(t_node *right, t_node *left, char **envp, int *last)
 		write(2, trim, ft_strlen(trim));
 		write(2, ": ", 2);
 		perror(NULL);
-		g_excode = 1;
-		free(trim);
-		return ;
-	}
-	if (pipe(end) == -1)
-	{
-		perror("pipe failed");
 		g_excode = 1;
 		free(trim);
 		return ;
@@ -90,27 +84,15 @@ void	output_dir(t_node *right, t_node *left, char **envp, int *last)
 	}
 	if (child == 0)
 	{
-		if (last == NULL)
+		if (ctxt->is_first == 0)
 		{
-			if (dup2(fd, STDOUT_FILENO) == -1)
-			{
-				perror("dup2 failed");
-				close(fd);
-				exit(1);
-			}
+			ctxt->outfile = fd;
+			ctxt->is_first = 1;
 		}
-		else
-		{
-			close(last[0]);
-			close(last[1]);
-		}
-		close(fd);
 		free(trim);
-		ft_exe_dir(left, envp, end);
+		ft_exe_dir(left, envp, ctxt);
 		exit(g_excode);
 	}
-	close(end[0]);
-	close(end[1]);
 	close(fd);
 	free(trim);
 	waitpid(child, &status, 0);
@@ -118,6 +100,7 @@ void	output_dir(t_node *right, t_node *left, char **envp, int *last)
 		g_excode = WEXITSTATUS(status);
 }
 
+/*
 void	output_append(t_node *right, t_node *left, char **envp, int *last)
 {
 	int	fd;
@@ -183,3 +166,4 @@ void	di_to_dir(t_node *right, t_node *left, char **envp, int *end)
 	if (unlink(right->data.str) == -1)
 		perror("unlink failed");
 }
+*/

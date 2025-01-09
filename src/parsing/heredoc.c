@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 16:40:16 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 14:25:55 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/09 18:21:25 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	gnl_heredoc(char *delimiter, int fd)
 {
 	char	*str;
 
+	heredoc_signals();
 	str = NULL;
 	while (1)
 	{

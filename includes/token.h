@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 15:11:26 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/09 22:47:04 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,14 @@ typedef struct s_ctxt
 {
 	int					infile;
 	int					outfile;
+	int					end[2];
+	int					is_first;
 }						t_ctxt;
 
 struct					s_node
 {
 	t_node_type			type;
 	t_node_value		data;
-	t_ctxt				ctxt;
 };
 
 typedef struct s_all

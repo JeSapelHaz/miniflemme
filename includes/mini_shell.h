@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 15:55:30 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/09 16:55:35 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_node		*parse(t_token **token_list);
 
 /* UTILS */
 int			only_space(char *str);
+void		heredoc_signals(void);
 void		ft_quit(void);
 
 /* UTILS PRINT */

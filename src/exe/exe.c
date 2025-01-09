@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 18:22:30 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/09 23:42:43 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,12 @@ void	first_process(t_node *node, char **env)
 	ft_free_str(split_cmd);
 }
 
-void	dir_process(t_node *node, char **env, int *end)
+void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 {
 	char	*path;
 	char	**split_cmd;
 	t_node	*tmp;
 
-//	printf("here : %s\n", node->data.str);
 	tmp = node;
 	split_for_exe(tmp);
 	split_cmd = ft_split(tmp->data.str, ' ');
@@ -114,17 +113,49 @@ void	dir_process(t_node *node, char **env, int *end)
 		exit(g_excode);
 	}
 	path = find_path(env, split_cmd);
-	close(end[0]);
-	close(end[1]);
+//	printf("%s and %s\n", path, split_cmd[0]);
+//	if (ctxt->end[0] != -1 || ctxt->end[1] != -1)
+//	{
+//		if (ctxt->outfile == 10)
+//			dup2(ctxt->end[1], STDOUT_FILENO);
+//		if (ctxt->infile == 10)
+//			dup2(ctxt->end[0], STDIN_FILENO);
+//		close(ctxt->end[0]);
+//		close(ctxt->end[1]);
+//	}
+//	else 
+//	{
+		if (ctxt->infile != 0)
+		{
+			dup2(ctxt->infile, STDIN_FILENO);
+			close(ctxt->infile);
+		}
+		if (ctxt->outfile != 1)
+		{
+			dup2(ctxt->outfile, STDOUT_FILENO);
+			close(ctxt->outfile);
+		}
+//	}
 	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
+}
+
+void	set_ctxt(t_ctxt *ctxt)
+{
+	ctxt->infile = 0;
+	ctxt->outfile = 1;
+	ctxt->end[0] = -1;
+	ctxt->end[1] = -1;
+	ctxt->is_first = 0;
 }
 
 void	ft_exe(t_node *node, char **env)
 {
 	t_node	*left;
 	t_node	*right;
+	t_ctxt	ctxt;
 
+	set_ctxt(&ctxt);
 	if (node->type == STR_NODE)
 		first_process(node, env);
 	else if (node->type == PAIR_NODE)
@@ -132,14 +163,14 @@ void	ft_exe(t_node *node, char **env)
 		left = node->data.pair.left;
 		right = node->data.pair.right;
 		if (node->data.pair.opera[0] == '|')
-			exe_pipe(node, env);
-		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
-			input_dir(right, left, env, NULL);
-		else if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
-			output_dir(right, left, env, NULL);
-		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-			output_append(right, left, env, NULL);
-		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-			di_to_dir(right, left, env, NULL);
+			exe_pipe(node, env, &ctxt);
+//		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
+//			input_dir(right, left, env, NULL);
+		if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
+			output_dir(right, left, env, &ctxt);
+//		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
+//			output_append(right, left, env, NULL);
+//		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+//			di_to_dir(right, left, env, NULL);
 	}
 }

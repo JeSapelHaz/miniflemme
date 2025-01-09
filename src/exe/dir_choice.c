@@ -6,13 +6,14 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 18:24:03 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/09 23:45:18 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	exe_pipe(t_node *node, char **envp)
+
+void	exe_pipe(t_node *node, char **envp, t_ctxt *ctxt)
 {
 	t_node	*left;
 	t_node	*right;
@@ -33,7 +34,9 @@ void	exe_pipe(t_node *node, char **envp)
 	if (child1 == 0)
 	{
 		dup2(end[1], STDOUT_FILENO);
-		ft_exe_dir(left, envp, end);
+		close(end[0]);
+		close(end[1]);
+		ft_exe_dir(left, envp, ctxt);
 		exit(g_excode);
 	}
 	waitpid(child1, &status, 0);
@@ -46,7 +49,9 @@ void	exe_pipe(t_node *node, char **envp)
 	if (child2 == 0)
 	{
 		dup2(end[0], STDIN_FILENO);
-		ft_exe_dir(right, envp, end);
+		close(end[0]);
+		close(end[1]);
+		ft_exe_dir(right, envp, ctxt);
 		exit(g_excode);
 	}
 	close(end[0]);
@@ -56,31 +61,27 @@ void	exe_pipe(t_node *node, char **envp)
 		g_excode = WEXITSTATUS(status);
 }
 
-void	ft_exe_dir(t_node *node, char **env, int *end)
+
+void	ft_exe_dir(t_node *node, char **env, t_ctxt *ctxt)
 {
 	t_node	*left;
 	t_node	*right;
 
 	if (node->type == STR_NODE)
-	{
-		if (end == NULL)
-			first_process(node, env);
-		else
-			dir_process(node, env, end);
-	}
+		dir_process(node, env, ctxt);
 	else if (node->type == PAIR_NODE)
 	{
 		left = node->data.pair.left;
 		right = node->data.pair.right;
 		if (node->data.pair.opera[0] == '|')
-			exe_pipe(node, env);
-		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
-			input_dir(right, left, env, end);
-		else if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
-			output_dir(right, left, env, end);
-		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-			output_append(right, left, env, end);
-		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-			di_to_dir(right, left, env, end);
+			exe_pipe(node, env, ctxt);
+//		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
+//			input_dir(right, left, env, end);
+		if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
+			output_dir(right, left, env, ctxt);
+//		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
+//			output_append(right, left, env, end);
+//		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+//			di_to_dir(right, left, env, end);
 	}
 }
