@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:36 by alama             #+#    #+#             */
-/*   Updated: 2024/11/26 17:32:56 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/12 22:06:12 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,16 @@ t_node	*one_str(t_token **token)
 	{
 		while ((*token)->type == SPACE_TOKEN)
 			*token = (*token)->next;
-		node->data.str = ft_strdup((*token)->lexeme);
-		*token = (*token)->next;
+		if (ft_is_dir(*token) == 0)
+		{
+			node->data.str = ft_strdup((*token)->lexeme);
+			*token = (*token)->next;
+		}
+		else
+		{
+			node->data.str = ft_strdup("");
+			*token = (*token)->prev;
+		}
 	}
 	return (node);
 }
@@ -75,7 +83,11 @@ t_node	*weird_dir(t_token **token)
 		return (ft_free_all_node(&new_node), NULL);
 	new_node->data.pair.left = str_node(token, 0);
 	if (!new_node->data.pair.left)
+	{
 		new_node->data.pair.left = one_str(NULL);
+		if (ft_is_dir(*token) == 1)
+			*token = (*token)->prev;
+	}
 	if (!new_node->data.pair.left)
 		return (ft_free_all_node(&new_node), NULL);
 	if ((*token)->type == END_TOKEN)

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:19:12 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/08 16:06:52 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/12 22:20:06 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_exit(char **args)
 	if (args[2] != NULL)
 	{
 		write(2, "minishell: exit: ", 17);
-		write(2, "too many arguments\n", 20);
+		write(2, "too many arguments\n", 19);
 		g_excode = 1;
 		return ;
 	}

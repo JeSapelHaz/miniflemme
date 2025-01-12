@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/12 17:43:42 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/12 22:16:41 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	first_process(t_node *node, char **env)
 	if (pid == 0)
 	{
 		path = find_path(env, split_cmd);
-		execve(path, split_cmd, env);
+		g_excode = execve(path, split_cmd, env);
 		ft_execv_error(split_cmd);
 	}
 	waitpid(pid, &status, 0);

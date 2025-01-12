@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2025/01/02 18:54:28 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/12 21:49:26 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,17 @@ t_node	*str_node(t_token **token, int pipe)
 
 	if (!token || (*token)->type == END_TOKEN || ft_is_dir(*token) == 1)
 		return (NULL);
+	while ((*token)->type == SPACE_TOKEN)
+		*token = (*token)->next;
+	if (ft_is_dir(*token) == 1)
+	{
+		printf("coucou\n");
+		return (NULL);
+	}
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
 	node->type = STR_NODE;
-	while ((*token)->type == SPACE_TOKEN)
-		*token = (*token)->next;
 	add_lexeme_to_node(token, node, pipe);
 	return (node);
 }
