@@ -6,55 +6,46 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2025/01/09 21:54:50 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/12 17:43:40 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
 // <
-/*
-void	input_dir(t_node *right, t_node *left, char **envp, int *last)
+void	input_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 {
 	int	fd;
-	int	end[2];
 	char	*trim;
 	int	pid;
 	int	status;
 
-	(void) last;
 	trim = trim_file(right);
 	fd = open(trim, O_RDONLY);
-	pipe(end);
+	if (fd < 0)
+	{
+		perror(" ");
+		g_excode = 1;
+		return ;
+	}
 	pid = fork();
 	if (pid == 0)
 	{
-		if (dup2(fd, STDIN_FILENO) == -1)
+		if (ctxt->is_first_i == 0)
 		{
-			close(end[0]);
-			close(end[1]);
-			exit(0);
+			ctxt->infile = fd;
+			ctxt->is_first_i = 1;
 		}
-		close(fd);
 		free(trim);
-		ft_exe_dir(left, envp, end);
+		ft_exe_dir(left, envp, ctxt);
 		exit(g_excode);
 	}
-	close(end[0]);
-	close(end[1]);
+	close(fd);
 	free(trim);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_excode = WEXITSTATUS(status);
-	if (fd > 0)
-		close(fd);
-	else
-	{
-		perror(" ");
-		g_excode = 1;
-	}
 }
-*/
 
 void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 {
@@ -84,10 +75,10 @@ void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 	}
 	if (child == 0)
 	{
-		if (ctxt->is_first == 0)
+		if (ctxt->is_first_o == 0)
 		{
 			ctxt->outfile = fd;
-			ctxt->is_first = 1;
+			ctxt->is_first_o = 1;
 		}
 		free(trim);
 		ft_exe_dir(left, envp, ctxt);
@@ -100,70 +91,54 @@ void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 		g_excode = WEXITSTATUS(status);
 }
 
-/*
-void	output_append(t_node *right, t_node *left, char **envp, int *last)
+
+void	output_append(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 {
-	int	fd;
-	int	child;
-	int	status;
-	int	end[2];
-	char	*trim;
+	int		fd;
+	int		child;
+	int		status;
+	char		*trim;
 
 	trim = trim_file(right);
 	fd = open(trim, O_CREAT | O_WRONLY | O_APPEND, 0664);
 	if (fd == -1)
 	{
-		perror("open failed");
+		write(2, trim, ft_strlen(trim));
+		write(2, ": ", 2);
+		perror(NULL);
 		g_excode = 1;
+		free(trim);
 		return ;
-	}
-	if (last == NULL)
-	{
-		if (pipe(end) == -1)
-		{
-			perror("pipe failed");
-			g_excode = 1;
-			return ;
-		}
 	}
 	child = fork();
 	if (child < 0)
 	{
 		perror("fork failed");
 		g_excode = 1;
+		free(trim);
 		return ;
 	}
 	if (child == 0)
 	{
-		if (last != NULL)
-			dup2(fd, last[0]);
-		else
+		if (ctxt->is_first_o == 0)
 		{
-			if (dup2(fd, STDOUT_FILENO) == -1)
-			{
-				perror("dup2 failed");
-				close(fd);
-				exit(1);
-			}
+			ctxt->outfile = fd;
+			ctxt->is_first_o = 1;
 		}
-		close(fd);
 		free(trim);
-		ft_exe_dir(left, envp, end);
+		ft_exe_dir(left, envp, ctxt);
 		exit(g_excode);
 	}
 	close(fd);
 	free(trim);
-	close(end[0]);
-	close(end[1]);
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
 		g_excode = WEXITSTATUS(status);
 }
 
-void	di_to_dir(t_node *right, t_node *left, char **envp, int *end)
+void	di_to_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 {
-	input_dir(right, left, envp, end);
+	input_dir(right, left, envp, ctxt);
 	if (unlink(right->data.str) == -1)
 		perror("unlink failed");
 }
-*/

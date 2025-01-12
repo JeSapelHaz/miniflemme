@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 15:44:13 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/12 17:33:15 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int ac, char **av, char **envp)
 		if (ft_verrif_tok(&token_list) == 0)
 		{
 			node = parse(&token_list);
-			// print_node(node);
+//			print_node(node);
 			add_dollar(node, env);
 			clean_str_nodes(node);
 			ft_exe(node, env);

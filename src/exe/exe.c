@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/09 23:42:43 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/12 17:43:42 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,16 @@ void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 	split_cmd = ft_split(tmp->data.str, ' ');
 	add_space_split(split_cmd);
 	remove_quote(split_cmd);
+	if (ctxt->infile != 0)
+	{
+		dup2(ctxt->infile, STDIN_FILENO);
+		close(ctxt->infile);
+	}
+	if (ctxt->outfile != 1)
+	{
+		dup2(ctxt->outfile, STDOUT_FILENO);
+		close(ctxt->outfile);
+	}
 	if (exec_builtin(split_cmd, env))
 	{
 		ft_free_str(split_cmd);
@@ -125,17 +135,6 @@ void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 //	}
 //	else 
 //	{
-		if (ctxt->infile != 0)
-		{
-			dup2(ctxt->infile, STDIN_FILENO);
-			close(ctxt->infile);
-		}
-		if (ctxt->outfile != 1)
-		{
-			dup2(ctxt->outfile, STDOUT_FILENO);
-			close(ctxt->outfile);
-		}
-//	}
 	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
 }
@@ -146,7 +145,8 @@ void	set_ctxt(t_ctxt *ctxt)
 	ctxt->outfile = 1;
 	ctxt->end[0] = -1;
 	ctxt->end[1] = -1;
-	ctxt->is_first = 0;
+	ctxt->is_first_o = 0;
+	ctxt->is_first_i = 0;
 }
 
 void	ft_exe(t_node *node, char **env)
@@ -164,13 +164,13 @@ void	ft_exe(t_node *node, char **env)
 		right = node->data.pair.right;
 		if (node->data.pair.opera[0] == '|')
 			exe_pipe(node, env, &ctxt);
-//		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
-//			input_dir(right, left, env, NULL);
-		if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
+		else if (ft_strncmp(node->data.pair.opera, "<", 2) == 0)
+			input_dir(right, left, env, &ctxt);
+		else if (ft_strncmp(node->data.pair.opera, ">", 2) == 0)
 			output_dir(right, left, env, &ctxt);
-//		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
-//			output_append(right, left, env, NULL);
-//		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
-//			di_to_dir(right, left, env, NULL);
+		else if (ft_strncmp(node->data.pair.opera, ">>", 3) == 0)
+			output_append(right, left, env, &ctxt);
+		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
+			di_to_dir(right, left, env, &ctxt);
 	}
 }
