@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:54:15 by alama             #+#    #+#             */
-/*   Updated: 2025/01/10 16:50:23 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/13 17:22:45 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,26 @@ char	*replace_dollar_str(char *str, char **env)
 
 void	replace_dollar(t_node *node, char **env)
 {
+	int		i;
+	int		var_found;
 	char	*new_str;
 
 	if (!node || !node->data.str)
+		return ;
+	i = 0;
+	var_found = 0;
+
+	while (env[i])
+	{
+		if (!ft_strncmp(node->data.str, env[i], ft_strlen(node->data.str))
+			&& env[i][ft_strlen(node->data.str)] == '=')
+		{
+			var_found = 1; 
+			break;
+		}
+		i++;
+	}
+	if (!var_found && (ft_strncmp(node->data.str, "$?", 2) == 0))
 		return ;
 	new_str = replace_dollar_str(node->data.str, env);
 	free(node->data.str);
