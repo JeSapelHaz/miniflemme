@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/15 16:13:03 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:23:21 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,28 +77,28 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 	return (i);
 }
 
-static int	which_token(int i, char *str, t_token **token_list)
+static int	which_token(int *i, char *str, t_token **token_list)
 {
-	if (str[i + 1] && str[i] == ' ' && str[i + 1] != ' ')
+	if (str[*i + 1] && str[*i] == ' ' && str[*i + 1] != ' ')
 		ft_add_token(token_list, SPACE_TOKEN, ft_strdup(" "));
-	else if (str[i] == '|')
+	else if (str[*i] == '|')
 		ft_add_token(token_list, PIPE, ft_strdup("|"));
-	else if (str[i] == '(' || str[i] == ')')
-		return (ft_not_close(str[i]), -1);
-	else if (str[i] == '\'' && (d_and_s_token(&i, str, token_list)) == -1)
-			return (-1);
-	else if (str[i] == '\"' && (d_and_s_token(&i, str, token_list)) == -1)
+	else if (str[*i] == '(' || str[*i] == ')')
+		return (ft_not_close(str[*i]), -1);
+	else if (str[*i] == '\'' && (d_and_s_token(i, str, token_list)) == -1)
 		return (-1);
-	else if (str[i] == '>' && str[i + 1] != '>')
+	else if (str[*i] == '\"' && (d_and_s_token(i, str, token_list)) == -1)
+		return (-1);
+	else if (str[*i] == '>' && str[*i + 1] != '>')
 		ft_add_token(token_list, O_DIR, ft_strdup(">"));
-	else if (str[i] == '>' && str[i + 1] == '>')
+	else if (str[*i] == '>' && str[*i + 1] == '>')
 	{
 		ft_add_token(token_list, OA_DIR, ft_strdup(">>"));
-		i++;
+		(*i)++;
 	}
-	else if (str[i] == '\\' || str[i] == ';')
-		return (ft_not_close(str[i]), -1);
-	return (i);
+	else if (str[*i] == '\\' || str[*i] == ';')
+		return (ft_not_close(str[*i]), -1);
+	return (*i);
 }
 
 t_token	*tokenize(char *str)
@@ -110,7 +110,7 @@ t_token	*tokenize(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((i = which_token(i, str, &token_list)) == -1)
+		if ((which_token(&i, str, &token_list)) == -1)
 			return (ft_free_token(&token_list), NULL);
 		if (str[i] == '<' && str[i + 1] != '<')
 			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
