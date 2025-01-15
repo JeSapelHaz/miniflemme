@@ -6,79 +6,83 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:54:15 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 15:45:21 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:23:32 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-
-static void toggle_quote_flags(char c, int *in_single_quotes, int *in_double_quotes)
+static void	toggle_quote_flags(char c, int *in_single_quotes,
+		int *in_double_quotes)
 {
-    if (c == '\'' && !(*in_double_quotes))
-        *in_single_quotes = !(*in_single_quotes);
-    else if (c == '"' && !(*in_single_quotes))
-        *in_double_quotes = !(*in_double_quotes);
+	if (c == '\'' && !(*in_double_quotes))
+		*in_single_quotes = !(*in_single_quotes);
+	else if (c == '"' && !(*in_single_quotes))
+		*in_double_quotes = !(*in_double_quotes);
 }
 
-static char *handle_dollar_and_result(char *result, char *str, int *i, char **env, int in_single_quotes)
+static char	*handle_dollar_and_result(char *result, char *str, int *i,
+		char **env, int in_single_quotes)
 {
-    if (str[*i] == '$' && !in_single_quotes)
-    {
-        if (str[*i + 1] == '?')
-        {
-            result = handle_exit_code(&result);
-            (*i)++;
-        }
-        else
-        {
-            result = handle_dollar(&result, str, i, env);
-            if (!result)
-                return (NULL);
-        }
-    }
-    else
-    {
-        result = add_char_to_result(result, str[*i]);
-    }
-    return (result);
+	if (str[*i] == '$' && !in_single_quotes)
+	{
+		if (str[*i + 1] == '?')
+		{
+			result = handle_exit_code(&result);
+			(*i)++;
+		}
+		else
+		{
+			result = handle_dollar(&result, str, i, env);
+			if (!result)
+				return (NULL);
+		}
+	}
+	else
+	{
+		result = add_char_to_result(result, str[*i]);
+	}
+	return (result);
 }
 
-static char *process_char(char *result, char c, int *in_single_quotes, int *in_double_quotes)
+static char	*process_char(char *result, char c, int *in_single_quotes,
+		int *in_double_quotes)
 {
-    toggle_quote_flags(c, in_single_quotes, in_double_quotes);
-    result = add_char_to_result(result, c);
-    return (result);
+	toggle_quote_flags(c, in_single_quotes, in_double_quotes);
+	result = add_char_to_result(result, c);
+	return (result);
 }
 
-char *replace_dollar_str(char *str, char **env)
+char	*replace_dollar_str(char *str, char **env)
 {
-    char *result;
-    int i;
-    int in_single_quotes;
-    int in_double_quotes;
+	char	*result;
+	int		i;
+	int		in_single_quotes;
+	int		in_double_quotes;
 
-    result = ft_strdup("");
-    if (!result)
-        return (NULL);
-    in_single_quotes = 0;
-    in_double_quotes = 0;
-    i = 0;
-    while (str[i])
-    {
-        if ((str[i] == '\'' || str[i] == '"') && result)
-        {
-            result = process_char(result, str[i], &in_single_quotes, &in_double_quotes);
-        }
-        else
-        {
-            result = handle_dollar_and_result(result, str, &i, env, in_single_quotes);
-        }
-        if (!result)
-            return (NULL);
-        i++;
-    }
-    return (result);
+	result = ft_strdup("");
+	if (!result)
+		return (NULL);
+	in_single_quotes = 0;
+	in_double_quotes = 0;
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] == '\'' || str[i] == '"') && result)
+		{
+			result = process_char(result, str[i], &in_single_quotes,
+					&in_double_quotes);
+		}
+		else
+		{
+			result = handle_dollar_and_result(result, str, &i, env,
+					in_single_quotes);
+		}
+		if (!result)
+			return (NULL);
+		i++;
+	}
+	return (result);
 }
 
 void	replace_dollar(t_node *node, char **env)

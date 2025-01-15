@@ -6,14 +6,12 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 16:13:12 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:25:32 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-
-printf("couocu haz");
 
 static void	ft_print(char *str)
 {
@@ -134,18 +132,6 @@ void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 		exit(g_excode);
 	}
 	path = find_path(env, split_cmd);
-//	printf("%s and %s\n", path, split_cmd[0]);
-//	if (ctxt->end[0] != -1 || ctxt->end[1] != -1)
-//	{
-//		if (ctxt->outfile == 10)
-//			dup2(ctxt->end[1], STDOUT_FILENO);
-//		if (ctxt->infile == 10)
-//			dup2(ctxt->end[0], STDIN_FILENO);
-//		close(ctxt->end[0]);
-//		close(ctxt->end[1]);
-//	}
-//	else 
-//	{
 	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
 }
