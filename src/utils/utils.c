@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:13:53 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/08 14:24:47 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:02:47 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*trim_file(t_node *node)
 	str = NULL;
 	if (node->type != STR_NODE)
 		return (NULL);
-	last = ft_strlen(node->data.str) -1;
+	last = ft_strlen(node->data.str) - 1;
 	while (node->data.str[last] == ' ')
 		last--;
 	if (node->data.str[0] == '\"' && node->data.str[last] == '\"')

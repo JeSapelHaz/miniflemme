@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 16:40:16 by alama             #+#    #+#             */
-/*   Updated: 2025/01/09 18:21:25 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:04:50 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	heredoc_parse(t_token **token)
 	doc = ft_strjoin(".", tmp->lexeme);
 	fd = open(doc, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
-		return (free(doc), perror("open heredoc fails\n"), (void)NULL);
+		return (free(doc), perror("open heredoc fails\n"), (void) NULL);
 	status = fork();
 	if (status == 0)
 		gnl_heredoc(tmp->lexeme, fd);
