@@ -6,14 +6,14 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/14 16:21:39 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:56:16 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <signal.h>
 
-int		g_excode = 0;
+int			g_excode = 0;
 
 t_token	*re_do_token(char **str)
 {

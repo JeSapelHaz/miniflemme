@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2025/01/08 15:04:19 by hbutt            ###   ########.fr        #
+#    Updated: 2025/01/15 15:32:22 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ SRC_PARSING = $(SRCDIR)/parsing/parser.c \
               $(SRCDIR)/parsing/heredoc.c \
               $(SRCDIR)/parsing/not_close_token.c \
               $(SRCDIR)/parsing/dollar.c \
+              $(SRCDIR)/parsing/dollar_2.c \
+              $(SRCDIR)/parsing/dollar_3.c \
               $(SRCDIR)/parsing/weird_dir.c \
               $(SRCDIR)/parsing/clean_str.c
 
@@ -63,6 +65,7 @@ SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
                 $(SRCDIR)/builtins/ft_echo_2.c
 
 SRC_EXE = $(SRCDIR)/exe/exe.c \
+$(SRCDIR)/exe/exe_2.c \
           $(SRCDIR)/exe/dir_choice.c \
           $(SRCDIR)/exe/path.c \
           $(SRCDIR)/exe/split_for_exe.c \

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2025/01/12 17:43:40 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:34:29 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 // <
 void	input_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 {
-	int	fd;
+	int		fd;
 	char	*trim;
-	int	pid;
-	int	status;
+	int		pid;
+	int		status;
 
 	trim = trim_file(right);
 	fd = open(trim, O_RDONLY);
@@ -52,7 +52,7 @@ void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 	int		fd;
 	int		child;
 	int		status;
-	char		*trim;
+	char	*trim;
 
 	trim = trim_file(right);
 	fd = open(trim, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -91,13 +91,12 @@ void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 		g_excode = WEXITSTATUS(status);
 }
 
-
 void	output_append(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 {
 	int		fd;
 	int		child;
 	int		status;
-	char		*trim;
+	char	*trim;
 
 	trim = trim_file(right);
 	fd = open(trim, O_CREAT | O_WRONLY | O_APPEND, 0664);

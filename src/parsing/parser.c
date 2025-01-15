@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:37:20 by alama             #+#    #+#             */
-/*   Updated: 2025/01/13 15:53:32 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:24:03 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_node	*str_node(t_token **token, int pipe)
 		*token = (*token)->next;
 	if (ft_is_dir(*token) == 1)
 	{
-		//printf("coucou\n");
 		return (NULL);
 	}
 	node = malloc(sizeof(t_node));

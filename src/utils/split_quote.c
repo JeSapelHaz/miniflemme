@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:23:06 by alama             #+#    #+#             */
-/*   Updated: 2025/01/06 17:00:18 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:02:32 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	ft_count_split(char const *str)
 			else
 			{
 				while (str[i] && str[i] != '\'' && str[i] != '\"'
-						&& str[i] != ' ')
+					&& str[i] != ' ')
 					i++;
 			}
 		}
@@ -80,7 +80,7 @@ static void	ft_add_str(char ***split, char const *str)
 			else
 			{
 				while (str[i + l] && str[i + l] != '\'' && str[i + l] != '\"'
-						&& str[i + l] != ' ')
+					&& str[i + l] != ' ')
 					l++;
 			}
 		}
@@ -95,7 +95,7 @@ static void	ft_add_str(char ***split, char const *str)
 char	**ft_split_quote(char const *str)
 {
 	char	**split;
-	int	count;
+	int		count;
 
 	count = ft_count_split(str);
 	if (count <= 1)

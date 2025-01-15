@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/13 15:55:34 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:52:14 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,3 @@ t_node	*left_before_pipe(t_node *left, t_token **token)
 	ft_free_node(&left);
 	return (l);
 }
-/*
-t_node	*right_after_pipe(t_token **token)
-{
-	t_node	*left;
-
-	if (is_there_dir(*token) == 0)
-		return (str_node(token, 1));
-	left = str_node(token, 0);
-	while ((*token) && (*token)->type != PIPE)
-	{
-		if (ft_is_dir(*token) == 1 && (*token)->type != PIPE)
-			left = pair_node(left, token);
-		*token = (*token)->next;
-	}
-	return (left);
-}
-*/
