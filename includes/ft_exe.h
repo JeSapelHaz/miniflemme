@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2025/01/12 17:15:45 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/14 16:19:45 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "mini_shell.h"
 
-void	ft_exe(t_node *node, char **envp);
+int	ft_exe(t_node *node, char **envp);
 char	*find_path(char **envp, char **cmd);
 void	ft_free_str(char **str);
 void	pipex(t_node *node, char **envp, t_ctxt *ctxt);
@@ -25,7 +25,7 @@ void	pipe_left(t_node *right, t_node *left, char **envp);
 void	input_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt);
 void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt);
 void	output_append(t_node *right, t_node *left, char **envp, t_ctxt *ctxt);
-void	first_process(t_node *node, char **envp);
+int	first_process(t_node *node, char **envp);
 void	di_to_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt);
 void	exe_pipe(t_node *node, char **envp, t_ctxt *ctxt);
 void	split_for_exe(t_node *node);

@@ -24,7 +24,7 @@ WHITE		= \033[0;97m
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g
 SRCDIR = src
 OBJDIR = .build
 
