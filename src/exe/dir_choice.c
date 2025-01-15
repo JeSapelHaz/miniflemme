@@ -6,11 +6,12 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 15:34:35 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:01:42 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
 
 void	exe_pipe(t_node *node, char **envp, t_ctxt *ctxt)
 {
@@ -59,6 +60,7 @@ void	exe_pipe(t_node *node, char **envp, t_ctxt *ctxt)
 	if (WIFEXITED(status))
 		g_excode = WEXITSTATUS(status);
 }
+
 
 void	ft_exe_dir(t_node *node, char **env, t_ctxt *ctxt)
 {

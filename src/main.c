@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 14:59:11 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:56:16 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,77 +30,63 @@ t_token	*re_do_token(char **str)
 	return (token_list);
 }
 
-static void	ft_process_pipeline(t_token **token_list, char **str)
+static	t_all	*set_all(void)
 {
-	t_token	*tmp;
+	t_all	*all;
 
-	tmp = find_pipe(*token_list);
-	while (tmp->type == PIPE)
-	{
-		*str = ft_last_pipe(token_list, *str);
-		tmp = last_token(*token_list)->prev;
-		while (tmp->type == SPACE_TOKEN)
-			tmp = tmp->prev;
-	}
-}
-
-static void	ft_handle_tokenization(t_token **token_list, char **str, int *added)
-{
-	while (ft_verrif_tok(token_list) != 0)
-	{
-		ft_free_token(token_list);
-		free(*str);
-		*str = NULL;
-		*token_list = re_do_token(str);
-		*added = 1;
-	}
-}
-
-static void	ft_execute_pipeline(t_token **token_list, char **env, char *str)
-{
-	t_node	*node;
-
-	if (ft_verrif_tok(token_list) == 0)
-	{
-		node = parse(token_list);
-		add_dollar(node, env);
-		clean_str_nodes(node);
-		ft_exe(node, env);
-		ft_free_all_node(&node);
-	}
-	if (str)
-		add_history(str);
-}
-
-static void	ft_cleanup(t_token **token_list, char **str)
-{
-	ft_free_token(token_list);
-	free(*str);
-	*str = NULL;
+	all = malloc(sizeof(t_all));
+	all->boucle = 1;
+	return (all);
 }
 
 int	main(int ac, char **av, char **envp)
 {
-	t_token	*token_list;
-	char	*str;
 	char	**env;
+	t_token	*tmp;
+	t_all	*all;
 	int		added;
 
 	g_excode = 0;
 	check_args(ac, av);
 	env = copy_env(envp);
-	while (1)
+	all = set_all();
+	while (all->boucle != -1)
 	{
 		initialize_signals();
-		token_list = NULL;
-		str = NULL;
-		added = 0;
-		ft_handle_tokenization(&token_list, &str, &added);
-		ft_process_pipeline(&token_list, &str);
-		ft_execute_pipeline(&token_list, env, str);
-		ft_cleanup(&token_list, &str);
+		all->token_list = NULL;
+		all->str = NULL;
+		while (ft_verrif_tok(&all->token_list) != 0)
+		{
+			ft_free_token(&all->token_list);
+			free(all->str);
+			all->str = NULL;
+			all->token_list = NULL;
+			all->token_list = re_do_token(&all->str);
+			added = 1;
+		}
+		tmp = find_pipe(all->token_list);
+		while (tmp->type == PIPE)
+		{
+			all->str = ft_last_pipe(&all->token_list, all->str);
+			tmp = last_token(all->token_list)->prev;
+			while (tmp->type == SPACE_TOKEN)
+				tmp = tmp->prev;
+			added = 0;
+		}
+		if (added == 0)
+			add_history(all->str);
+		if (ft_verrif_tok(&all->token_list) == 0)
+		{
+			all->node = parse(&all->token_list);
+			add_dollar(all->node, env);
+			clean_str_nodes(all->node);
+			all->boucle = ft_exe(all->node, env);
+		}
+		ft_free_all_node(&all->node);
+		ft_free_token(&all->token_list);
+		free(all->str);
 	}
+	free(all);
 	clear_history();
-	free(str);
 	return (g_excode);
 }

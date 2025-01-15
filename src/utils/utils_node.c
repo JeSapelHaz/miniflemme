@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/15 15:02:55 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:52:14 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,21 @@ void	ft_free_node(t_node **node)
 			(*node)->data.pair.left = NULL;
 			(*node)->data.pair.right = NULL;
 			if ((*node)->data.pair.opera)
+			{
 				free((*node)->data.pair.opera);
+				(*node)->data.pair.opera = NULL;
+			}
 			free(*node);
+			*node = NULL;
 			return ;
 		}
 		if ((*node)->data.str)
+		{
 			free((*node)->data.str);
+			(*node)->data.str = NULL;
+		}
 		free(*node);
+		*node = NULL;
 	}
 }
 

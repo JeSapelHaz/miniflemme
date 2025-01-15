@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 15:32:05 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 15:59:53 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,8 @@ int			is_valid_var_name(char *var);
 int			len_arg(char *arg);
 int			var_exist(char *arg, char **env);
 int			find_var_index(char *arg, char **env);
-char		**ft_split_quote(char const*str);
+char	**ft_split_quote(char const* str);
 
-char		*add_char_to_result(char *result, char c);
-char		*handle_exit_code(char **result);
-char		*handle_dollar(char **result, char *str, int *i, char **env);
-char		*itoa_exit_code(int n);
-char	*get_env_value(char *var, char **env);
 
 typedef struct s_sig
 {

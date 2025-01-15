@@ -6,7 +6,11 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 16:40:16 by alama             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/15 15:04:50 by hbutt            ###   ########.fr       */
+=======
+/*   Updated: 2025/01/13 16:07:50 by alama            ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +20,7 @@ void	gnl_heredoc(char *delimiter, int fd)
 {
 	char	*str;
 
-	heredoc_signals();
+	child_signals();
 	str = NULL;
 	while (1)
 	{
@@ -41,6 +45,7 @@ void	heredoc_parse(t_token **token)
 	int		fd;
 	int		status;
 
+	parent_signals();
 	tmp = (*token)->next;
 	while (tmp->type == SPACE_TOKEN)
 		tmp = tmp->next;
@@ -57,4 +62,5 @@ void	heredoc_parse(t_token **token)
 		free(tmp->lexeme);
 		tmp->lexeme = doc;
 	}
+	initialize_signals();
 }
