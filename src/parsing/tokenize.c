@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/15 16:02:22 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:14:24 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,8 @@ static int	which_token(int i, char *str, t_token **token_list)
 		ft_add_token(token_list, PIPE, ft_strdup("|"));
 	else if (str[i] == '(' || str[i] == ')')
 		return (ft_not_close(str[i]), -1);
-	else if (str[i] == '\'')
-	{
-		i = d_and_s_token(i, str, token_list);
-		if (i == -1)
-			return (-1);
-	}
+	else if (str[i] == '\'' && (i = d_and_s_token(i, str, token_list)) == -1)
+		return (-1);
 	else if (str[i] == '\"' && (i = d_and_s_token(i, str, token_list)) == -1)
 		return (-1);
 	else if (str[i] == '>' && str[i + 1] != '>')

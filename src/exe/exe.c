@@ -6,11 +6,14 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 16:08:10 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:13:12 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+
+printf("couocu haz");
 
 static void	ft_print(char *str)
 {
@@ -30,7 +33,7 @@ static void	ft_execv_error(char **split_cmd)
 	write(2, "mini-flemme: ", 13);
 	ft_print(split_cmd[0]);
 	if (split_cmd[0][0] == '/' || (split_cmd[0][0] == '.'
-			&& split_cmd[0][1] == '/'))
+		&& split_cmd[0][1] == '/'))
 	{
 		ft_free_str(split_cmd);
 		write(2, ": No such file or directory\n", 28);
@@ -47,7 +50,7 @@ static void	ft_execv_error(char **split_cmd)
 int	exec_builtin(char **args, char **env)
 {
 	if (ft_strcmp(args[0], "exit") == 0)
-		return (ft_exit(args), 1);
+		return (ft_exit(args), -1);
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (ft_cd(args), 1);
 	if (ft_strcmp(args[0], "echo") == 0)
@@ -63,7 +66,7 @@ int	exec_builtin(char **args, char **env)
 	return (0);
 }
 
-void	first_process(t_node *node, char **env)
+int	first_process(t_node *node, char **env)
 {
 	char	*path;
 	char	**split_cmd;
@@ -76,24 +79,31 @@ void	first_process(t_node *node, char **env)
 	split_cmd = ft_split(tmp->data.str, ' ');
 	add_space_split(split_cmd);
 	remove_quote(split_cmd);
-	if (exec_builtin(split_cmd, env))
+	parent_signals();
+	status = exec_builtin(split_cmd, env);
+	if (status != 0)
 	{
 		ft_free_str(split_cmd);
-		return ;
+		if (status == -1)
+			return (-1);
+		return (1);
 	}
 	pid = fork();
 	if (pid < 0)
-		return (perror("fork fails\n"));
+		return (perror("fork fails\n"), 0);
 	if (pid == 0)
 	{
 		path = find_path(env, split_cmd);
+		child_signals();
 		g_excode = execve(path, split_cmd, env);
 		ft_execv_error(split_cmd);
 	}
 	waitpid(pid, &status, 0);
+	initialize_signals();
 	if (WIFEXITED(status))
 		g_excode = WEXITSTATUS(status);
 	ft_free_str(split_cmd);
+	return (0);
 }
 
 void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
@@ -106,6 +116,7 @@ void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 	split_for_exe(tmp);
 	split_cmd = ft_split(tmp->data.str, ' ');
 	add_space_split(split_cmd);
+	child_signals();
 	remove_quote(split_cmd);
 	if (ctxt->infile != 0)
 	{
@@ -123,6 +134,18 @@ void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 		exit(g_excode);
 	}
 	path = find_path(env, split_cmd);
+//	printf("%s and %s\n", path, split_cmd[0]);
+//	if (ctxt->end[0] != -1 || ctxt->end[1] != -1)
+//	{
+//		if (ctxt->outfile == 10)
+//			dup2(ctxt->end[1], STDOUT_FILENO);
+//		if (ctxt->infile == 10)
+//			dup2(ctxt->end[0], STDIN_FILENO);
+//		close(ctxt->end[0]);
+//		close(ctxt->end[1]);
+//	}
+//	else 
+//	{
 	execve(path, split_cmd, env);
 	ft_execv_error(split_cmd);
 }
@@ -137,15 +160,16 @@ void	set_ctxt(t_ctxt *ctxt)
 	ctxt->is_first_i = 0;
 }
 
-void	ft_exe(t_node *node, char **env)
+int	ft_exe(t_node *node, char **env)
 {
 	t_node	*left;
 	t_node	*right;
 	t_ctxt	ctxt;
+	int	exit;
 
 	set_ctxt(&ctxt);
 	if (node->type == STR_NODE)
-		first_process(node, env);
+		exit = first_process(node, env);
 	else if (node->type == PAIR_NODE)
 	{
 		left = node->data.pair.left;
@@ -160,6 +184,6 @@ void	ft_exe(t_node *node, char **env)
 			output_append(right, left, env, &ctxt);
 		else if (ft_strncmp(node->data.pair.opera, "<<", 3) == 0)
 			di_to_dir(right, left, env, &ctxt);
-		printf("ok");
 	}
+	return (exit);
 }

@@ -6,12 +6,11 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:05:03 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/15 15:59:05 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:13:44 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-#include <signal.h>
 
 static void	ft_handle_signals(int signal)
 {
