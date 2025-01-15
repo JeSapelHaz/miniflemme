@@ -6,11 +6,14 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/14 17:42:44 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:09:03 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+
+printf("couocu haz");
 
 static void	ft_print(char *str)
 {

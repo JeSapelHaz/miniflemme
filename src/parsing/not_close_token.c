@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 20:29:37 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 14:23:25 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:05:38 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ int	ft_quote_to_lexeme(int i, char *str, t_token **tok, t_token_type type)
 	return (i);
 }
 
-int	d_and_s_token(int i, char *str, t_token **token_list)
+int	d_and_s_token(int *i, char *str, t_token **token_list)
 {
-	if (str[i] == '\'')
+	if (str[*i] == '\'')
 	{
-		i = ft_quote_to_lexeme(i, str, token_list, SINGLE_QUOTE);
-		if (i == -1)
+		*i = ft_quote_to_lexeme(*i, str, token_list, SINGLE_QUOTE);
+		if (*i == -1)
 			ft_not_close('\'');
 	}
 	else
 	{
-		i = ft_quote_to_lexeme(i, str, token_list, DOUBLE_QUOTE);
-		if (i == -1)
+		*i = ft_quote_to_lexeme(*i, str, token_list, DOUBLE_QUOTE);
+		if (*i == -1)
 			ft_not_close('\"');
 	}
-	return (i);
+	return (*i);
 }
