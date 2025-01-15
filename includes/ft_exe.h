@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 16:22:51 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 22:55:45 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 # define FT_EXE_H
 
 # include "mini_shell.h"
+
+typedef struct	s_pipe
+{
+	t_node	*left;
+	t_node	*right;
+	int	child1;
+	int	child2;
+	int	status;
+	int	end[2];
+}	t_pipe;
+
+typedef struct	s_dir
+{
+	int	fd;
+	int	pid;
+	int	status;
+	char	*trim;
+}	t_dir;
 
 int	ft_exe(t_node *node, char **envp);
 char	*find_path(char **envp, char **cmd);
@@ -34,5 +52,9 @@ void	remove_quote(char **data);
 void	ft_exe_dir(t_node *node, char **env, t_ctxt *ctxt);
 void	dir_process(t_node *node, char **env, t_ctxt *ctxt);
 char	*trim_file(t_node *node);
+void	fd_err(char **str);
+void	fork_err(char **str);
+void	child_input(t_dir *dir, t_ctxt *ctxt, t_node *left, char **envp);
+void	child_output(t_dir *dir, t_ctxt *ctxt, t_node *left, char **envp);
 
 #endif

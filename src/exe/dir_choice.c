@@ -6,61 +6,62 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 16:01:42 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 19:07:47 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
+static void	left_pipe(t_pipe *p, char **envp, t_ctxt *ctxt)
+{
+	dup2(p->end[1], STDOUT_FILENO);
+	close(p->end[0]);
+	close(p->end[1]);
+	ft_exe_dir(p->left, envp, ctxt);
+	exit(g_excode);
+}
+
+static void	right_pipe(t_pipe *p, char **envp, t_ctxt *ctxt)
+{
+	dup2(p->end[0], STDIN_FILENO);
+	close(p->end[0]);
+	close(p->end[1]);
+	ft_exe_dir(p->right, envp, ctxt);
+	exit(g_excode);
+}
+
+static void	fork_err(void)
+{
+	perror("fork fails\n");
+	exit(1);
+}
 
 void	exe_pipe(t_node *node, char **envp, t_ctxt *ctxt)
 {
-	t_node	*left;
-	t_node	*right;
-	int		child1;
-	int		child2;
-	int		status;
-	int		end[2];
+	t_pipe	p;
 
-	left = node->data.pair.left;
-	right = node->data.pair.right;
-	pipe(end);
-	child1 = fork();
-	if (child1 < 0)
-	{
-		perror("fork child1 fails\n");
-		exit(1);
-	}
-	if (child1 == 0)
-	{
-		dup2(end[1], STDOUT_FILENO);
-		close(end[0]);
-		close(end[1]);
-		ft_exe_dir(left, envp, ctxt);
-		exit(g_excode);
-	}
-	waitpid(child1, &status, 0);
-	child2 = fork();
-	if (child2 < 0)
-	{
-		perror("fork child1 fails\n");
-		exit(1);
-	}
-	if (child2 == 0)
-	{
-		dup2(end[0], STDIN_FILENO);
-		close(end[0]);
-		close(end[1]);
-		ft_exe_dir(right, envp, ctxt);
-		exit(g_excode);
-	}
-	close(end[0]);
-	close(end[1]);
-	waitpid(child2, &status, 0);
-	if (WIFEXITED(status))
-		g_excode = WEXITSTATUS(status);
+	p.left = node->data.pair.left;
+	p.right = node->data.pair.right;
+	pipe(p.end);
+	p.child1 = fork();
+	if (p.child1 < 0)
+		fork_err();
+	if (p.child1 == 0)
+		left_pipe(&p, envp, ctxt);
+	waitpid(p.child1, &p.status, 0);
+	p.child2 = fork();
+	if (p.child2 < 0)
+		fork_err();
+	if (p.child2 == 0)
+		right_pipe(&p, envp, ctxt);
+	close(p.end[0]);
+	close(p.end[1]);
+	waitpid(p.child2, &p.status, 0);
+	if (WIFEXITED(p.status))
+		g_excode = WEXITSTATUS(p.status);
+	else
+		g_excode = 1;
 }
-
 
 void	ft_exe_dir(t_node *node, char **env, t_ctxt *ctxt)
 {

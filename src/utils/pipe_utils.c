@@ -6,11 +6,18 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:06:11 by alama             #+#    #+#             */
-/*   Updated: 2024/12/04 14:44:37 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 17:34:28 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+static void	pipe_error(void)
+{
+	write(2, "mini-flemme: syntax error: ", 27);
+	write(2, "unexpected end of file\n",  23);
+	write(1, "exit\n", 5);
+}
 
 static char	*new_pipe(t_token **t, char **str, t_token **token_list)
 {
@@ -21,6 +28,8 @@ static char	*new_pipe(t_token **t, char **str, t_token **token_list)
 
 	tmp = *t;
 	new_rd = readline("> ");
+	if (!new_rd)
+		return (pipe_error(), NULL);
 	new_token = tokenize(new_rd);
 	if (!new_token)
 		return (free(*str), free(new_rd), NULL);

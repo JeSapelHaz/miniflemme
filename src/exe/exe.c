@@ -6,12 +6,11 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 16:25:32 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/15 23:00:37 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
 
 static void	ft_print(char *str)
 {
