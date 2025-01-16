@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:06:11 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 17:34:28 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/16 17:11:50 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	pipe_error(void)
 {
 	write(2, "mini-flemme: syntax error: ", 27);
-	write(2, "unexpected end of file\n",  23);
+	write(2, "unexpected end of file\n", 23);
 	write(1, "exit\n", 5);
 }
 

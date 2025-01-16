@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 16:21:35 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/16 17:34:21 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char		*ft_last_pipe(t_token **token_list, char *str);
 int			ft_verrif_tok(t_token **token_list);
 int			ft_is_dir(t_token *token);
 void		ft_not_close(char c);
-int	d_and_s_token(int *i, char *str, t_token **token_list);
+int			d_and_s_token(int *i, char *str, t_token **token_list);
 t_token		*find_pipe(t_token *token_list);
 
 /* UTILS STR */
@@ -123,14 +123,26 @@ int			is_valid_var_name(char *var);
 int			len_arg(char *arg);
 int			var_exist(char *arg, char **env);
 int			find_var_index(char *arg, char **env);
-char	**ft_split_quote(char const* str);
+char		**ft_split_quote(char const *str);
 
-char	*get_env_value(char *var, char **env);
-char	*itoa_exit_code(int n);
-char	*handle_simple_dollar(char **result);
-char	*handle_exit_code(char **result);
-char	*handle_dollar(char **result, char *str, int *i, char **env);
-char	*add_char_to_result(char *result, char c);
+char		*get_env_value(char *var, char **env);
+char		*itoa_exit_code(int n);
+char		*handle_simple_dollar(char **result);
+char		*handle_exit_code(char **result);
+char		*handle_dollar(char **result, char *str, int *i, char **env);
+char		*add_char_to_result(char *result, char c);
+char		*replace_dollar_str(char *str, char **env);
+char		*process_chars(char *str, char **env);
+int			is_quote(char c, int in_double_quotes, int in_single_quotes);
+void		toggle_quote_state(char c, int *in_single_quotes,
+				int *in_double_quotes);
+char		*handle_quotes_logic(char *result, char c, int *in_single_quotes,
+				int *in_double_quotes);
+char		*handle_char_logic(char *result, char c);
+char		*handle_dollars_logic(char *result, char *str, int *i, char **env);
+void		ft_add_str(char ***split, const char *str);
+
+int			ft_handle_quote(char const *str, int i);
 
 typedef struct s_sig
 {

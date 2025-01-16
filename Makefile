@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2025/01/16 15:15:12 by alama            ###   ########.fr        #
+#    Updated: 2025/01/16 17:33:29 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ SRC_PARSING = $(SRCDIR)/parsing/parser.c \
               $(SRCDIR)/parsing/heredoc.c \
               $(SRCDIR)/parsing/not_close_token.c \
               $(SRCDIR)/parsing/dollar.c \
+              $(SRCDIR)/parsing/dollar_2.c \
+              $(SRCDIR)/parsing/dollar_3.c \
+              $(SRCDIR)/parsing/dollar_4.c \
               $(SRCDIR)/parsing/weird_dir.c \
               $(SRCDIR)/parsing/clean_str.c
 
@@ -49,6 +52,7 @@ SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/signals.c \
             $(SRCDIR)/utils/utils_node.c \
             $(SRCDIR)/utils/split_quote.c \
+            $(SRCDIR)/utils/split_quote_2.c \
             $(SRCDIR)/utils/utils.c
 
 
