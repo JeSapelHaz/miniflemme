@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2025/01/16 18:43:30 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/16 18:37:08 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int			ft_is_dir(t_token *token);
 void		ft_not_close(char c);
 int			d_and_s_token(int *i, char *str, t_token **token_list);
 t_token		*find_pipe(t_token *token_list);
+int		which_token(int *i, char *str, t_token **token_list);
+int		ft_is_lexeme(char c);
 
 /* STRING UTILITIES */
 int			ft_strcmp(char *s1, char *s2);

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:26:50 by alama             #+#    #+#             */
-/*   Updated: 2025/01/08 15:45:33 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/16 17:34:19 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ void	add_space_split(char **data)
 	}
 }
 
+static void	compare_to_space(t_node *node, int *i)
+{
+	char	*tmp;
+
+	tmp = node->data.str;
+	if (tmp[*i] == ' ')
+		tmp[*i] = tmp[*i] * -1;
+	(*i)++;
+}
+
 void	split_for_exe(t_node *node)
 {
 	int		i;
@@ -44,23 +54,14 @@ void	split_for_exe(t_node *node)
 	{
 		if (str[i] == '\'')
 		{
-			while (str[i + 1] && str[i + 1] != '\'' && str[i] != '\\')
-			{
-				if (str[i] == ' ')
-					str[i] = str[i] * -1;
-				i++;
-			}
-			i++;
+			while (str[i + 1] && str[i + 1] != '\''
+				&& str[i] != '\\')
+				compare_to_space(node, &i);
 		}
 		if (str[i] == '\"')
 		{
 			while (str[i + 1] && str[i + 1] != '\"' && str[i] != '\\')
-			{
-				if (str[i] == ' ')
-					str[i] = str[i] * -1;
-				i++;
-			}
-			i++;
+				compare_to_space(node, &i);
 		}
 		i++;
 	}

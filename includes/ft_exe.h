@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:54:33 by alama             #+#    #+#             */
-/*   Updated: 2025/01/16 17:12:06 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/16 18:33:02 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void		child_output(t_dir *dir, t_ctxt *ctxt, t_node *left, char **envp);
 void		ft_execv_error(char **split_cmd);
 char		**init_string_process(t_node *node);
 void		ft_execv(char **split_cmd, char **env, int is_child);
+t_token		*inside_tokenize(int *i, char * str, t_token *tok);
 
 #endif

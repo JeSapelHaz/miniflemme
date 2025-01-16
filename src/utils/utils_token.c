@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:33:46 by hbutt             #+#    #+#             */
-/*   Updated: 2024/11/21 18:48:31 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/16 18:49:05 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	ft_del(t_token *token)
 	{
 		token->next = NULL;
 		token->prev = NULL;
+		free(token->lexeme);
+		token->lexeme = NULL;
 		free(token);
 	}
 }

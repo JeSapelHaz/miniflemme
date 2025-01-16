@@ -6,13 +6,13 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/15 16:19:40 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/16 18:42:53 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-static int	ft_is_lexeme(char c)
+int	ft_is_lexeme(char c)
 {
 	if (c != ' ' && c != '|' && c != '<' && c != '>' && c != '\"' && c != '\''
 		&& c != '(' && c != ')' && c != ';' && c != '\\')
@@ -77,7 +77,7 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 	return (i);
 }
 
-static int	which_token(int *i, char *str, t_token **token_list)
+int	which_token(int *i, char *str, t_token **token_list)
 {
 	if (str[*i + 1] && str[*i] == ' ' && str[*i + 1] != ' ')
 		ft_add_token(token_list, SPACE_TOKEN, ft_strdup(" "));
@@ -125,6 +125,6 @@ t_token	*tokenize(char *str)
 			i++;
 	}
 	if (token_list)
-		ft_add_token(&token_list, END_TOKEN, ft_strdup("\0"));
+		ft_add_token(&token_list, END_TOKEN, NULL);
 	return (token_list);
 }

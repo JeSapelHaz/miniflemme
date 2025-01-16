@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2025/01/16 17:33:29 by hbutt            ###   ########.fr        #
+#    Updated: 2025/01/16 18:33:25 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_MAIN = $(SRCDIR)/main.c
 
 SRC_PARSING = $(SRCDIR)/parsing/parser.c \
               $(SRCDIR)/parsing/tokenize.c \
+              $(SRCDIR)/parsing/inside_tokenize.c \
               $(SRCDIR)/parsing/check_args.c \
               $(SRCDIR)/parsing/verrif_token.c \
               $(SRCDIR)/parsing/dir_parser.c \
