@@ -5,71 +5,80 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 15:26:25 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/15 16:20:54 by hbutt            ###   ########.fr       */
+/*   Created: 2025/01/16 17:21:22 by hbutt             #+#    #+#             */
+/*   Updated: 2025/01/16 17:26:35 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-char	*get_env_value(char *var, char **env)
-{
-	int		i;
-	size_t	var_len;
-
-	if (!var || !env)
-		return (NULL);
-	var_len = ft_strlen(var);
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], var, var_len) && env[i][var_len] == '=')
-			return (&env[i][var_len + 1]);
-		i++;
-	}
-	return ("");
-}
-
-static int	ft_get_length(int n)
+static int	count_digits(int n)
 {
 	int	len;
 
 	len = (n <= 0);
-	while (n && ++len)
+	while (n)
+	{
 		n /= 10;
+		len++;
+	}
 	return (len);
 }
 
-static void	ft_fill_number(char *result, int n, int is_negative)
+static void	fill_digits(char *res, int n, int len)
 {
-	int	len;
-
-	len = ft_get_length(n);
-	result[len] = '\0';
 	if (n == 0)
-		result[0] = '0';
-	if (is_negative)
+		res[0] = '0';
+	if (n < 0)
+	{
+		res[0] = '-';
 		n = -n;
+	}
 	while (n)
 	{
-		result[--len] = (n % 10) + '0';
+		res[--len] = (n % 10) + '0';
 		n /= 10;
 	}
-	if (is_negative)
-		result[--len] = '-';
 }
 
 char	*itoa_exit_code(int n)
 {
-	char	*result;
-	int		is_negative;
+	char	*res;
 	int		len;
 
-	is_negative = (n < 0);
-	len = ft_get_length(n);
-	result = (char *)malloc(len + 1);
-	if (!result)
+	len = count_digits(n);
+	res = (char *)malloc(len + 1);
+	if (!res)
 		return (NULL);
-	ft_fill_number(result, n, is_negative);
-	return (result);
+	res[len] = '\0';
+	fill_digits(res, n, len);
+	return (res);
+}
+
+char	*handle_simple_dollar(char **result)
+{
+	char	substr[2];
+	char	*temp;
+
+	substr[0] = '$';
+	substr[1] = '\0';
+	temp = *result;
+	*result = ft_strjoin(temp, substr);
+	free(temp);
+	return (*result);
+}
+
+char	*handle_exit_code(char **result)
+{
+	char	*temp;
+	char	*exit_code_str;
+
+	exit_code_str = itoa_exit_code(g_excode);
+	if (!exit_code_str)
+		return (NULL);
+	temp = *result;
+	*result = ft_strjoin(temp, exit_code_str);
+	free(temp);
+	free(exit_code_str);
+	return (*result);
 }

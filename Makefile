@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2025/01/16 17:23:38 by alama            ###   ########.fr        #
+#    Updated: 2025/01/16 18:33:25 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_MAIN = $(SRCDIR)/main.c
 
 SRC_PARSING = $(SRCDIR)/parsing/parser.c \
               $(SRCDIR)/parsing/tokenize.c \
+              $(SRCDIR)/parsing/inside_tokenize.c \
               $(SRCDIR)/parsing/check_args.c \
               $(SRCDIR)/parsing/verrif_token.c \
               $(SRCDIR)/parsing/dir_parser.c \
@@ -40,6 +41,7 @@ SRC_PARSING = $(SRCDIR)/parsing/parser.c \
               $(SRCDIR)/parsing/dollar.c \
               $(SRCDIR)/parsing/dollar_2.c \
               $(SRCDIR)/parsing/dollar_3.c \
+              $(SRCDIR)/parsing/dollar_4.c \
               $(SRCDIR)/parsing/weird_dir.c \
               $(SRCDIR)/parsing/clean_str.c
 
@@ -51,6 +53,7 @@ SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/signals.c \
             $(SRCDIR)/utils/utils_node.c \
             $(SRCDIR)/utils/split_quote.c \
+            $(SRCDIR)/utils/split_quote_2.c \
             $(SRCDIR)/utils/utils.c
 
 

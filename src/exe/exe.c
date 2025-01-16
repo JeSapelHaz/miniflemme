@@ -106,7 +106,11 @@ int	ft_exe(t_node *node, char **env)
 
 	set_ctxt(&ctxt);
 	if (node->type == STR_NODE)
+	{
+		if (ft_strcmp(node->data.str, " ") == 0)
+			return (0);
 		exit = first_process(node, env);
+	}
 	else if (node->type == PAIR_NODE)
 	{
 		left = node->data.pair.left;
