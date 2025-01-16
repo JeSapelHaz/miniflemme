@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:00:04 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 22:59:16 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/16 15:00:01 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	input_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 		return (fd_err(&dir.trim), (void) NULL);
 	dir.pid = fork();
 	if (dir.pid < 0)
-		return (fork_err(&dir.trim), (void) NULL);
+		return (fork_err_dir(&dir.trim), (void) NULL);
 	if (dir.pid == 0)
 		child_input(&dir, ctxt, left, envp);
 	close(dir.fd);
@@ -49,7 +49,7 @@ void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 		return (fd_err(&dir.trim), (void) NULL);
 	dir.pid = fork();
 	if (dir.pid < 0)
-		return (fork_err(&dir.trim), (void) NULL);
+		return (fork_err_dir(&dir.trim), (void) NULL);
 	if (dir.pid == 0)
 		child_output(&dir, ctxt, left, envp);
 	close(dir.fd);
@@ -68,7 +68,7 @@ void	output_append(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 		return (fd_err(&dir.trim), (void) NULL);
 	dir.pid = fork();
 	if (dir.pid < 0)
-		return (fork_err(&dir.trim), (void) NULL);
+		return (fork_err_dir(&dir.trim), (void) NULL);
 	if (dir.pid == 0)
 		child_output(&dir, ctxt, left, envp);
 	close(dir.fd);

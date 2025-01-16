@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2025/01/15 22:43:13 by alama            ###   ########.fr        #
+#    Updated: 2025/01/16 15:15:12 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRC_EXE = $(SRCDIR)/exe/exe.c \
           $(SRCDIR)/exe/split_for_exe.c \
           $(SRCDIR)/exe/child_dir.c \
           $(SRCDIR)/exe/exe_err.c \
+          $(SRCDIR)/exe/utils_exe.c \
           $(SRCDIR)/exe/dir_exe.c
 
 SRC = $(SRC_MAIN) $(SRC_PARSING) $(SRC_UTILS) $(SRC_BUILTINS) $(SRC_EXE)
