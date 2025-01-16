@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2025/01/16 17:04:12 by hbutt            ###   ########.fr        #
+#    Updated: 2025/01/16 15:15:12 by alama            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,20 +53,22 @@ SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
 
 
 SRC_BUILTINS = $(SRCDIR)/builtins/ft_cd.c \
-               $(SRCDIR)/builtins/ft_env.c \
+	       $(SRCDIR)/builtins/ft_env.c \
                $(SRCDIR)/builtins/ft_exit.c \
-               $(SRCDIR)/builtins/ft_pwd.c \
-			   $(SRCDIR)/builtins/ft_unset.c \
-			   $(SRCDIR)/builtins/ft_export.c \
+	       $(SRCDIR)/builtins/ft_pwd.c \
+	       $(SRCDIR)/builtins/ft_unset.c \
+	       $(SRCDIR)/builtins/ft_export.c \
                $(SRCDIR)/builtins/ft_export_2.c \
-                $(SRCDIR)/builtins/ft_echo.c \
-                $(SRCDIR)/builtins/ft_echo_2.c
+               $(SRCDIR)/builtins/ft_echo.c \
+               $(SRCDIR)/builtins/ft_echo_2.c
 
 SRC_EXE = $(SRCDIR)/exe/exe.c \
-$(SRCDIR)/exe/exe_2.c \
           $(SRCDIR)/exe/dir_choice.c \
           $(SRCDIR)/exe/path.c \
           $(SRCDIR)/exe/split_for_exe.c \
+          $(SRCDIR)/exe/child_dir.c \
+          $(SRCDIR)/exe/exe_err.c \
+          $(SRCDIR)/exe/utils_exe.c \
           $(SRCDIR)/exe/dir_exe.c
 
 SRC = $(SRC_MAIN) $(SRC_PARSING) $(SRC_UTILS) $(SRC_BUILTINS) $(SRC_EXE)

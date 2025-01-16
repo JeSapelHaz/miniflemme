@@ -6,14 +6,13 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/15 16:25:32 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/16 16:19:00 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-
-static void	ft_print(char *str)
+void	ft_print(char *str)
 {
 	int	i;
 
@@ -23,25 +22,6 @@ static void	ft_print(char *str)
 		if (str[i] != '\'' && str[i] != '\"')
 			write(2, &str[i], 1);
 		i++;
-	}
-}
-
-static void	ft_execv_error(char **split_cmd)
-{
-	write(2, "mini-flemme: ", 13);
-	ft_print(split_cmd[0]);
-	if (split_cmd[0][0] == '/' || (split_cmd[0][0] == '.'
-		&& split_cmd[0][1] == '/'))
-	{
-		ft_free_str(split_cmd);
-		write(2, ": No such file or directory\n", 28);
-		exit(126);
-	}
-	else
-	{
-		ft_free_str(split_cmd);
-		write(2, ": command not found\n", 20);
-		exit(127);
 	}
 }
 
@@ -66,17 +46,11 @@ int	exec_builtin(char **args, char **env)
 
 int	first_process(t_node *node, char **env)
 {
-	char	*path;
 	char	**split_cmd;
-	t_node	*tmp;
 	int		pid;
 	int		status;
 
-	tmp = node;
-	split_for_exe(tmp);
-	split_cmd = ft_split(tmp->data.str, ' ');
-	add_space_split(split_cmd);
-	remove_quote(split_cmd);
+	split_cmd = init_string_process(node);
 	parent_signals();
 	status = exec_builtin(split_cmd, env);
 	if (status != 0)
@@ -90,12 +64,7 @@ int	first_process(t_node *node, char **env)
 	if (pid < 0)
 		return (perror("fork fails\n"), 0);
 	if (pid == 0)
-	{
-		path = find_path(env, split_cmd);
-		child_signals();
-		g_excode = execve(path, split_cmd, env);
-		ft_execv_error(split_cmd);
-	}
+		ft_execv(split_cmd, env, 0);
 	waitpid(pid, &status, 0);
 	initialize_signals();
 	if (WIFEXITED(status))
@@ -106,16 +75,10 @@ int	first_process(t_node *node, char **env)
 
 void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 {
-	char	*path;
 	char	**split_cmd;
-	t_node	*tmp;
 
-	tmp = node;
-	split_for_exe(tmp);
-	split_cmd = ft_split(tmp->data.str, ' ');
-	add_space_split(split_cmd);
+	split_cmd = init_string_process(node);
 	child_signals();
-	remove_quote(split_cmd);
 	if (ctxt->infile != 0)
 	{
 		dup2(ctxt->infile, STDIN_FILENO);
@@ -131,19 +94,7 @@ void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 		ft_free_str(split_cmd);
 		exit(g_excode);
 	}
-	path = find_path(env, split_cmd);
-	execve(path, split_cmd, env);
-	ft_execv_error(split_cmd);
-}
-
-void	set_ctxt(t_ctxt *ctxt)
-{
-	ctxt->infile = 0;
-	ctxt->outfile = 1;
-	ctxt->end[0] = -1;
-	ctxt->end[1] = -1;
-	ctxt->is_first_o = 0;
-	ctxt->is_first_i = 0;
+	ft_execv(split_cmd, env, 1);
 }
 
 int	ft_exe(t_node *node, char **env)
@@ -151,11 +102,15 @@ int	ft_exe(t_node *node, char **env)
 	t_node	*left;
 	t_node	*right;
 	t_ctxt	ctxt;
-	int	exit;
+	int		exit;
 
 	set_ctxt(&ctxt);
 	if (node->type == STR_NODE)
+	{
+		if (ft_strcmp(node->data.str, " ") == 0)
+			return (0);
 		exit = first_process(node, env);
+	}
 	else if (node->type == PAIR_NODE)
 	{
 		left = node->data.pair.left;

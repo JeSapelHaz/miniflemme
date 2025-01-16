@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:26 by alama             #+#    #+#             */
-/*   Updated: 2025/01/13 21:04:52 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/15 18:54:29 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ typedef struct s_all
 	t_node				*node;
 	t_token				*token_list;
 	char				*str;
-	int					is_child;
-	int	boucle;
+	int				is_child;
+	int				boucle;
 }						t_all;
 
 #endif
