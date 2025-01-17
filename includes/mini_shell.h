@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2025/01/16 18:37:08 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:20:47 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,14 @@ int			ft_is_dir(t_token *token);
 void		ft_not_close(char c);
 int			d_and_s_token(int *i, char *str, t_token **token_list);
 t_token		*find_pipe(t_token *token_list);
-int		which_token(int *i, char *str, t_token **token_list);
-int		ft_is_lexeme(char c);
+int			which_token(int *i, char *str, t_token **token_list);
+int			ft_is_lexeme(char c);
+int			handle_invalid_token(int c);
+int			handle_redirection_token(int *i, char *str, t_token **token_list);
+int			handle_quotes_token(int *i, char *str, t_token **token_list);
+int			handle_parentheses_token(int c);
+int			handle_pipe_token(int *i, char *str, t_token **token_list);
+int			handle_space_token(int *i, char *str, t_token **token_list);
 
 /* STRING UTILITIES */
 int			ft_strcmp(char *s1, char *s2);
@@ -100,6 +106,7 @@ t_node		*build_command_tree(t_token *tokens);
 
 /* ENVIRONMENT */
 char		**copy_env(char **env);
+void		ft_free_env(char **array);
 
 /* Built-in Functions */
 void		ft_cd(char **args);
@@ -157,7 +164,6 @@ char		*handle_dollars_logic(char *result, char *str, int *i, char **env);
 
 /* STRING ADDITION */
 void		ft_add_str(char ***split, const char *str);
-
 int			ft_handle_quote(char const *str, int i);
 
 # endif /* MINISHELL_H */

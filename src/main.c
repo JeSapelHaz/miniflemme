@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/17 12:16:47 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:20:42 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ int	main(int ac, char **av, char **envp)
 		free(all.str);
 	}
 	clear_history();
+	ft_free_env(env);
 	return (g_excode);
 }

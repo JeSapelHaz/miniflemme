@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/17 12:44:27 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:19:33 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,37 +79,18 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 
 int	which_token(int *i, char *str, t_token **token_list)
 {
-	char	*set_malloc;
-
-	if (str[*i + 1] && str[*i] == ' ' && str[*i + 1] != ' ')
-	{
-		set_malloc = ft_strdup(" ");
-		ft_add_token(token_list, SPACE_TOKEN, set_malloc);
-	}
-	else if (str[*i] == '|')
-	{
-		set_malloc = ft_strdup("|");
-		ft_add_token(token_list, PIPE, set_malloc);
-	}
-	else if (str[*i] == '(' || str[*i] == ')')
-		return (ft_not_close(str[*i]), -1);
-	else if (str[*i] == '\'' && (d_and_s_token(i, str, token_list)) == -1)
+	if (handle_space_token(i, str, token_list) == -1)
 		return (-1);
-	else if (str[*i] == '\"' && (d_and_s_token(i, str, token_list)) == -1)
+	if (handle_pipe_token(i, str, token_list) == -1)
 		return (-1);
-	else if (str[*i] == '>' && str[*i + 1] != '>')
-	{
-		set_malloc = ft_strdup(">");
-		ft_add_token(token_list, O_DIR, set_malloc);
-	}
-	else if (str[*i] == '>' && str[*i + 1] == '>')
-	{
-		set_malloc = ft_strdup(">>");
-		ft_add_token(token_list, OA_DIR, set_malloc);
-		(*i)++;
-	}
-	else if (str[*i] == '\\' || str[*i] == ';')
-		return (ft_not_close(str[*i]), -1);
+	if (str[*i] == '(' || str[*i] == ')')
+		return (handle_parentheses_token(str[*i]));
+	if (handle_quotes_token(i, str, token_list) == -1)
+		return (-1);
+	if (handle_redirection_token(i, str, token_list) == -1)
+		return (-1);
+	if (str[*i] == '\\' || str[*i] == ';')
+		return (handle_invalid_token(str[*i]));
 	return (*i);
 }
 

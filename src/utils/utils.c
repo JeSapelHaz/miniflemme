@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:13:53 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/15 15:02:47 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/17 13:30:25 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,17 @@ char	*trim_file(t_node *node)
 	else
 		str = ft_strdup(node->data.str);
 	return (str);
+}
+
+void	ft_print(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '\'' && str[i] != '\"')
+			write(2, &str[i], 1);
+		i++;
+	}
 }
