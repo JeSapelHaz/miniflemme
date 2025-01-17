@@ -6,23 +6,26 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/17 14:28:16 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:25:13 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <signal.h>
 
-int			g_excode = 0;
+int				g_excode = 0;
 
-static t_token	*re_do_token(char **str)
+static t_token	*re_do_token(char **str, t_all *all)
 {
 	t_token	*token_list;
 	t_token	*tmp;
 
 	*str = readline("mini-flemme$ ");
 	if (!(*str))
+	{
+		all->boucle = -1;
 		return (ft_exit(NULL), NULL);
+	}
 	token_list = tokenize(*str);
 	tmp = find_pipe(token_list);
 	if (!tmp || tmp->type != PIPE)
@@ -40,7 +43,9 @@ static t_token	*set_token(t_all *all, int *added)
 		free(all->str);
 		all->str = NULL;
 		all->token_list = NULL;
-		all->token_list = re_do_token(&all->str);
+		all->token_list = re_do_token(&all->str, all);
+		if (all->boucle == -1)
+			return (NULL);
 		*added = 1;
 	}
 	tmp = find_pipe(all->token_list);
@@ -91,6 +96,8 @@ int	main(int ac, char **av, char **envp)
 		all.token_list = NULL;
 		all.str = NULL;
 		tmp = set_token(&all, &added);
+		if (!tmp)
+			break ;
 		if (set_last_pipe(&all, tmp, &added) == 0)
 			execute_cmd(&all, env);
 		else
@@ -99,7 +106,5 @@ int	main(int ac, char **av, char **envp)
 		ft_free_token(&all.token_list);
 		free(all.str);
 	}
-	ft_free_str(env);
-	clear_history();
-	return (g_excode);
+	return (free_all(env), g_excode);
 }

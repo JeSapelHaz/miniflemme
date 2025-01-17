@@ -6,24 +6,11 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/16 16:19:00 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:20:56 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-void	ft_print(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != '\'' && str[i] != '\"')
-			write(2, &str[i], 1);
-		i++;
-	}
-}
 
 int	exec_builtin(char **args, char **env)
 {
@@ -97,6 +84,13 @@ void	dir_process(t_node *node, char **env, t_ctxt *ctxt)
 	ft_execv(split_cmd, env, 1);
 }
 
+int	handle_str_node(t_node *node, char **env)
+{
+	if (ft_strcmp(node->data.str, " ") == 0)
+		return (0);
+	return (first_process(node, env));
+}
+
 int	ft_exe(t_node *node, char **env)
 {
 	t_node	*left;
@@ -106,11 +100,7 @@ int	ft_exe(t_node *node, char **env)
 
 	set_ctxt(&ctxt);
 	if (node->type == STR_NODE)
-	{
-		if (ft_strcmp(node->data.str, " ") == 0)
-			return (0);
-		exit = first_process(node, env);
-	}
+		exit = handle_str_node(node, env);
 	else if (node->type == PAIR_NODE)
 	{
 		left = node->data.pair.left;

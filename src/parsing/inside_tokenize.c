@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inside_tokenize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alama <alama@student.s19.be>               +#+  +:+       +#+        */
+/*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 18:24:19 by alama             #+#    #+#             */
-/*   Updated: 2025/01/16 18:38:51 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/17 13:27:27 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_token	*inside_tokenize(int *i, char *str, t_token *tok)
 	t_token	*token_list;
 	char	*set_malloc;
 
-	
 	token_list = tok;
 	if ((which_token(i, str, &token_list)) == -1)
 		return (ft_free_token(&token_list), NULL);
@@ -37,4 +36,10 @@ t_token	*inside_tokenize(int *i, char *str, t_token *tok)
 	if (str[*i] != '\0')
 		(*i)++;
 	return (token_list);
+}
+
+int	handle_invalid_token(int c)
+{
+	ft_not_close(c);
+	return (-1);
 }

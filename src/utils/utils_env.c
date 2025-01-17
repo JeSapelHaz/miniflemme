@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:00:16 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/08 15:10:41 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:20:39 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,19 @@ char	**copy_env(char **env)
 	}
 	new_env[i] = NULL;
 	return (new_env);
+}
+
+void	ft_free_env(char **array)
+{
+	size_t	i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
