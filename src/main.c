@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:01:09 by alama             #+#    #+#             */
-/*   Updated: 2025/01/17 12:16:47 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:28:16 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,12 @@ int	main(int ac, char **av, char **envp)
 		if (set_last_pipe(&all, tmp, &added) == 0)
 			execute_cmd(&all, env);
 		else
-			exit(2);
+			g_excode = 2;
 		ft_free_all_node(&all.node);
 		ft_free_token(&all.token_list);
 		free(all.str);
 	}
+	ft_free_str(env);
 	clear_history();
 	return (g_excode);
 }

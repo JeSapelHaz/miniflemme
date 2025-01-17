@@ -86,7 +86,7 @@ void	ft_exit(char **args)
 {
 	write(1, "exit\n", 5);
 	if (!args || args[1] == NULL)
-		exit(g_excode);
+		return ;
 	if (args[2] != NULL)
 	{
 		write(2, "minishell: exit: ", 17);
