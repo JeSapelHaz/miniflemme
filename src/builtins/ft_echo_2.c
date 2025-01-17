@@ -21,6 +21,7 @@ static void	ft_print_arg(char *arg)
 	{
 		printf("%s", arg_without_quotes);
 		free(arg_without_quotes);
+		arg_without_quotes = NULL;
 	}
 	else
 		printf("%s", arg);

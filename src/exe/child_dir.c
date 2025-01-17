@@ -20,6 +20,7 @@ void	child_input(t_dir *dir, t_ctxt *ctxt, t_node *left, char **envp)
 		ctxt->is_first_i = 1;
 	}
 	free(dir->trim);
+	dir->trim = NULL;
 	ft_exe_dir(left, envp, ctxt);
 	exit(g_excode);
 }
@@ -32,6 +33,7 @@ void	child_output(t_dir *dir, t_ctxt *ctxt, t_node *left, char **envp)
 		ctxt->is_first_o = 1;
 	}
 	free(dir->trim);
+	dir->trim = NULL;
 	ft_exe_dir(left, envp, ctxt);
 	exit(g_excode);
 }

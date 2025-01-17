@@ -45,6 +45,7 @@ char	*add_char_to_result(char *result, char c)
 	temp = result;
 	result = ft_strjoin(temp, substr);
 	free(temp);
+	temp = NULL;
 	return (result);
 }
 

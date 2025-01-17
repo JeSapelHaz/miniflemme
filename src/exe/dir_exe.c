@@ -35,6 +35,7 @@ void	input_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 		child_input(&dir, ctxt, left, envp);
 	close(dir.fd);
 	free(dir.trim);
+	dir.trim = NULL;
 	waitpid(dir.pid, &dir.status, 0);
 	g_excode_return (dir.status);
 }
@@ -54,6 +55,7 @@ void	output_dir(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 		child_output(&dir, ctxt, left, envp);
 	close(dir.fd);
 	free(dir.trim);
+	dir.trim = NULL;
 	waitpid(dir.pid, &dir.status, 0);
 	g_excode_return(dir.status);
 }
@@ -73,6 +75,7 @@ void	output_append(t_node *right, t_node *left, char **envp, t_ctxt *ctxt)
 		child_output(&dir, ctxt, left, envp);
 	close(dir.fd);
 	free(dir.trim);
+	dir.trim = NULL;
 	waitpid(dir.pid, &dir.status, 0);
 	g_excode_return (dir.status);
 }

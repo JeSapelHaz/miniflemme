@@ -62,5 +62,6 @@ char	*handle_dollar(char **result, char *str, int *i, char **env)
 	temp = *result;
 	*result = ft_strjoin(temp, var_value);
 	free(temp);
+	temp = NULL;
 	return (*result);
 }
