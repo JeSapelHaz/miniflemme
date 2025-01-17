@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:21 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/16 18:42:53 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/17 12:44:27 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,18 @@ int	ft_str_to_lexeme(int i, char *str, t_token **token_list, t_token_type type)
 
 int	which_token(int *i, char *str, t_token **token_list)
 {
+	char	*set_malloc;
+
 	if (str[*i + 1] && str[*i] == ' ' && str[*i + 1] != ' ')
-		ft_add_token(token_list, SPACE_TOKEN, ft_strdup(" "));
+	{
+		set_malloc = ft_strdup(" ");
+		ft_add_token(token_list, SPACE_TOKEN, set_malloc);
+	}
 	else if (str[*i] == '|')
-		ft_add_token(token_list, PIPE, ft_strdup("|"));
+	{
+		set_malloc = ft_strdup("|");
+		ft_add_token(token_list, PIPE, set_malloc);
+	}
 	else if (str[*i] == '(' || str[*i] == ')')
 		return (ft_not_close(str[*i]), -1);
 	else if (str[*i] == '\'' && (d_and_s_token(i, str, token_list)) == -1)
@@ -90,10 +98,14 @@ int	which_token(int *i, char *str, t_token **token_list)
 	else if (str[*i] == '\"' && (d_and_s_token(i, str, token_list)) == -1)
 		return (-1);
 	else if (str[*i] == '>' && str[*i + 1] != '>')
-		ft_add_token(token_list, O_DIR, ft_strdup(">"));
+	{
+		set_malloc = ft_strdup(">");
+		ft_add_token(token_list, O_DIR, set_malloc);
+	}
 	else if (str[*i] == '>' && str[*i + 1] == '>')
 	{
-		ft_add_token(token_list, OA_DIR, ft_strdup(">>"));
+		set_malloc = ft_strdup(">>");
+		ft_add_token(token_list, OA_DIR, set_malloc);
 		(*i)++;
 	}
 	else if (str[*i] == '\\' || str[*i] == ';')
@@ -109,21 +121,7 @@ t_token	*tokenize(char *str)
 	token_list = NULL;
 	i = 0;
 	while (str[i])
-	{
-		if ((which_token(&i, str, &token_list)) == -1)
-			return (ft_free_token(&token_list), NULL);
-		if (str[i] == '<' && str[i + 1] != '<')
-			ft_add_token(&token_list, I_DIR, ft_strdup("<"));
-		else if (str[i] == '<' && str[i + 1] == '<')
-		{
-			ft_add_token(&token_list, DI_DIR, ft_strdup("<<"));
-			i++;
-		}
-		else if (ft_is_lexeme(str[i]) == 0)
-			i = ft_str_to_lexeme(i, str, &token_list, 1);
-		if (str[i] != '\0')
-			i++;
-	}
+		token_list = inside_tokenize(&i, str, token_list);
 	if (token_list)
 		ft_add_token(&token_list, END_TOKEN, NULL);
 	return (token_list);

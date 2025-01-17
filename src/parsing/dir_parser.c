@@ -20,7 +20,7 @@ t_node	*pair_dir(t_node *left, t_token **token)
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
 		return (ft_free_all_node(&left), NULL);
-	new_node->data.pair.opera = (*token)->lexeme;
+	new_node->data.pair.opera = ft_strdup((*token)->lexeme);
 	if ((*token)->type == DI_DIR)
 		heredoc_parse(token);
 	new_node->type = PAIR_NODE;
@@ -74,7 +74,7 @@ t_node	*weird_dir(t_token **token)
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
 		return (NULL);
-	new_node->data.pair.opera = (*token)->lexeme;
+	new_node->data.pair.opera = ft_strdup((*token)->lexeme);
 	if ((*token)->type == DI_DIR)
 		heredoc_parse(token);
 	*token = (*token)->next;

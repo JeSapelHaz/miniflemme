@@ -20,6 +20,7 @@ void	ft_free_str(char **str)
 	while (str[i])
 	{
 		free(str[i]);
+		str[i] = NULL;
 		i++;
 	}
 	free(str);
@@ -44,6 +45,7 @@ static char	**set_path(char **envp)
 	tmp = ft_substr(envp[i], 5, size - 5);
 	test_path = ft_split(tmp, ':');
 	free(tmp);
+	tmp = NULL;
 	return (test_path);
 }
 

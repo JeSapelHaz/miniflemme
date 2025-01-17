@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:51:39 by hbutt             #+#    #+#             */
-/*   Updated: 2025/01/15 15:52:14 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/17 12:03:03 by alama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	ft_free_node(t_node **node)
 		}
 		if ((*node)->data.str)
 		{
-			free((*node)->data.str);
+			if ((*node)->data.str != NULL)
+				free((*node)->data.str);
 			(*node)->data.str = NULL;
 		}
 		free(*node);

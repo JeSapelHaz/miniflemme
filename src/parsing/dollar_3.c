@@ -65,6 +65,7 @@ char	*handle_simple_dollar(char **result)
 	temp = *result;
 	*result = ft_strjoin(temp, substr);
 	free(temp);
+	temp = NULL;
 	return (*result);
 }
 
@@ -79,6 +80,8 @@ char	*handle_exit_code(char **result)
 	temp = *result;
 	*result = ft_strjoin(temp, exit_code_str);
 	free(temp);
+	temp = NULL;
 	free(exit_code_str);
+	exit_code_str = NULL;
 	return (*result);
 }

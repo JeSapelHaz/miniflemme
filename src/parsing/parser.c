@@ -67,7 +67,7 @@ t_node	*pair_node(t_node *left, t_token **token)
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
 		return (ft_free_all_node(&left), NULL);
-	new_node->data.pair.opera = (*token)->lexeme;
+	new_node->data.pair.opera = ft_strdup((*token)->lexeme);
 	*token = (*token)->next;
 	new_node->type = PAIR_NODE;
 	new_node->data.pair.left = left;
