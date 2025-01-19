@@ -6,71 +6,79 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:54:15 by alama             #+#    #+#             */
-/*   Updated: 2025/01/16 17:25:26 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/19 19:18:42 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
+int	handle_quotes(t_quotes *test, char *str)
+{
+	if (str[test->i] == '\'' && !test->in_double_quotes)
+	{
+		test->in_single_quotes = !test->in_single_quotes;
+		test->result = add_char_to_result(test->result, str[test->i]);
+		return (1);
+	}
+	else if (str[test->i] == '"' && !test->in_single_quotes)
+	{
+		test->in_double_quotes = !test->in_double_quotes;
+		test->result = add_char_to_result(test->result, str[test->i]);
+		return (1);
+	}
+	return (0);
+}
+
+int	init_quotes(t_quotes *test)
+{
+	test->result = ft_strdup("");
+	if (!test->result)
+		return (0);
+	test->in_single_quotes = 0;
+	test->in_double_quotes = 0;
+	test->i = 0;
+	return (1);
+}
+
+int	result_char(t_quotes *test, char *str)
+{
+	test->result = add_char_to_result(test->result, str[test->i]);
+	if (!test->result)
+		return (0);
+	return (1);
+}
+
+void	handle_handle(t_quotes *test)
+{
+	test->result = handle_exit_code(&test->result);
+	test->i++;
+}
+
 char	*replace_dollar_str(char *str, char **env)
 {
-	return (process_chars(str, env));
-}
+	t_quotes	test;
 
-char	*get_env_value(char *var, char **env)
-{
-	int		i;
-	size_t	var_len;
-
-	if (!var || !env)
+	if (init_quotes(&test) == 0)
 		return (NULL);
-	var_len = ft_strlen(var);
-	i = 0;
-	while (env[i])
+	while (str[test.i])
 	{
-		if (!ft_strncmp(env[i], var, var_len) && env[i][var_len] == '=')
-			return (&env[i][var_len + 1]);
-		i++;
+		if (handle_quotes(&test, str) == 1)
+			;
+		else if (str[test.i] == '$' && !test.in_single_quotes)
+		{
+			if (str[test.i + 1] == '?')
+				handle_handle(&test);
+			else
+			{
+				test.result = handle_dollar(&test.result, str, &test.i, env);
+				if (!test.result)
+					return (NULL);
+				continue ;
+			}
+		}
+		else if (result_char(&test, str) == 0)
+			return (NULL);
+		test.i++;
 	}
-	return (" ");
-}
-
-char	*add_char_to_result(char *result, char c)
-{
-	char	substr[2];
-	char	*temp;
-
-	substr[0] = c;
-	substr[1] = '\0';
-	temp = result;
-	result = ft_strjoin(temp, substr);
-	free(temp);
-	temp = NULL;
-	return (result);
-}
-
-void	replace_dollar(t_node *node, char **env)
-{
-	char	*new_str;
-
-	if (!node || !node->data.str)
-		return ;
-	new_str = replace_dollar_str(node->data.str, env);
-	free(node->data.str);
-	node->data.str = new_str;
-}
-
-void	add_dollar(t_node *node, char **env)
-{
-	if (!node)
-		return ;
-	if (node->type == STR_NODE)
-		replace_dollar(node, env);
-	else
-	{
-		if (node->data.pair.left)
-			add_dollar(node->data.pair.left, env);
-		if (node->data.pair.right)
-			add_dollar(node->data.pair.right, env);
-	}
+	return (test.result);
 }

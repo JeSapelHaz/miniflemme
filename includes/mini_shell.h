@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2025/01/17 14:20:47 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/19 19:17:09 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,5 +177,13 @@ typedef struct s_sig
 	int		exit_status;
 	pid_t	pid;
 }			t_sig;
+
+typedef struct s_quotes
+{
+	char	*result;
+	int		i;
+	int		in_single_quotes;
+	int		in_double_quotes;
+}			t_quotes;
 
 #endif
