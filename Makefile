@@ -6,7 +6,7 @@
 #    By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:52:47 by hbutt             #+#    #+#              #
-#    Updated: 2025/01/19 19:18:21 by hbutt            ###   ########.fr        #
+#    Updated: 2025/01/20 16:22:47 by hbutt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC_UTILS = $(SRCDIR)/utils/utils_str.c \
             $(SRCDIR)/utils/utils_node.c \
             $(SRCDIR)/utils/split_quote.c \
             $(SRCDIR)/utils/split_quote_2.c \
+             $(SRCDIR)/utils/ctrl_c_child.c \
             $(SRCDIR)/utils/utils.c
 
 

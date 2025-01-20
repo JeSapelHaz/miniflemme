@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:10:43 by alama             #+#    #+#             */
-/*   Updated: 2025/01/19 19:17:09 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/20 16:21:50 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void		ft_unset(char **args, char ***env);
 void		handle_sigquit(int sig);
 void		handle_sigint(int signal);
 void		initialize_signals(void);
+void		ft_ctrl_c_child(int signal);
 
 /* ENV NODE REPLACEMENT */
 void		replace_env_in_nodes(t_node *node, char **env);

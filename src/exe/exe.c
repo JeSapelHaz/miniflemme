@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:58:05 by alama             #+#    #+#             */
-/*   Updated: 2025/01/17 14:20:56 by hbutt            ###   ########.fr       */
+/*   Updated: 2025/01/20 16:42:09 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	first_process(t_node *node, char **env)
 	int		status;
 
 	split_cmd = init_string_process(node);
-	parent_signals();
 	status = exec_builtin(split_cmd, env);
 	if (status != 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: hbutt <hbutt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:37:30 by alama             #+#    #+#             */
-/*   Updated: 2025/01/16 14:59:07 by alama            ###   ########.fr       */
+/*   Updated: 2025/01/20 15:51:03 by hbutt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	exe_pipe(t_node *node, char **envp, t_ctxt *ctxt)
 		fork_err();
 	if (p.child1 == 0)
 		left_pipe(&p, envp, ctxt);
-	waitpid(p.child1, &p.status, 0);
 	p.child2 = fork();
 	if (p.child2 < 0)
 		fork_err();
@@ -56,6 +55,7 @@ void	exe_pipe(t_node *node, char **envp, t_ctxt *ctxt)
 		right_pipe(&p, envp, ctxt);
 	close(p.end[0]);
 	close(p.end[1]);
+	waitpid(p.child1, &p.status, 0);
 	waitpid(p.child2, &p.status, 0);
 	if (WIFEXITED(p.status))
 		g_excode = WEXITSTATUS(p.status);
